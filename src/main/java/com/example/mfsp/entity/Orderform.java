@@ -114,4 +114,22 @@ public class Orderform {
     this.orderStatus = orderStatus;
   }
 
+
+  public Orderform(long id, String orderStatus, long userId, String orderFormAddress) {
+    this.orderFormId = id;
+    this.orderStatus = orderStatus;
+    this.userId = userId;
+    this.orderFormAddress = orderFormAddress;
+  }
+
+  public Orderform() {
+  }
+  @Override
+  public String toString() {
+    return "Student [orderFormId=" + orderFormId + ", orderStatus=" + orderStatus + ", userId=" + userId + ", address="
+            + orderFormAddress + "]";
+  }
+
+
+
 }

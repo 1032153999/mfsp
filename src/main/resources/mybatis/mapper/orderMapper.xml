@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mfsp.dao.orderMapper">
+    <insert id="addOrder" parameterType="com.example.mfsp.entity.Orderform">
+		insert into orderform(name,password,age,address)
+		values(#{orderFormID},#{password},#{age},#{address})
+	</insert>
+    <select id="selAllOrder" resultType="com.example.mfsp.entity.Orderform">
+		select * from orderform
+	</select>
+</mapper>

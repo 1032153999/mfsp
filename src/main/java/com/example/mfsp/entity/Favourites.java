@@ -1,36 +1,52 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "favourites")
 public class Favourites {
 
-  private long favouritesId;
-  private long clothingId;
-  private long userId;
+    //null int(10)
+    private int favouritesid;
+
+    //null int(10)
+    private int clothingid;
+
+    //null int(10)
+    private int userid;
 
 
-  public long getFavouritesId() {
-    return favouritesId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "favouritesID")
+    public int getFavouritesid() {
+        return favouritesid;
+    }
 
-  public void setFavouritesId(long favouritesId) {
-    this.favouritesId = favouritesId;
-  }
-
-
-  public long getClothingId() {
-    return clothingId;
-  }
-
-  public void setClothingId(long clothingId) {
-    this.clothingId = clothingId;
-  }
+    public void setFavouritesid(int favouritesid) {
+        this.favouritesid = favouritesid;
+    }
 
 
-  public long getUserId() {
-    return userId;
-  }
+    @Column(name = "clothingID")
+    public int getClothingid() {
+        return clothingid;
+    }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    public void setClothingid(int clothingid) {
+        this.clothingid = clothingid;
+    }
+
+
+    @Column(name = "userID")
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 }

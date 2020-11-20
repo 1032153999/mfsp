@@ -1,135 +1,156 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
+
+@Entity
+@Table(name = "orderform")
 public class Orderform {
 
-  private long orderFormId;
-  private long orderFormClass;
-  private long userId;
-  private java.sql.Timestamp realityRentalTime;
-  private java.sql.Timestamp startTime;
-  private java.sql.Timestamp preconcertedReturnTime;
-  private java.sql.Timestamp realityReturmTime;
-  private String orderFormAddress;
-  private String totalPrice;
-  private String remark;
-  private String orderStatus;
+    //null int(10)
+    private int orderformid;
+
+    //null int(10)
+    private int orderformclass;
+
+    //null int(10)
+    private int userid;
+
+    //null datetime(19)
+    private LocalDateTime realityrentaltime;
+
+    //null datetime(19)
+    private LocalDateTime starttime;
+
+    //null datetime(19)
+    private LocalDateTime preconcertedreturntime;
+
+    //null datetime(19)
+    private LocalDateTime realityreturmtime;
+
+    //null varchar(255)
+    private String orderformaddress;
+
+    //null varchar(50)
+    private String totalprice;
+
+    //null varchar(255)
+    private String remark;
+
+    //null varchar(50)
+    private String orderstatus;
 
 
-  public long getOrderFormId() {
-    return orderFormId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "orderFormID")
+    public int getOrderformid() {
+        return orderformid;
+    }
 
-  public void setOrderFormId(long orderFormId) {
-    this.orderFormId = orderFormId;
-  }
-
-
-  public long getOrderFormClass() {
-    return orderFormClass;
-  }
-
-  public void setOrderFormClass(long orderFormClass) {
-    this.orderFormClass = orderFormClass;
-  }
+    public void setOrderformid(int orderformid) {
+        this.orderformid = orderformid;
+    }
 
 
-  public long getUserId() {
-    return userId;
-  }
+    @Column(name = "orderFormClass")
+    public int getOrderformclass() {
+        return orderformclass;
+    }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
-
-
-  public java.sql.Timestamp getRealityRentalTime() {
-    return realityRentalTime;
-  }
-
-  public void setRealityRentalTime(java.sql.Timestamp realityRentalTime) {
-    this.realityRentalTime = realityRentalTime;
-  }
+    public void setOrderformclass(int orderformclass) {
+        this.orderformclass = orderformclass;
+    }
 
 
-  public java.sql.Timestamp getStartTime() {
-    return startTime;
-  }
+    @Column(name = "userID")
+    public int getUserid() {
+        return userid;
+    }
 
-  public void setStartTime(java.sql.Timestamp startTime) {
-    this.startTime = startTime;
-  }
-
-
-  public java.sql.Timestamp getPreconcertedReturnTime() {
-    return preconcertedReturnTime;
-  }
-
-  public void setPreconcertedReturnTime(java.sql.Timestamp preconcertedReturnTime) {
-    this.preconcertedReturnTime = preconcertedReturnTime;
-  }
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 
-  public java.sql.Timestamp getRealityReturmTime() {
-    return realityReturmTime;
-  }
+    @Column(name = "realityRentalTime")
+    public LocalDateTime getRealityrentaltime() {
+        return realityrentaltime;
+    }
 
-  public void setRealityReturmTime(java.sql.Timestamp realityReturmTime) {
-    this.realityReturmTime = realityReturmTime;
-  }
-
-
-  public String getOrderFormAddress() {
-    return orderFormAddress;
-  }
-
-  public void setOrderFormAddress(String orderFormAddress) {
-    this.orderFormAddress = orderFormAddress;
-  }
+    public void setRealityrentaltime(LocalDateTime realityrentaltime) {
+        this.realityrentaltime = realityrentaltime;
+    }
 
 
-  public String getTotalPrice() {
-    return totalPrice;
-  }
+    @Column(name = "startTime")
+    public LocalDateTime getStarttime() {
+        return starttime;
+    }
 
-  public void setTotalPrice(String totalPrice) {
-    this.totalPrice = totalPrice;
-  }
-
-
-  public String getRemark() {
-    return remark;
-  }
-
-  public void setRemark(String remark) {
-    this.remark = remark;
-  }
+    public void setStarttime(LocalDateTime starttime) {
+        this.starttime = starttime;
+    }
 
 
-  public String getOrderStatus() {
-    return orderStatus;
-  }
+    @Column(name = "preconcertedReturnTime")
+    public LocalDateTime getPreconcertedreturntime() {
+        return preconcertedreturntime;
+    }
 
-  public void setOrderStatus(String orderStatus) {
-    this.orderStatus = orderStatus;
-  }
-
-
-  public Orderform(long id, String orderStatus, long userId, String orderFormAddress) {
-    this.orderFormId = id;
-    this.orderStatus = orderStatus;
-    this.userId = userId;
-    this.orderFormAddress = orderFormAddress;
-  }
-
-  public Orderform() {
-  }
-  @Override
-  public String toString() {
-    return "Student [orderFormId=" + orderFormId + ", orderStatus=" + orderStatus + ", userId=" + userId + ", address="
-            + orderFormAddress + "]";
-  }
+    public void setPreconcertedreturntime(LocalDateTime preconcertedreturntime) {
+        this.preconcertedreturntime = preconcertedreturntime;
+    }
 
 
+    @Column(name = "realityReturmTime")
+    public LocalDateTime getRealityreturmtime() {
+        return realityreturmtime;
+    }
+
+    public void setRealityreturmtime(LocalDateTime realityreturmtime) {
+        this.realityreturmtime = realityreturmtime;
+    }
+
+
+    @Column(name = "orderFormAddress")
+    public String getOrderformaddress() {
+        return orderformaddress;
+    }
+
+    public void setOrderformaddress(String orderformaddress) {
+        this.orderformaddress = orderformaddress;
+    }
+
+
+    @Column(name = "totalPrice")
+    public String getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(String totalprice) {
+        this.totalprice = totalprice;
+    }
+
+
+    @Column(name = "remark")
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+
+    @Column(name = "orderStatus")
+    public String getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(String orderstatus) {
+        this.orderstatus = orderstatus;
+    }
 
 }

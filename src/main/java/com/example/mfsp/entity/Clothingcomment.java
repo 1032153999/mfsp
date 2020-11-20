@@ -1,46 +1,65 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "clothingcomment")
 public class Clothingcomment {
 
-  private long clothingCommentId;
-  private long userId;
-  private String comment;
-  private long clothingId;
+    //null int(10)
+    private int clothingcommentid;
+
+    //null int(10)
+    private int userid;
+
+    //null varchar(255)
+    private String comment;
+
+    //null int(10)
+    private int clothingid;
 
 
-  public long getClothingCommentId() {
-    return clothingCommentId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "clothingCommentID")
+    public int getClothingcommentid() {
+        return clothingcommentid;
+    }
 
-  public void setClothingCommentId(long clothingCommentId) {
-    this.clothingCommentId = clothingCommentId;
-  }
-
-
-  public long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    public void setClothingcommentid(int clothingcommentid) {
+        this.clothingcommentid = clothingcommentid;
+    }
 
 
-  public String getComment() {
-    return comment;
-  }
+    @Column(name = "userID")
+    public int getUserid() {
+        return userid;
+    }
 
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 
-  public long getClothingId() {
-    return clothingId;
-  }
+    @Column(name = "comment")
+    public String getComment() {
+        return comment;
+    }
 
-  public void setClothingId(long clothingId) {
-    this.clothingId = clothingId;
-  }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+
+    @Column(name = "clothingID")
+    public int getClothingid() {
+        return clothingid;
+    }
+
+    public void setClothingid(int clothingid) {
+        this.clothingid = clothingid;
+    }
 
 }

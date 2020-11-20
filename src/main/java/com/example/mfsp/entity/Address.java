@@ -1,36 +1,52 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "address")
 public class Address {
 
-  private long id;
-  private String userAddress;
-  private long userId;
+    //null int(10)
+    private int id;
+
+    //null varchar(255)
+    private String useraddress;
+
+    //null int(10)
+    private int userid;
 
 
-  public long getId() {
-    return id;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "ID")
+    public int getId() {
+        return id;
+    }
 
-  public void setId(long id) {
-    this.id = id;
-  }
-
-
-  public String getUserAddress() {
-    return userAddress;
-  }
-
-  public void setUserAddress(String userAddress) {
-    this.userAddress = userAddress;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
-  public long getUserId() {
-    return userId;
-  }
+    @Column(name = "userAddress")
+    public String getUseraddress() {
+        return useraddress;
+    }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    public void setUseraddress(String useraddress) {
+        this.useraddress = useraddress;
+    }
+
+
+    @Column(name = "userID")
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 }

@@ -1,46 +1,65 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "shoppingcart")
 public class Shoppingcart {
 
-  private long shoppingCartId;
-  private long userId;
-  private long clothingId;
-  private long sccNum;
+    //null int(10)
+    private int shoppingcartid;
+
+    //null int(10)
+    private int userid;
+
+    //null int(10)
+    private int clothingid;
+
+    //null int(10)
+    private int sccnum;
 
 
-  public long getShoppingCartId() {
-    return shoppingCartId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "shoppingCartID")
+    public int getShoppingcartid() {
+        return shoppingcartid;
+    }
 
-  public void setShoppingCartId(long shoppingCartId) {
-    this.shoppingCartId = shoppingCartId;
-  }
-
-
-  public long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    public void setShoppingcartid(int shoppingcartid) {
+        this.shoppingcartid = shoppingcartid;
+    }
 
 
-  public long getClothingId() {
-    return clothingId;
-  }
+    @Column(name = "userID")
+    public int getUserid() {
+        return userid;
+    }
 
-  public void setClothingId(long clothingId) {
-    this.clothingId = clothingId;
-  }
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 
-  public long getSccNum() {
-    return sccNum;
-  }
+    @Column(name = "clothingID")
+    public int getClothingid() {
+        return clothingid;
+    }
 
-  public void setSccNum(long sccNum) {
-    this.sccNum = sccNum;
-  }
+    public void setClothingid(int clothingid) {
+        this.clothingid = clothingid;
+    }
+
+
+    @Column(name = "SCCNum")
+    public int getSccnum() {
+        return sccnum;
+    }
+
+    public void setSccnum(int sccnum) {
+        this.sccnum = sccnum;
+    }
 
 }

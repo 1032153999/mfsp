@@ -1,46 +1,65 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "clothingrecomment")
 public class Clothingrecomment {
 
-  private long clothingRecommentId;
-  private long userId;
-  private long clothingClassId;
-  private long recommendWeight;
+    //null int(10)
+    private int clothingrecommentid;
+
+    //null int(10)
+    private int userid;
+
+    //null int(10)
+    private int clothingclassid;
+
+    //null int(10)
+    private int recommendweight;
 
 
-  public long getClothingRecommentId() {
-    return clothingRecommentId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "clothingRecommentID")
+    public int getClothingrecommentid() {
+        return clothingrecommentid;
+    }
 
-  public void setClothingRecommentId(long clothingRecommentId) {
-    this.clothingRecommentId = clothingRecommentId;
-  }
-
-
-  public long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    public void setClothingrecommentid(int clothingrecommentid) {
+        this.clothingrecommentid = clothingrecommentid;
+    }
 
 
-  public long getClothingClassId() {
-    return clothingClassId;
-  }
+    @Column(name = "userID")
+    public int getUserid() {
+        return userid;
+    }
 
-  public void setClothingClassId(long clothingClassId) {
-    this.clothingClassId = clothingClassId;
-  }
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 
-  public long getRecommendWeight() {
-    return recommendWeight;
-  }
+    @Column(name = "clothingClassID")
+    public int getClothingclassid() {
+        return clothingclassid;
+    }
 
-  public void setRecommendWeight(long recommendWeight) {
-    this.recommendWeight = recommendWeight;
-  }
+    public void setClothingclassid(int clothingclassid) {
+        this.clothingclassid = clothingclassid;
+    }
+
+
+    @Column(name = "recommendWeight")
+    public int getRecommendweight() {
+        return recommendweight;
+    }
+
+    public void setRecommendweight(int recommendweight) {
+        this.recommendweight = recommendweight;
+    }
 
 }

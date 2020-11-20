@@ -1,116 +1,156 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "clothing")
 public class Clothing {
 
-  private long clothingId;
-  private String clothingName;
-  private String clothingDescr;
-  private String clothingPrice;
-  private String clothingRentPrice;
-  private long clothingMonRentalAmount;
-  private long clothingMonthlySales;
-  private String clothingStatus;
-  private long clothingNum;
-  private String clothingPic;
-  private String clothingCost;
+    //null int(10)
+    private int clothingid;
+
+    //null varchar(255)
+    private String clothingname;
+
+    //null varchar(255)
+    private String clothingdescr;
+
+    //null varchar(50)
+    private String clothingprice;
+
+    //null varchar(50)
+    private String clothingrentprice;
+
+    //null int(10)
+    private int clothingmonrentalamount;
+
+    //null int(10)
+    private int clothingmonthlysales;
+
+    //null varchar(20)
+    private String clothingstatus;
+
+    //null int(10)
+    private int clothingnum;
+
+    //null varchar(255)
+    private String clothingpic;
+
+    //null varchar(50)
+    private String clothingcost;
 
 
-  public long getClothingId() {
-    return clothingId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "clothingID")
+    public int getClothingid() {
+        return clothingid;
+    }
 
-  public void setClothingId(long clothingId) {
-    this.clothingId = clothingId;
-  }
-
-
-  public String getClothingName() {
-    return clothingName;
-  }
-
-  public void setClothingName(String clothingName) {
-    this.clothingName = clothingName;
-  }
+    public void setClothingid(int clothingid) {
+        this.clothingid = clothingid;
+    }
 
 
-  public String getClothingDescr() {
-    return clothingDescr;
-  }
+    @Column(name = "clothingName")
+    public String getClothingname() {
+        return clothingname;
+    }
 
-  public void setClothingDescr(String clothingDescr) {
-    this.clothingDescr = clothingDescr;
-  }
-
-
-  public String getClothingPrice() {
-    return clothingPrice;
-  }
-
-  public void setClothingPrice(String clothingPrice) {
-    this.clothingPrice = clothingPrice;
-  }
+    public void setClothingname(String clothingname) {
+        this.clothingname = clothingname;
+    }
 
 
-  public String getClothingRentPrice() {
-    return clothingRentPrice;
-  }
+    @Column(name = "clothingDescr")
+    public String getClothingdescr() {
+        return clothingdescr;
+    }
 
-  public void setClothingRentPrice(String clothingRentPrice) {
-    this.clothingRentPrice = clothingRentPrice;
-  }
-
-
-  public long getClothingMonRentalAmount() {
-    return clothingMonRentalAmount;
-  }
-
-  public void setClothingMonRentalAmount(long clothingMonRentalAmount) {
-    this.clothingMonRentalAmount = clothingMonRentalAmount;
-  }
+    public void setClothingdescr(String clothingdescr) {
+        this.clothingdescr = clothingdescr;
+    }
 
 
-  public long getClothingMonthlySales() {
-    return clothingMonthlySales;
-  }
+    @Column(name = "clothingPrice")
+    public String getClothingprice() {
+        return clothingprice;
+    }
 
-  public void setClothingMonthlySales(long clothingMonthlySales) {
-    this.clothingMonthlySales = clothingMonthlySales;
-  }
-
-
-  public String getClothingStatus() {
-    return clothingStatus;
-  }
-
-  public void setClothingStatus(String clothingStatus) {
-    this.clothingStatus = clothingStatus;
-  }
+    public void setClothingprice(String clothingprice) {
+        this.clothingprice = clothingprice;
+    }
 
 
-  public long getClothingNum() {
-    return clothingNum;
-  }
+    @Column(name = "clothingRentPrice")
+    public String getClothingrentprice() {
+        return clothingrentprice;
+    }
 
-  public void setClothingNum(long clothingNum) {
-    this.clothingNum = clothingNum;
-  }
-
-
-  public String getClothingPic() {
-    return clothingPic;
-  }
-
-  public void setClothingPic(String clothingPic) {
-    this.clothingPic = clothingPic;
-  }
+    public void setClothingrentprice(String clothingrentprice) {
+        this.clothingrentprice = clothingrentprice;
+    }
 
 
-  public String getClothingCost() {
-    return clothingCost;
-  }
+    @Column(name = "clothingMonRentalAmount")
+    public int getClothingmonrentalamount() {
+        return clothingmonrentalamount;
+    }
 
-  public void setClothingCost(String clothingCost) {
-    this.clothingCost = clothingCost;
-  }
+    public void setClothingmonrentalamount(int clothingmonrentalamount) {
+        this.clothingmonrentalamount = clothingmonrentalamount;
+    }
+
+
+    @Column(name = "clothingMonthlySales")
+    public int getClothingmonthlysales() {
+        return clothingmonthlysales;
+    }
+
+    public void setClothingmonthlysales(int clothingmonthlysales) {
+        this.clothingmonthlysales = clothingmonthlysales;
+    }
+
+
+    @Column(name = "clothingStatus")
+    public String getClothingstatus() {
+        return clothingstatus;
+    }
+
+    public void setClothingstatus(String clothingstatus) {
+        this.clothingstatus = clothingstatus;
+    }
+
+
+    @Column(name = "clothingNum")
+    public int getClothingnum() {
+        return clothingnum;
+    }
+
+    public void setClothingnum(int clothingnum) {
+        this.clothingnum = clothingnum;
+    }
+
+
+    @Column(name = "clothingPic")
+    public String getClothingpic() {
+        return clothingpic;
+    }
+
+    public void setClothingpic(String clothingpic) {
+        this.clothingpic = clothingpic;
+    }
+
+
+    @Column(name = "clothingCost")
+    public String getClothingcost() {
+        return clothingcost;
+    }
+
+    public void setClothingcost(String clothingcost) {
+        this.clothingcost = clothingcost;
+    }
 
 }

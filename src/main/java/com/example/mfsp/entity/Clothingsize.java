@@ -1,36 +1,52 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "clothingsize")
 public class Clothingsize {
 
-  private long clothingSizeId;
-  private long clothingId;
-  private String sizeName;
+    //null int(10)
+    private int clothingsizeid;
+
+    //null int(10)
+    private int clothingid;
+
+    //null varchar(20)
+    private String sizename;
 
 
-  public long getClothingSizeId() {
-    return clothingSizeId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "clothingSizeID")
+    public int getClothingsizeid() {
+        return clothingsizeid;
+    }
 
-  public void setClothingSizeId(long clothingSizeId) {
-    this.clothingSizeId = clothingSizeId;
-  }
-
-
-  public long getClothingId() {
-    return clothingId;
-  }
-
-  public void setClothingId(long clothingId) {
-    this.clothingId = clothingId;
-  }
+    public void setClothingsizeid(int clothingsizeid) {
+        this.clothingsizeid = clothingsizeid;
+    }
 
 
-  public String getSizeName() {
-    return sizeName;
-  }
+    @Column(name = "clothingID")
+    public int getClothingid() {
+        return clothingid;
+    }
 
-  public void setSizeName(String sizeName) {
-    this.sizeName = sizeName;
-  }
+    public void setClothingid(int clothingid) {
+        this.clothingid = clothingid;
+    }
+
+
+    @Column(name = "sizeName")
+    public String getSizename() {
+        return sizename;
+    }
+
+    public void setSizename(String sizename) {
+        this.sizename = sizename;
+    }
 
 }

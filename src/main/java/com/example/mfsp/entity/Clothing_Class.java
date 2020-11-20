@@ -1,37 +1,52 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
+
+@Entity
+@Table(name = "clothing_class")
 public class Clothing_Class {
 
-  private long clothing_ClassId;
-  private long clothingId;
-  private long clothingClassId;
+    //null int(10)
+    private int clothingClassid;
+
+    //null int(10)
+    private int clothingid;
+
+    //null int(10)
+    private int clothingclassid;
 
 
-  public long getClothing_ClassId() {
-    return clothingClassId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "clothing_classID")
+    public int getClothingClassid() {
+        return clothingClassid;
+    }
 
-  public void setClothing_ClassId(long clothingClassId) {
-    this.clothingClassId = clothingClassId;
-  }
-
-
-  public long getClothingId() {
-    return clothingId;
-  }
-
-  public void setClothingId(long clothingId) {
-    this.clothingId = clothingId;
-  }
+    public void setClothingClassid(int clothingClassid) {
+        this.clothingClassid = clothingClassid;
+    }
 
 
-  public long getClothingClassId() {
-    return clothingClassId;
-  }
+    @Column(name = "clothingID")
+    public int getClothingid() {
+        return clothingid;
+    }
 
-  public void setClothingClassId(long clothingClassId) {
-    this.clothingClassId = clothingClassId;
-  }
+    public void setClothingid(int clothingid) {
+        this.clothingid = clothingid;
+    }
+
+
+    @Column(name = "clothingClassID")
+    public int getClothingclassid() {
+        return clothingclassid;
+    }
+
+    public void setClothingclassid(int clothingclassid) {
+        this.clothingclassid = clothingclassid;
+    }
 
 }

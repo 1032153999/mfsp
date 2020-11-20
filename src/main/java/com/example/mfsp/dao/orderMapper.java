@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 public interface orderMapper {
 
-    public long addOrder(Orderform orderform);
-    public long deleteOrder(Orderform orderform);
+    public int addOrder(Orderform orderform);
+    public int deleteOrder(Orderform orderform);
     public List<Orderform> selAllOrder();
-    public long updateOrder(Orderform orderform);
+    public int updateOrder(Orderform orderform);
 }

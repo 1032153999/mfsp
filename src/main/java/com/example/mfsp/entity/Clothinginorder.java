@@ -1,76 +1,104 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "clothinginorder")
 public class Clothinginorder {
 
-  private long clothingInOrderId;
-  private long clothingId;
-  private String clothingPrice;
-  private String clothingName;
-  private String clothingDescr;
-  private long orderFormId;
-  private long cioNum;
+    //null int(10)
+    private int clothinginorderid;
+
+    //null int(10)
+    private int clothingid;
+
+    //null varchar(50)
+    private String clothingprice;
+
+    //null varchar(255)
+    private String clothingname;
+
+    //null varchar(255)
+    private String clothingdescr;
+
+    //null int(10)
+    private int orderformid;
+
+    //null int(10)
+    private int cionum;
 
 
-  public long getClothingInOrderId() {
-    return clothingInOrderId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "clothingInOrderID")
+    public int getClothinginorderid() {
+        return clothinginorderid;
+    }
 
-  public void setClothingInOrderId(long clothingInOrderId) {
-    this.clothingInOrderId = clothingInOrderId;
-  }
-
-
-  public long getClothingId() {
-    return clothingId;
-  }
-
-  public void setClothingId(long clothingId) {
-    this.clothingId = clothingId;
-  }
+    public void setClothinginorderid(int clothinginorderid) {
+        this.clothinginorderid = clothinginorderid;
+    }
 
 
-  public String getClothingPrice() {
-    return clothingPrice;
-  }
+    @Column(name = "clothingID")
+    public int getClothingid() {
+        return clothingid;
+    }
 
-  public void setClothingPrice(String clothingPrice) {
-    this.clothingPrice = clothingPrice;
-  }
-
-
-  public String getClothingName() {
-    return clothingName;
-  }
-
-  public void setClothingName(String clothingName) {
-    this.clothingName = clothingName;
-  }
+    public void setClothingid(int clothingid) {
+        this.clothingid = clothingid;
+    }
 
 
-  public String getClothingDescr() {
-    return clothingDescr;
-  }
+    @Column(name = "clothingPrice")
+    public String getClothingprice() {
+        return clothingprice;
+    }
 
-  public void setClothingDescr(String clothingDescr) {
-    this.clothingDescr = clothingDescr;
-  }
-
-
-  public long getOrderFormId() {
-    return orderFormId;
-  }
-
-  public void setOrderFormId(long orderFormId) {
-    this.orderFormId = orderFormId;
-  }
+    public void setClothingprice(String clothingprice) {
+        this.clothingprice = clothingprice;
+    }
 
 
-  public long getCioNum() {
-    return cioNum;
-  }
+    @Column(name = "clothingName")
+    public String getClothingname() {
+        return clothingname;
+    }
 
-  public void setCioNum(long cioNum) {
-    this.cioNum = cioNum;
-  }
+    public void setClothingname(String clothingname) {
+        this.clothingname = clothingname;
+    }
+
+
+    @Column(name = "clothingDescr")
+    public String getClothingdescr() {
+        return clothingdescr;
+    }
+
+    public void setClothingdescr(String clothingdescr) {
+        this.clothingdescr = clothingdescr;
+    }
+
+
+    @Column(name = "orderFormID")
+    public int getOrderformid() {
+        return orderformid;
+    }
+
+    public void setOrderformid(int orderformid) {
+        this.orderformid = orderformid;
+    }
+
+
+    @Column(name = "CIONum")
+    public int getCionum() {
+        return cionum;
+    }
+
+    public void setCionum(int cionum) {
+        this.cionum = cionum;
+    }
 
 }

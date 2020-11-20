@@ -1,66 +1,91 @@
 package com.example.mfsp.entity;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "user")
 public class User {
 
-  private long userId;
-  private String userName;
-  private String userPassword;
-  private String userRole;
-  private String userPic;
-  private long phone;
+    //null int(10)
+    private int userid;
+
+    //null varchar(50)
+    private String username;
+
+    //null varchar(50)
+    private String userpassword;
+
+    //null varchar(20)
+    private String userrole;
+
+    //null varchar(50)
+    private String userpic;
+
+    //null int(10)
+    private int phone;
 
 
-  public long getUserId() {
-    return userId;
-  }
+    @Id
+    @GeneratedValue()
+    @Column(name = "userID")
+    public int getUserid() {
+        return userid;
+    }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
-
-
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
 
-  public String getUserPassword() {
-    return userPassword;
-  }
+    @Column(name = "userName")
+    public String getUsername() {
+        return username;
+    }
 
-  public void setUserPassword(String userPassword) {
-    this.userPassword = userPassword;
-  }
-
-
-  public String getUserRole() {
-    return userRole;
-  }
-
-  public void setUserRole(String userRole) {
-    this.userRole = userRole;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 
-  public String getUserPic() {
-    return userPic;
-  }
+    @Column(name = "userPassword")
+    public String getUserpassword() {
+        return userpassword;
+    }
 
-  public void setUserPic(String userPic) {
-    this.userPic = userPic;
-  }
+    public void setUserpassword(String userpassword) {
+        this.userpassword = userpassword;
+    }
 
 
-  public long getPhone() {
-    return phone;
-  }
+    @Column(name = "userRole")
+    public String getUserrole() {
+        return userrole;
+    }
 
-  public void setPhone(long phone) {
-    this.phone = phone;
-  }
+    public void setUserrole(String userrole) {
+        this.userrole = userrole;
+    }
+
+
+    @Column(name = "userPic")
+    public String getUserpic() {
+        return userpic;
+    }
+
+    public void setUserpic(String userpic) {
+        this.userpic = userpic;
+    }
+
+
+    @Column(name = "phone")
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
 
 }

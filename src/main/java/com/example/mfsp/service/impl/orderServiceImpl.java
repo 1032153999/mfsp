@@ -12,19 +12,19 @@ public class orderServiceImpl {
     @Autowired
     private orderMapper orderMapper;
 
-    public long addOrder(Orderform orderform) {
+    public int addOrder(Orderform orderform) {
 
         return orderMapper.addOrder(orderform);
     }
 
 
-    public long deleteOrder(long stuID) {
+    public int deleteOrder(long stuID) {
         // TODO Auto-generated method stub
         return 0;
     }
 
 
-    public long updateOrder(Orderform orderform) {
+    public int updateOrder(Orderform orderform) {
         // TODO Auto-generated method stub
         return 0;
     }

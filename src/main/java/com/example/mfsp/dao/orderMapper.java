@@ -2,15 +2,13 @@ package com.example.mfsp.dao;
 
 
 import com.example.mfsp.entity.Orderform;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface orderMapper {
+@Component
+public interface orderMapper extends Mapper<Orderform> {
 
-    public int addOrder(Orderform orderform);
-    public int deleteOrder(Orderform orderform);
-    public List<Orderform> selAllOrder();
-    public int updateOrder(Orderform orderform);
+
 }

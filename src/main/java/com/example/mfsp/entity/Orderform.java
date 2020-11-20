@@ -1,6 +1,9 @@
 package com.example.mfsp.entity;
 
+import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -18,16 +21,16 @@ public class Orderform {
     private int userid;
 
     //null datetime(19)
-    private LocalDateTime realityrentaltime;
+    private Timestamp realityrentaltime;
 
     //null datetime(19)
-    private LocalDateTime starttime;
+    private Timestamp starttime;
 
     //null datetime(19)
-    private LocalDateTime preconcertedreturntime;
+    private Timestamp preconcertedreturntime;
 
     //null datetime(19)
-    private LocalDateTime realityreturmtime;
+    private Timestamp realityreturmtime;
 
     //null varchar(255)
     private String orderformaddress;
@@ -75,41 +78,41 @@ public class Orderform {
 
 
     @Column(name = "realityRentalTime")
-    public LocalDateTime getRealityrentaltime() {
+    public Timestamp getRealityrentaltime() {
         return realityrentaltime;
     }
 
-    public void setRealityrentaltime(LocalDateTime realityrentaltime) {
+    public void setRealityrentaltime(Timestamp realityrentaltime) {
         this.realityrentaltime = realityrentaltime;
     }
 
 
     @Column(name = "startTime")
-    public LocalDateTime getStarttime() {
+    public Timestamp getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(LocalDateTime starttime) {
+    public void setStarttime(Timestamp starttime) {
         this.starttime = starttime;
     }
 
 
     @Column(name = "preconcertedReturnTime")
-    public LocalDateTime getPreconcertedreturntime() {
+    public Timestamp getPreconcertedreturntime() {
         return preconcertedreturntime;
     }
 
-    public void setPreconcertedreturntime(LocalDateTime preconcertedreturntime) {
+    public void setPreconcertedreturntime(Timestamp preconcertedreturntime) {
         this.preconcertedreturntime = preconcertedreturntime;
     }
 
 
     @Column(name = "realityReturmTime")
-    public LocalDateTime getRealityreturmtime() {
+    public Timestamp getRealityreturmtime() {
         return realityreturmtime;
     }
 
-    public void setRealityreturmtime(LocalDateTime realityreturmtime) {
+    public void setRealityreturmtime(Timestamp realityreturmtime) {
         this.realityreturmtime = realityreturmtime;
     }
 

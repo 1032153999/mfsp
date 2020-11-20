@@ -3,36 +3,14 @@ package com.example.mfsp.service.impl;
 
 import com.example.mfsp.dao.orderMapper;
 import com.example.mfsp.entity.Orderform;
+import com.example.mfsp.service.orderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class orderServiceImpl {
+@Service
+public class orderServiceImpl extends baseServiceImpl<Orderform> implements orderService {
 
-    @Autowired
-    private orderMapper orderMapper;
-
-    public int addOrder(Orderform orderform) {
-
-        return orderMapper.addOrder(orderform);
-    }
-
-
-    public int deleteOrder(long stuID) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-
-    public int updateOrder(Orderform orderform) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-
-    public List<Orderform> selAllStudent() {
-        // TODO Auto-generated method stub
-        return orderMapper.selAllOrder();
-    }
 
 }

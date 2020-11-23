@@ -24,16 +24,16 @@ public class Clothing {
     private String clothingrentprice;
 
     //null int(10)
-    private int clothingmonrentalamount;
+    private Integer clothingmonrentalamount;
 
     //null int(10)
-    private int clothingmonthlysales;
+    private Integer clothingmonthlysales;
 
     //null varchar(20)
     private String clothingstatus;
 
     //null int(10)
-    private int clothingnum;
+    private Integer clothingnum;
 
     //null varchar(255)
     private String clothingpic;
@@ -45,11 +45,11 @@ public class Clothing {
     @Id
     @GeneratedValue()
     @Column(name = "clothingID")
-    public int getClothingid() {
+    public Integer getClothingid() {
         return clothingid;
     }
 
-    public void setClothingid(int clothingid) {
+    public void setClothingid( int clothingid) {
         this.clothingid = clothingid;
     }
 
@@ -95,21 +95,21 @@ public class Clothing {
 
 
     @Column(name = "clothingMonRentalAmount")
-    public int getClothingmonrentalamount() {
+    public Integer getClothingmonrentalamount() {
         return clothingmonrentalamount;
     }
 
-    public void setClothingmonrentalamount(int clothingmonrentalamount) {
+    public void setClothingmonrentalamount(Integer clothingmonrentalamount) {
         this.clothingmonrentalamount = clothingmonrentalamount;
     }
 
 
     @Column(name = "clothingMonthlySales")
-    public int getClothingmonthlysales() {
+    public Integer getClothingmonthlysales() {
         return clothingmonthlysales;
     }
 
-    public void setClothingmonthlysales(int clothingmonthlysales) {
+    public void setClothingmonthlysales(Integer clothingmonthlysales) {
         this.clothingmonthlysales = clothingmonthlysales;
     }
 
@@ -125,11 +125,11 @@ public class Clothing {
 
 
     @Column(name = "clothingNum")
-    public int getClothingnum() {
+    public Integer getClothingnum() {
         return clothingnum;
     }
 
-    public void setClothingnum(int clothingnum) {
+    public void setClothingnum(Integer clothingnum) {
         this.clothingnum = clothingnum;
     }
 

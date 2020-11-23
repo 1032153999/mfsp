@@ -12,11 +12,12 @@
   <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body class="layui-layout-body">
-    <form class="layui-form layui-bg-gray" action="">
+    <form class="layui-form layui-bg-gray" action="/updateOrder">
+
         <div class="layui-form-item">
             <label class="layui-form-label">归还时间</label>
                 <div class="layui-input-inline">
-                  <input type="text" class="layui-input" id="realityreturmtime" placeholder="yyyy-MM-dd HH:mm:ss">
+                  <input type="text" class="layui-input" id="realityreturmtime" name="realityreturmtime" placeholder="yyyy-MM-dd HH:mm:ss">
                 </div>
         </div>
         <div class="layui-form-item">
@@ -34,11 +35,17 @@
               <div class="layui-input-inline">
                   <input type="text" name="orderformaddress" placeholder="" autocomplete="off" class="layui-input">
               </div>
+
+            <div class="layui-input-block">
+                <input type="hidden" class="layui-input layui-disabled" id="orderformid" name="orderformid">
+            </div>
         </div>
         <div class="layui-form-item">
+
           <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="edit">修改</button>
           </div>
+            <div class="layui-form-item">&nbsp;</div>
         </div> 
       </form>  
     <script>

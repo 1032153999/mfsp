@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 public class Orderform {
 
     //null int(10)
-    private int orderformid;
+    private Integer orderformid;
 
     //null int(10)
-    private int orderformclass;
+    private Integer orderformclass;
 
     //null int(10)
-    private int userid;
+    private Integer userid;
 
     //null datetime(19)
     private Timestamp realityrentaltime;
@@ -48,31 +48,31 @@ public class Orderform {
     @Id
     @GeneratedValue()
     @Column(name = "orderFormID")
-    public int getOrderformid() {
+    public Integer getOrderformid() {
         return orderformid;
     }
 
-    public void setOrderformid(int orderformid) {
+    public void setOrderformid(Integer orderformid) {
         this.orderformid = orderformid;
     }
 
 
     @Column(name = "orderFormClass")
-    public int getOrderformclass() {
+    public Integer getOrderformclass() {
         return orderformclass;
     }
 
-    public void setOrderformclass(int orderformclass) {
+    public void setOrderformclass(Integer orderformclass) {
         this.orderformclass = orderformclass;
     }
 
 
     @Column(name = "userID")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 

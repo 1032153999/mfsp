@@ -36,4 +36,15 @@ public abstract class baseServiceImpl<T> implements baseService<T> {
     public List<T> selectAll() {
         return mapper.selectAll();
     }
+
+    @Override
+    public String updateByExample(T record, T obj){
+        mapper.updateByExample(record,obj);
+
+        return "success";
+    }
+
+
+
+
 }

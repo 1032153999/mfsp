@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+  <script src="./layui/layui.js" charset="utf-8"></script>
+  <script src="./js/jquery.min.js"></script>
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body class="layui-layout-body">
+    <form class="layui-form layui-bg-gray" action="/QueryOrderById">
+          <div class="layui-form-item">&nbsp;</div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label ">Orderformid:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="orderform.Orderformid" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+              <label class="layui-form-label ">userid:</label>
+              <div class="layui-input-inline">
+                  <input type="text" name="orderform.userid" placeholder="" autocomplete="off" class="layui-input">
+              </div>
+            
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
+            </div>
+          </div> 
+        </form>
+    <script>
+    layui.use('form', function(){
+        var form = layui.form;
+        
+      // //监听提交
+      // form.on('submit(add)', function(data){
+      //   $.ajax({//异步请求返回给后台
+      //       url : '',//接口
+      //       type : 'POST',
+      //       data : {
+      //           id:post_data.id,
+      //       },
+      //       success : function(data) {
+      //           //这里获取到数据执行显示
+      //           layer.msg("设备修改成功", {
+      //               icon : 1
+      //           });
+      //           active.reload();
+      //       },
+      //       error : function() {
+      //           layer.alert("网络出错", {
+      //               icon : 2
+      //           });
+      //       }
+      //   });
+      //     return false;
+      //   });
+      });
+    </script>
+</body>

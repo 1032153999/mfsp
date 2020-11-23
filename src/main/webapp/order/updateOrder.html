@@ -63,11 +63,11 @@ layui.use('table', function(){
             layer.close(index);
           });
         } else if(obj.event === 'edit'){
-          alert("aaa");
           layer.open({
             type:2,
             title:'修改订单' + data.orderformid,
             content:'./editOrder.html',
+            area:['500px','250px'],
             success: function (layero, index) {
               //向layer页面传值，传值主要代码
               var body = layer.getChildFrame('body', index);

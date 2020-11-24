@@ -156,4 +156,20 @@ public class Orderform {
         this.orderstatus = orderstatus;
     }
 
+    @Override
+    public String toString() {
+        return "Orderform{" +
+                "orderformid=" + orderformid +
+                ", orderformclass=" + orderformclass +
+                ", userid=" + userid +
+                ", realityrentaltime=" + realityrentaltime +
+                ", starttime=" + starttime +
+                ", preconcertedreturntime=" + preconcertedreturntime +
+                ", realityreturmtime=" + realityreturmtime +
+                ", orderformaddress='" + orderformaddress + '\'' +
+                ", totalprice='" + totalprice + '\'' +
+                ", remark='" + remark + '\'' +
+                ", orderstatus='" + orderstatus + '\'' +
+                '}';
+    }
 }

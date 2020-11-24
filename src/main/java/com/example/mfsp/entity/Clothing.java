@@ -153,4 +153,20 @@ public class Clothing {
         this.clothingcost = clothingcost;
     }
 
+    @Override
+    public String toString() {
+        return "Clothing{" +
+                "clothingid=" + clothingid +
+                ", clothingname='" + clothingname + '\'' +
+                ", clothingdescr='" + clothingdescr + '\'' +
+                ", clothingprice='" + clothingprice + '\'' +
+                ", clothingrentprice='" + clothingrentprice + '\'' +
+                ", clothingmonrentalamount=" + clothingmonrentalamount +
+                ", clothingmonthlysales=" + clothingmonthlysales +
+                ", clothingstatus='" + clothingstatus + '\'' +
+                ", clothingnum=" + clothingnum +
+                ", clothingpic='" + clothingpic + '\'' +
+                ", clothingcost='" + clothingcost + '\'' +
+                '}';
+    }
 }

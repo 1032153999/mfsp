@@ -49,4 +49,12 @@ public class Clothingsize {
         this.sizename = sizename;
     }
 
+    @Override
+    public String toString() {
+        return "Clothingsize{" +
+                "clothingsizeid=" + clothingsizeid +
+                ", clothingid=" + clothingid +
+                ", sizename='" + sizename + '\'' +
+                '}';
+    }
 }

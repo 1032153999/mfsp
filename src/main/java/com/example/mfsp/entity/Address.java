@@ -49,4 +49,12 @@ public class Address {
         this.userid = userid;
     }
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", useraddress='" + useraddress + '\'' +
+                ", userid=" + userid +
+                '}';
+    }
 }

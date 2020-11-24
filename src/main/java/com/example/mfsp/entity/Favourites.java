@@ -49,4 +49,12 @@ public class Favourites {
         this.userid = userid;
     }
 
+    @Override
+    public String toString() {
+        return "Favourites{" +
+                "favouritesid=" + favouritesid +
+                ", clothingid=" + clothingid +
+                ", userid=" + userid +
+                '}';
+    }
 }

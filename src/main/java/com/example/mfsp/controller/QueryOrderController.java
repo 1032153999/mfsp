@@ -19,7 +19,7 @@ public class QueryOrderController {
 
 @RequestMapping(value="/QueryOrder",method= RequestMethod.GET)
 @ResponseBody
-    public Map<String, Object> QueryOrder() {
+    public Map<String, Object> queryOrder() {
     Map<String, Object> result = new HashMap<String, Object>();
     result.put("code", 0);
     result.put("msg", "");
@@ -37,7 +37,7 @@ public class QueryOrderController {
 
     @RequestMapping(value="/QueryOrderById",method= RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> QueryOrderById(@RequestParam("orderformid")  Integer orderformid) {
+    public Map<String, Object> queryOrderById(@RequestParam("orderformid")  Integer orderformid) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");

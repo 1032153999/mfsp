@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class updateOrderController {
+public class UpdateOrderController {
 
     @Autowired
     private orderService orderService;
@@ -22,10 +22,14 @@ public class updateOrderController {
     public String updateOrder(Orderform orderform){
         Orderform orderFormVo= new Orderform();
         orderFormVo.setOrderformid(orderform.getOrderformid());
-        List<Orderform> orderforms=new ArrayList<>();
-        orderforms=orderService.selectAll(orderFormVo);
+        List<Orderform> orderforms=orderService.selectAll(orderFormVo);
+
+
         System.out.println("orderforms.get(0)"+orderforms.get(0).getOrderformaddress());
-        orderService.updateByExampleSelective(orderforms.get(0),orderform);
+//        orderforms.get(0).setOrderformaddress(orderform.getOrderformaddress());
+
+//        orderService.updateByPrimaryKeySelective(orderform);
+        orderService.updateByExampleSelective(orderform,orderforms.get(0));
 
         System.out.println(orderform.getOrderformid()+"-----"+orderform.getUserid());
 

@@ -7,5 +7,6 @@ public interface baseService<T> {
     List<T> selectAll();
     String updateByExample(T record,T obj);
     String updateByExampleSelective(T record,T obj);
+    String updateByPrimaryKeySelective(T record);
 
 }

@@ -62,4 +62,13 @@ public class Clothingcomment {
         this.clothingid = clothingid;
     }
 
+    @Override
+    public String toString() {
+        return "Clothingcomment{" +
+                "clothingcommentid=" + clothingcommentid +
+                ", userid=" + userid +
+                ", comment='" + comment + '\'' +
+                ", clothingid=" + clothingid +
+                '}';
+    }
 }

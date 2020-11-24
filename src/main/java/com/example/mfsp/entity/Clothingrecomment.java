@@ -62,4 +62,13 @@ public class Clothingrecomment {
         this.recommendweight = recommendweight;
     }
 
+    @Override
+    public String toString() {
+        return "Clothingrecomment{" +
+                "clothingrecommentid=" + clothingrecommentid +
+                ", userid=" + userid +
+                ", clothingclassid=" + clothingclassid +
+                ", recommendweight=" + recommendweight +
+                '}';
+    }
 }

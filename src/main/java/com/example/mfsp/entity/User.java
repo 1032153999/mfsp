@@ -88,4 +88,15 @@ public class User {
         this.phone = phone;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", userpassword='" + userpassword + '\'' +
+                ", userrole='" + userrole + '\'' +
+                ", userpic='" + userpic + '\'' +
+                ", phone=" + phone +
+                '}';
+    }
 }

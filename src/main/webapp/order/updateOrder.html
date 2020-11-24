@@ -11,20 +11,14 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-  <form class="layui-form layui-bg-gray" action="">
-    <div class="layui-form-item">&nbsp;</div>
-    <div class="layui-form-item">
-      <label class="layui-form-label ">账单号</label>
-      <div class="layui-input-inline">
-        <input type="text" name="orderformid" placeholder="" autocomplete="off" class="layui-input">
-      </div>
-      <div class="layui-input-inline">
-        <button class="layui-btn" lay-submit lay-filter="queryOrder">查找</button>
-      </div>
-    </div> 
-    <div class="layui-form-item">&nbsp;</div>
-  </form>
-  <table id="orderform" lay-filter="orderForm"></table>
+<div class="demoTable">
+  搜索ID：
+  <div class="layui-inline">
+    <input class="layui-input" name="id" id="orderformid" autocomplete="off">
+  </div>
+  <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+  <table id="orderform" lay-filter="orderform"></table>
   <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -34,9 +28,10 @@ layui.use('table', function(){
       var table = layui.table;
       table.render({
         elem: '#orderform'
+        ,id:'orderform'
         ,height: 400
         ,even: true
-        ,url: '' //数据接口
+        ,url: '/QueryOrder' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头
           {field: 'orderformid', title: '订单编号',  fixed: 'left',sort: true}
@@ -67,11 +62,44 @@ layui.use('table', function(){
             type:2,
             title:'修改订单' + data.orderformid,
             content:'./editOrder.html',
-            area: ['600px', '400px']
+            area:['500px','250px'],
+            success: function (layero, index) {
+              //向layer页面传值，传值主要代码
+              var body = layer.getChildFrame('body', index);
+
+              //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+              //var iframeWin = window[layero.find('iframe')[0]['name']];
+
+              //将弹窗页面中属性名name="orderformid"的标签赋值
+              body.find("[name='orderformid']").val(data.orderformid);
+            }
             });
         }
-      });    
-    });
+      });
+      //执行重载
+      var $ = layui.$, active = {
+        reload: function () {
+          var orderformid = $('#orderformid');
+          console.log(demoReload.val());
+          //执行重载
+          table.reload('orderform', {
+            page: {
+              curr: 1  //重新从第 1 页开始
+            }
+            , where: {
+              key: {
+              orderformid: orderformid.val(),      //参数，对应的是按照姓名查找的参数，其中orderformid为后台的controler对应的参数
+              }
+            }
+          }, 'data');
+        }
+      };
+      $('.demoTable  .layui-btn').on('click', function () {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+      });
+
+});
   </script>
 </body>
 </html>

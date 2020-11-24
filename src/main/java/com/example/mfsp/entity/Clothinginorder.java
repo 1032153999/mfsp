@@ -101,4 +101,16 @@ public class Clothinginorder {
         this.cionum = cionum;
     }
 
+    @Override
+    public String toString() {
+        return "Clothinginorder{" +
+                "clothinginorderid=" + clothinginorderid +
+                ", clothingid=" + clothingid +
+                ", clothingprice='" + clothingprice + '\'' +
+                ", clothingname='" + clothingname + '\'' +
+                ", clothingdescr='" + clothingdescr + '\'' +
+                ", orderformid=" + orderformid +
+                ", cionum=" + cionum +
+                '}';
+    }
 }

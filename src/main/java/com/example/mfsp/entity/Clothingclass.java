@@ -36,4 +36,11 @@ public class Clothingclass {
         this.clothingclassname = clothingclassname;
     }
 
+    @Override
+    public String toString() {
+        return "Clothingclass{" +
+                "clothingclassid=" + clothingclassid +
+                ", clothingclassname='" + clothingclassname + '\'' +
+                '}';
+    }
 }

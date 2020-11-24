@@ -20,6 +20,15 @@ public class Shoppingcart {
     //null int(10)
     private int sccnum;
 
+    @Override
+    public String toString() {
+        return "Shoppingcart{" +
+                "shoppingcartid=" + shoppingcartid +
+                ", userid=" + userid +
+                ", clothingid=" + clothingid +
+                ", sccnum=" + sccnum +
+                '}';
+    }
 
     @Id
     @GeneratedValue()

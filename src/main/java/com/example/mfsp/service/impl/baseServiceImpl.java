@@ -45,6 +45,21 @@ public abstract class baseServiceImpl<T> implements baseService<T> {
     }
 
 
+    @Override
+    public String updateByExampleSelective(T record, T obj){
+        mapper.updateByExampleSelective(record,obj);
+
+        return "success";
+    }
+
+
+    @Override
+    public String updateByPrimaryKeySelective(T record){
+        mapper.updateByPrimaryKeySelective(record);
+
+        return "success";
+    }
+
 
 
 }

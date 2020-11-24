@@ -49,4 +49,12 @@ public class Clothing_Class {
         this.clothingclassid = clothingclassid;
     }
 
+    @Override
+    public String toString() {
+        return "Clothing_Class{" +
+                "clothingClassid=" + clothingClassid +
+                ", clothingid=" + clothingid +
+                ", clothingclassid=" + clothingclassid +
+                '}';
+    }
 }

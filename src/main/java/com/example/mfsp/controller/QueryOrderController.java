@@ -19,7 +19,7 @@ public class QueryOrderController {
 
 @RequestMapping(value="/QueryOrder",method= RequestMethod.GET)
 @ResponseBody
-    public Map<String, Object> QueryOrder() {
+    public Map<String, Object> queryOrder() {
     Map<String, Object> result = new HashMap<String, Object>();
     result.put("code", 0);
     result.put("msg", "");
@@ -28,23 +28,41 @@ public class QueryOrderController {
     orderforms=orderService.selectAll();
     result.put("count",orderforms.size());
     result.put("data", orderforms);
-    System.out.println("endddd");
-
-    System.out.println("orderforms.get(0);"+orderforms.get(0).getOrderformid()+orderforms.get(0).getTotalprice());
+//    System.out.println("endddd");
+//
+//    System.out.println("orderforms.get(0);"+orderforms.get(0).getOrderformid()+orderforms.get(0).getTotalprice());
     return result;
+    }
+
+
+    @RequestMapping(value="/QueryOrderById",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> queryOrderById(@RequestParam("orderformid")  Integer orderformid) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        Orderform orderform=new Orderform();
+        orderform.setOrderformid(orderformid);
+        List<Orderform> orderforms=new ArrayList<>();
+        orderforms=orderService.selectAll(orderform);
+        result.put("count",orderforms.size());
+        result.put("data", orderforms);
+        System.out.println("endddd");
+        return result;
     }
 
 
 //    @RequestMapping(value="/QueryOrderById",method= RequestMethod.GET)
 //    @ResponseBody
-//    public Map<String, Object> QueryOrderById(@RequestParam("id")  Integer id) {
+//    public Map<String, Object> QueryOrderById(@RequestParam Map<String,Object>  orderform) {
 //        Map<String, Object> result = new HashMap<String, Object>();
 //        result.put("code", 0);
 //        result.put("msg", "");
-//        Orderform orderform=new Orderform();
-//        orderform.setOrderformid(id);
+//        System.out.println("orderform.get(\"Orderformid\")"+orderform.get("Orderformid"));
+//
+////        System.out.println("order---------"+orderform.getOrderformid()+"---------userid------------"+orderform.getUserid());
 //        List<Orderform> orderforms=new ArrayList<>();
-//        orderforms=orderService.selectAll(orderform);
+////        orderforms=orderService.selectAll(orderform);
 //        result.put("count",orderforms.size());
 //        result.put("data", orderforms);
 //        System.out.println("endddd");
@@ -52,22 +70,6 @@ public class QueryOrderController {
 //    }
 
 
-    @RequestMapping(value="/QueryOrderById",method= RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> QueryOrderById(@RequestParam Map<String,Object>  orderform) {
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("code", 0);
-        result.put("msg", "");
-        System.out.println("orderform.get(\"Orderformid\")"+orderform.get("Orderformid"));
-
-//        System.out.println("order---------"+orderform.getOrderformid()+"---------userid------------"+orderform.getUserid());
-        List<Orderform> orderforms=new ArrayList<>();
-//        orderforms=orderService.selectAll(orderform);
-        result.put("count",orderforms.size());
-        result.put("data", orderforms);
-        System.out.println("endddd");
-        return result;
-    }
 
 
 

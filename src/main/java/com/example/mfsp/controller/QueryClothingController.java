@@ -40,7 +40,8 @@ public class QueryClothingController {
 //        return result;
 //    }
 
-// 通过ID查询单个服装数据    @RequestMapping(value="/QueryClothingById",method= RequestMethod.GET)
+// 通过ID查询单个服装数据
+//    @RequestMapping(value="/QueryClothingById",method= RequestMethod.GET)
 //    @ResponseBody
 //    public Map<String, Object> QueryClothingById(@RequestParam("id")  Integer id) {
 //        Map<String, Object> result = new HashMap<String, Object>();

@@ -22,23 +22,21 @@ public class QueryClothingController {
     @Autowired
     private clothingService clothingService;
 
-//
-//  一次将所有服装的数据导出  @RequestMapping(value = "/QueryClothing" , method = RequestMethod.GET)
-//    @ResponseBody
-//    public Map<String, Object> QueryClothing() {
-//        Map<String, Object> result = new HashMap<String, Object>();
-//        result.put("code", 0);
-//        result.put("msg", "");
-//
-//        List<Clothing> clothings=new ArrayList<>();
-//        clothings=clothingService.selectAll();
-//        result.put("count",clothings.size());
-//        result.put("data", clothings);
-//        System.out.println("endddd");
-//
-//        //System.out.println("orderforms.get(0);"+orderforms.get(0).getOrderformid()+orderforms.get(0).getTotalprice());
-//        return result;
-//    }
+
+    @RequestMapping(value = "/QueryClothing" , method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> QueryClothing() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+
+        List<Clothing> clothings=new ArrayList<>();
+        clothings=clothingService.selectAll();
+        result.put("count",clothings.size());
+        result.put("data", clothings);
+        System.out.println("endddd");
+        return result;
+    }
 
 // 通过ID查询单个服装数据    @RequestMapping(value="/QueryClothingById",method= RequestMethod.GET)
 //    @ResponseBody
@@ -53,24 +51,31 @@ public class QueryClothingController {
 //        result.put("count",clothings.size());
 //        result.put("data", clothings);
 //        System.out.println("endddd");
-//        System.out.println(id);
 //        return result;
 //    }
 
-    @RequestMapping(value="/QueryClothingByName",method= RequestMethod.GET)
+    //通过衣服种类查询单一种类衣服查询。
+    @RequestMapping(value="/QueryClothingByType",method= RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> QueryClothingById(@RequestParam("id")  Integer id) {
+    public Map<String, Object> QueryClothingById(@RequestParam("type")  String type) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
         Clothing clothing=new Clothing();
-        clothing.setClothingid(id);
+        clothing.setClothingtype(type);
+        clothing.setClothingstatus("库存");
         List<Clothing> clothings=new ArrayList<>();
         clothings=clothingService.selectAll(clothing);
-        result.put("count",clothings.size());
-        result.put("data", clothings);
+//        result.put("count",clothings.size());
+//        result.put("data", clothings);
         System.out.println("endddd");
-        System.out.println(id);
+        System.out.println(type);
+        if (clothings.size() == 0  ){
+            result.put("data","搜索不到相关服装");
+        }else{
+            result.put("count",clothings.size());
+            result.put("data", clothings);
+        }
         return result;
     }
 

@@ -61,5 +61,11 @@ public abstract class baseServiceImpl<T> implements baseService<T> {
     }
 
 
+    @Override
+    public String insert(T record){
+        mapper.insert(record);
+    }
+
+
 
 }

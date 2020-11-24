@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Clothing {
 
     //null int(10)
-    private int clothingid;
+    private Integer clothingid;
 
     //null varchar(255)
     private String clothingname;
@@ -49,7 +49,7 @@ public class Clothing {
         return clothingid;
     }
 
-    public void setClothingid( int clothingid) {
+    public void setClothingid( Integer clothingid) {
         this.clothingid = clothingid;
     }
 
@@ -153,6 +153,8 @@ public class Clothing {
         this.clothingcost = clothingcost;
     }
 
+
+
     @Override
     public String toString() {
         return "Clothing{" +
@@ -169,4 +171,5 @@ public class Clothing {
                 ", clothingcost='" + clothingcost + '\'' +
                 '}';
     }
+
 }

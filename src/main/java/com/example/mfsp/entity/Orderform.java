@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class Orderform {
 
     //null int(10)
+    @Id
     private Integer orderformid;
 
     //null int(10)

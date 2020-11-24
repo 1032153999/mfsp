@@ -23,17 +23,20 @@ public class UpdateOrderController {
         Orderform orderFormVo= new Orderform();
         orderFormVo.setOrderformid(orderform.getOrderformid());
         List<Orderform> orderforms=orderService.selectAll(orderFormVo);
-
-
-        System.out.println("orderforms.get(0)"+orderforms.get(0).getOrderformaddress());
+        System.out.println("selectAllEnd");
+        orderforms.get(0).setOrderstatus(orderform.getOrderstatus());
+        orderforms.get(0).setOrderformaddress(orderform.getOrderformaddress());
+        orderforms.get(0).setRealityreturmtime(orderform.getRealityreturmtime());
+        orderFormVo.setOrderstatus(orderform.getOrderstatus());
+//        System.out.println("orderforms.get(0)"+orderforms.get(0).toString());
 //        orderforms.get(0).setOrderformaddress(orderform.getOrderformaddress());
 
-//        orderService.updateByPrimaryKeySelective(orderform);
-        orderService.updateByExampleSelective(orderform,orderforms.get(0));
+        orderService.updateByPrimaryKeySelective(orderFormVo);
+//        orderService.updateByExampleSelective(orderform,orderforms.get(0));
 
-        System.out.println(orderform.getOrderformid()+"-----"+orderform.getUserid());
+//        System.out.println(orderform.toString());
 
-        return " ";
+        return "success";
     }
 
 }

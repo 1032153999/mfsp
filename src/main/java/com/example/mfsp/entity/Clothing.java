@@ -15,6 +15,9 @@ public class Clothing {
     private String clothingname;
 
     //null varchar(255)
+    private String clothingtype;
+
+    //null varchar(255)
     private String clothingdescr;
 
     //null varchar(50)
@@ -49,7 +52,7 @@ public class Clothing {
         return clothingid;
     }
 
-    public void setClothingid( Integer clothingid) {
+    public void setClothingid(Integer clothingid) {
         this.clothingid = clothingid;
     }
 
@@ -73,6 +76,15 @@ public class Clothing {
         this.clothingdescr = clothingdescr;
     }
 
+
+    @Column(name = "clothingType")
+    public String getClothingtype() {
+        return clothingtype;
+    }
+
+    public void setClothingtype(String clothingtype) {
+        this.clothingtype = clothingtype;
+    }
 
     @Column(name = "clothingPrice")
     public String getClothingprice() {
@@ -153,8 +165,6 @@ public class Clothing {
         this.clothingcost = clothingcost;
     }
 
-
-
     @Override
     public String toString() {
         return "Clothing{" +
@@ -171,5 +181,4 @@ public class Clothing {
                 ", clothingcost='" + clothingcost + '\'' +
                 '}';
     }
-
 }

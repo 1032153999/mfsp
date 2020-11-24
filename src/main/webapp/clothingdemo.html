@@ -12,7 +12,7 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body class="layui-layout-body">
-<form class="layui-form layui-bg-gray" action="/QueryClothingByName">
+<form class="layui-form layui-bg-gray" action="/QueryClothingByType">
     <div class="layui-form-item">&nbsp;</div>
 
     <div class="layui-form-item">
@@ -20,15 +20,20 @@
         <!--            <div class="layui-input-inline">-->
         <!--              <input type="text" name="orderform.Orderformid" placeholder="" autocomplete="off" class="layui-input">-->
         <!--            </div>-->
-        <label class="layui-form-label ">id:</label>
+        <label class="layui-form-label ">服装名称：</label>
         <div class="layui-input-inline">
-            <input type="text" name="id" value="好厚的衣服" placeholder="" autocomplete="off" class="layui-input">
+<!--            <input type="text" name="name" placeholder="" autocomplete="off" class="layui-input">-->
+            <select name="type" placeholder="" autocomplete="off" class="layui-input">
+                <option value="羽绒服">羽绒服</option>
+                <option value="运动服">运动服</option>
+                <option value="衬衫">衬衫</option>
+            </select>
         </div>
 
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="add">查找</button>
         </div>
     </div>
 </form>

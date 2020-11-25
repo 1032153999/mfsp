@@ -30,21 +30,6 @@
   </script>
   <script>
 
-/*    $("#but01s").click(function(){
-      var orderformid = 1;
-      alert(orderformid);
-      var table = layui.table;
-      table.reload('orderform',{
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          orderformid :"1"
-
-        }
-      });
-    });*/
-
 layui.use('table', function(){
       var table = layui.table;
       table.render({
@@ -107,20 +92,12 @@ layui.use('table', function(){
               $.ajax({
                 url: "/deleteOrder",
                 type: "GET",
-                // data: {eqptType: data.eqptType, eqptIdCode: data.eqptIdCode},
-                // success: function (msg) {
-                //   // if (msg == 200) {
-                //   //   //删除这一行
-                //   //   obj.del();
-                //   //   //关闭弹框
-                //   //   layer.close(index);
-                //   //   layer.msg("删除成功", {icon: 6});
-                //   // } else {
-                //   //   layer.msg("删除失败", {icon: 5});
-                //   // }
-                // }
               });
-
+              table.reload('orderform', {
+                page: {
+                  curr: 1 //重新从第 1 页开始
+                }
+              });
               layer.close(layero);
             }
 
@@ -142,7 +119,6 @@ layui.use('table', function(){
               body.find("[name='orderformid']").val(data.orderformid);
             },
             cancel: function(layero, index){
-              alert('q');
               table.reload('orderform', {
                 page: {
                   curr: 1 //重新从第 1 页开始

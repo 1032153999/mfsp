@@ -17,7 +17,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">账号名</label>
             <div class="layui-input-inline">
-              <input type="text" name="name" id="name" placeholder="请输入账号名" autocomplete="off" class="layui-input">
+              <input type="text" name="id" id="id" placeholder="请输入账号名" autocomplete="off" class="layui-input">
             </div>
 
           </div>
@@ -48,10 +48,10 @@
         ,url: '' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头
-          {field: 'userId', title: '账号名',  fixed: 'left'}
-          ,{field: 'userName', title: '用户昵称'}
-          ,{field: 'userPassword', title: '密码'}
-          ,{field: 'userRole', title: '角色',sort: true} 
+          {field: 'userid', title: '账号名',  fixed: 'left'}
+          ,{field: 'username', title: '用户昵称'}
+          ,{field: 'userpassword', title: '密码'}
+          ,{field: 'userrole', title: '角色',sort: true}
           ,{field: 'phone', title: '电话号码'}
           ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
         ]]
@@ -67,7 +67,7 @@
               curr: 1 //重新从第 1 页开始
             }
             ,where: {
-              userId: demoReload.val()
+              userid: demoReload.val()
             }
           }, 'data');
         }
@@ -84,7 +84,7 @@
         if(obj.event === 'del'){
           layer.open({
             type:0,
-            title:'删除用户' + data.userName,
+            title:'删除用户' + data.username,
             area:['500px','250px'],
             yes: function(layero,index){
               $.ajax({

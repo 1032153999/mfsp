@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>会员制时装共享平台</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <script src="layui/layui.js" charset="utf-8"></script>
+  <script src="js/jquery.min.js"></script>
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header">
+        <div class="layui-logo">会员制时装共享平台</div>
+        <ul class="layui-nav layui-layout-right">
+          <li class="layui-nav-item ">admin</li>
+          <li class="layui-nav-item">
+            <a href=""><i class="layui-icon layui-icon-logout" ></i></a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+          <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+          <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+
+            <li class="layui-nav-item layui-nav-child">
+              <dd><a href="./main.html">主界面</a></dd>
+            </li>
+
+            <li class="layui-nav-item">
+              <a class="" href="javascript:;">会员管理</a>
+              <dl class="layui-nav-child">
+                <dd><a href="./user/addUser.html">添加会员</a></dd>
+                <dd><a href="./user/deleteUser.html">冻结会员</a></dd>
+                <dd><a href="./user/queryUser.html">用户查询</a></dd>
+                <dd><a href="./user/roleUser.html">用户权限</a></dd>
+              </dl>
+            </li>
+
+            <li class="layui-nav-item">
+              <a href="javascript:;">商品管理</a>
+              <dl class="layui-nav-child">
+                <dd><a href="./clothing/addClothing.html">服装入库</a></dd>
+                <dd><a href="./clothing/queryClothing.html">服装查询</a></dd>
+                <dd><a href="./clothing/deleteClothing.html">服装删除</a></dd>
+                <dd><a href="./clothing/updateClothing.html">服装信息修改</a></dd>
+              </dl>
+            </li>
+
+            <li class="layui-nav-item">
+              <a href="javascript:;">订单管理</a>
+              <dl class="layui-nav-child">
+                <dd><a href="./order/deleteOrder.html">订单删除</a></dd>
+                <dd><a href="./order/queryOrder.html">订单查询</a></dd>
+                <dd><a href="./order/updateOrder.html">订单处理</a></dd>
+              </dl>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+      
+      <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="iframeMain" src="./first.html" style="width: 100%"; height="100%";></iframe>
+      </div>
+      
+    </div>
+    <script>
+        //JavaScript代码区域
+
+        layui.use('element', function(){
+          var element = layui.element;
+          
+        });
+
+        //模拟单页跳转
+        $(document).ready(function(){
+          $("dd>a").click(function (e) {
+            e.preventDefault();
+            $("#iframeMain").attr("src",$(this).attr("href"));
+          });
+        });
+
+        //关闭界面
+        function close(){
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+        }
+
+        //清理页脚
+        $(".layui-body").css("bottom", 0);
+
+        </script>
+    </body>
+</html>

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class User {
 
     //null int(10)
+    @Id
     private Integer userid;
 
     //null varchar(50)
@@ -24,7 +25,7 @@ public class User {
     private String userpic;
 
     //null int(10)
-    private int phone;
+    private Integer phone;
 
 
     @Id
@@ -80,11 +81,11 @@ public class User {
 
 
     @Column(name = "phone")
-    public int getPhone() {
+    public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 

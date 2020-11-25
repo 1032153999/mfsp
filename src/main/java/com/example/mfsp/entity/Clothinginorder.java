@@ -9,10 +9,11 @@ import java.time.LocalDateTime;
 public class Clothinginorder {
 
     //null int(10)
-    private int clothinginorderid;
+    @Id
+    private Integer clothinginorderid;
 
     //null int(10)
-    private int clothingid;
+    private Integer clothingid;
 
     //null varchar(50)
     private String clothingprice;
@@ -24,30 +25,30 @@ public class Clothinginorder {
     private String clothingdescr;
 
     //null int(10)
-    private int orderformid;
+    private Integer orderformid;
 
     //null int(10)
-    private int cionum;
+    private Integer cionum;
 
 
     @Id
     @GeneratedValue()
     @Column(name = "clothingInOrderID")
-    public int getClothinginorderid() {
+    public Integer getClothinginorderid() {
         return clothinginorderid;
     }
 
-    public void setClothinginorderid(int clothinginorderid) {
+    public void setClothinginorderid(Integer clothinginorderid) {
         this.clothinginorderid = clothinginorderid;
     }
 
 
     @Column(name = "clothingID")
-    public int getClothingid() {
+    public Integer getClothingid() {
         return clothingid;
     }
 
-    public void setClothingid(int clothingid) {
+    public void setClothingid(Integer clothingid) {
         this.clothingid = clothingid;
     }
 
@@ -83,21 +84,21 @@ public class Clothinginorder {
 
 
     @Column(name = "orderFormID")
-    public int getOrderformid() {
+    public Integer getOrderformid() {
         return orderformid;
     }
 
-    public void setOrderformid(int orderformid) {
+    public void setOrderformid(Integer orderformid) {
         this.orderformid = orderformid;
     }
 
 
     @Column(name = "CIONum")
-    public int getCionum() {
+    public Integer getCionum() {
         return cionum;
     }
 
-    public void setCionum(int cionum) {
+    public void setCionum(Integer cionum) {
         this.cionum = cionum;
     }
 

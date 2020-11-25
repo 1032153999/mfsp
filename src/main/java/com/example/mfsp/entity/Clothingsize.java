@@ -9,10 +9,11 @@ import java.time.LocalDateTime;
 public class Clothingsize {
 
     //null int(10)
-    private int clothingsizeid;
+    @Id
+    private Integer clothingsizeid;
 
     //null int(10)
-    private int clothingid;
+    private Integer clothingid;
 
     //null varchar(20)
     private String sizename;
@@ -21,21 +22,21 @@ public class Clothingsize {
     @Id
     @GeneratedValue()
     @Column(name = "clothingSizeID")
-    public int getClothingsizeid() {
+    public Integer getClothingsizeid() {
         return clothingsizeid;
     }
 
-    public void setClothingsizeid(int clothingsizeid) {
+    public void setClothingsizeid(Integer clothingsizeid) {
         this.clothingsizeid = clothingsizeid;
     }
 
 
     @Column(name = "clothingID")
-    public int getClothingid() {
+    public Integer getClothingid() {
         return clothingid;
     }
 
-    public void setClothingid(int clothingid) {
+    public void setClothingid(Integer clothingid) {
         this.clothingid = clothingid;
     }
 

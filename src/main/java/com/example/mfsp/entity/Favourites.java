@@ -9,43 +9,44 @@ import java.time.LocalDateTime;
 public class Favourites {
 
     //null int(10)
-    private int favouritesid;
+    @Id
+    private Integer favouritesid;
 
     //null int(10)
-    private int clothingid;
+    private Integer clothingid;
 
     //null int(10)
-    private int userid;
+    private Integer userid;
 
 
     @Id
     @GeneratedValue()
     @Column(name = "favouritesID")
-    public int getFavouritesid() {
+    public Integer getFavouritesid() {
         return favouritesid;
     }
 
-    public void setFavouritesid(int favouritesid) {
+    public void setFavouritesid(Integer favouritesid) {
         this.favouritesid = favouritesid;
     }
 
 
     @Column(name = "clothingID")
-    public int getClothingid() {
+    public Integer getClothingid() {
         return clothingid;
     }
 
-    public void setClothingid(int clothingid) {
+    public void setClothingid(Integer clothingid) {
         this.clothingid = clothingid;
     }
 
 
     @Column(name = "userID")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 

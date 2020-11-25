@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <script src="../layui/layui.js" charset="utf-8"></script>
+  <script src="../js/jquery.min.js"></script>
+</head>
+<body class="layui-layout-body">
+  <div class="layui-form-item">
+    <label class="layui-form-label">账号名</label>
+    <div class="layui-input-inline">
+      <input type="text" name="id" id="id" placeholder="请输入账号名" autocomplete="off" class="layui-input">
+    </div>
+
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-inline">
+      <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+  </div>
+
+
+
+<table id="user" lay-filter="user"></table>
+
+    <script>
+      layui.use('table', function(){
+      var table = layui.table;
+      table.render({
+        elem: '#user'
+        ,height: 450
+        ,even: true
+        ,url: '' //数据接口
+        ,page: true //开启分页
+        ,cols: [[ //表头
+          {field: 'userid', title: '账号名',  fixed: 'left'}
+          ,{field: 'username', title: '用户昵称'}
+          ,{field: 'userpassword', title: '密码'}
+          ,{field: 'userrole', title: '角色',sort: true}
+          ,{field: 'phone', title: '电话号码'}
+
+        ]]
+      });
+      var $ = layui.$, active = {
+        reload: function(){
+          //执行重载
+          var demoReload = $('#id');
+          alert(demoReload.val());
+          table.reload('user', {
+            page: {
+              curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+              userid: demoReload.val()
+            }
+          }, 'data');
+        }
+      };
+
+      $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+      });
+    });
+    </script>
+    </body>
+</html>

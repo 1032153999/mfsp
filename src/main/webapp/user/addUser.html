@@ -1,0 +1,81 @@
+<!--超级管理员直接添加一个管理员-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+    <script src="../layui/layui.js" charset="utf-8"></script>
+    <script src="../js/jquery.min.js"></script>
+</head>
+<body class="layui-layout-body">
+        <!-- 内容主体区域 -->
+
+        <form class="layui-form" action="">
+          <div class="layui-form-item">&nbsp;</div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label ">账号名</label>
+            <div class="layui-input-inline">
+              <input type="text" name="userid" id="userid" placeholder="请输入账号名" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-inline">
+              <input type="text" name="userpassword" id="userpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="addUser">立即提交</button>
+            </div>
+          </div> 
+          <div class="layui-form-item">&nbsp;</div>
+        </form>    
+
+
+        <table id="user" lay-filter="user"></table>
+
+
+
+    <script>
+      //Demo
+      layui.use('form', function(){
+        var form = layui.form;
+        
+      //监听提交
+      form.on('submit(addUser)', function(data){
+          layer.msg(JSON.stringify(data.field));
+          var table = layui.table;
+          table.reload('user', {
+              page: {
+                  curr: 1 //重新从第 1 页开始
+              }
+          });
+          return false;
+        });
+      });
+
+      //user表
+      layui.use('table', function(){
+      var table = layui.table;
+      table.render({
+        elem: '#user'
+        ,height: 450
+        ,even: true
+        ,url: '' //数据接口
+        ,page: true //开启分页
+        ,cols: [[ //表头
+          {field: 'userid', title: '账号名',  fixed: 'left'}
+          ,{field: 'username', title: '用户昵称'}
+          ,{field: 'userpassword', title: '密码'}
+          ,{field: 'userrole', title: '角色',sort: true}
+          ,{field: 'phone', title: '电话号码'}
+        ]]
+      });
+    });
+    </script>
+    </body>
+</html>

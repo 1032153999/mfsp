@@ -11,7 +11,7 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-  <form class="layui-form layui-bg-gray" action="/QueryOrderById">
+  <form class="layui-form layui-bg-gray" action="">
     <div class="layui-form-item">&nbsp;</div>
     <div class="layui-form-item">
       <label class="layui-form-label ">账单号</label>
@@ -19,7 +19,7 @@
         <input type="text" name="orderformid" id="orderformid" placeholder="" autocomplete="off" class="layui-input">
       </div>
       <div class="layui-input-inline">
-        <button class="layui-btn" lay-submit lay-filter="queryOrder">查找</button>
+        <button class="layui-btn" lay-submit lay-filter="queryOrder" id=”queryOrder“>查找</button>
       </div>
     </div>
     <div class="layui-form-item">&nbsp;</div>
@@ -30,6 +30,9 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
   <script>
+
+
+
 layui.use('table', function(){
       var table = layui.table;
       table.render({
@@ -53,7 +56,7 @@ layui.use('table', function(){
           ,{field: 'orderstatus', title: '订单状态'}
           ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
         ]]
-        
+
       });
       //监听工具条
       table.on('tool(orderform)', function(obj){
@@ -82,28 +85,24 @@ layui.use('table', function(){
             });
         }
       });
-      //执行重载
-      var $ = layui.$, active = {
-        reload: function () {
-          var orderformid = $('#orderformid');
-          //执行重载
-          table.reload('orderform', {
-            page: {
-              curr: 1  //重新从第 1 页开始
-            }
-            , where: {
-              key: {
-              orderformid: orderformid.val(),      //参数，对应的是按照姓名查找的参数，其中orderformid为后台的controler对应的参数
-              }
-            }
-          }, 'data');
-        }
-      };
-      $('.layui-form-item .layui-btn').on('click', function () {
-        var type = $(this).data('type');
-        active[type] ? active[type].call(this) : '';
-      });
 
+});
+
+$('#queryOrder').click(function () {
+  var te = $('input[name=orderformid]').val();
+  if (te===''||te==null){
+    $('input[name=orderformid]').val("").focus();
+    layer.msg("请输入搜索信息")
+  }else {
+    var table = layui.table;
+    table.reload('orderform', {
+      url: '/QueryOrderById'
+      ,where: {
+        "orderformid":te
+      } //设定异步数据接口的额外参数
+      //,height: 300
+    });
+  }
 });
   </script>
 </body>

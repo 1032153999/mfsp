@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class Clothing_Class {
 
     //null int(10)
+    @Id
     private int clothingClassid;
 
     //null int(10)

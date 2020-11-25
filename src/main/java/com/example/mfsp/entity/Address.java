@@ -9,23 +9,24 @@ import java.time.LocalDateTime;
 public class Address {
 
     //null int(10)
-    private int id;
+    @Id
+    private Integer id;
 
     //null varchar(255)
     private String useraddress;
 
     //null int(10)
-    private int userid;
+    private Integer userid;
 
 
     @Id
     @GeneratedValue()
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,11 +42,11 @@ public class Address {
 
 
     @Column(name = "userID")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 

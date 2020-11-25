@@ -9,22 +9,23 @@ import java.time.LocalDateTime;
 public class Clothingrecomment {
 
     //null int(10)
-    private int clothingrecommentid;
+    @Id
+    private Integer clothingrecommentid;
 
     //null int(10)
-    private int userid;
+    private Integer userid;
 
     //null int(10)
-    private int clothingclassid;
+    private Integer clothingclassid;
 
     //null int(10)
-    private int recommendweight;
+    private Integer recommendweight;
 
 
     @Id
     @GeneratedValue()
     @Column(name = "clothingRecommentID")
-    public int getClothingrecommentid() {
+    public Integer getClothingrecommentid() {
         return clothingrecommentid;
     }
 
@@ -34,7 +35,7 @@ public class Clothingrecomment {
 
 
     @Column(name = "userID")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
@@ -44,21 +45,21 @@ public class Clothingrecomment {
 
 
     @Column(name = "clothingClassID")
-    public int getClothingclassid() {
+    public Integer getClothingclassid() {
         return clothingclassid;
     }
 
-    public void setClothingclassid(int clothingclassid) {
+    public void setClothingclassid(Integer clothingclassid) {
         this.clothingclassid = clothingclassid;
     }
 
 
     @Column(name = "recommendWeight")
-    public int getRecommendweight() {
+    public Integer getRecommendweight() {
         return recommendweight;
     }
 
-    public void setRecommendweight(int recommendweight) {
+    public void setRecommendweight(Integer recommendweight) {
         this.recommendweight = recommendweight;
     }
 

@@ -9,4 +9,5 @@ public interface baseService<T> {
     String updateByExampleSelective(T record,T obj);
     String updateByPrimaryKeySelective(T record);
     String insert(T record);
+    String delete(T record);
 }

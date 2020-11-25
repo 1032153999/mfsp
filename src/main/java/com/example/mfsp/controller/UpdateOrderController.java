@@ -20,20 +20,11 @@ public class UpdateOrderController {
     @RequestMapping(value="/updateOrder",method= RequestMethod.GET)
     @ResponseBody
     public String updateOrder(Orderform orderform){
-        Orderform orderFormVo= new Orderform();
-        orderFormVo.setOrderformid(orderform.getOrderformid());
-        List<Orderform> orderforms=orderService.selectAll(orderFormVo);
+
+   orderService.updateByPrimaryKeySelective(orderform);
 
 
-        System.out.println("orderforms.get(0)"+orderforms.get(0).getOrderformaddress());
-//        orderforms.get(0).setOrderformaddress(orderform.getOrderformaddress());
-
-//        orderService.updateByPrimaryKeySelective(orderform);
-        orderService.updateByExampleSelective(orderform,orderforms.get(0));
-
-        System.out.println(orderform.getOrderformid()+"-----"+orderform.getUserid());
-
-        return " ";
+        return "success";
     }
 
 }

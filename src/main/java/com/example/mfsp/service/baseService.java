@@ -8,5 +8,5 @@ public interface baseService<T> {
     String updateByExample(T record,T obj);
     String updateByExampleSelective(T record,T obj);
     String updateByPrimaryKeySelective(T record);
-
+    String insert(T record);
 }

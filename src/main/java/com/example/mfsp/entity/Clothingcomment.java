@@ -9,36 +9,37 @@ import java.time.LocalDateTime;
 public class Clothingcomment {
 
     //null int(10)
-    private int clothingcommentid;
+    @Id
+    private Integer clothingcommentid;
 
     //null int(10)
-    private int userid;
+    private Integer userid;
 
     //null varchar(255)
     private String comment;
 
     //null int(10)
-    private int clothingid;
+    private Integer clothingid;
 
 
     @Id
     @GeneratedValue()
     @Column(name = "clothingCommentID")
-    public int getClothingcommentid() {
+    public Integer getClothingcommentid() {
         return clothingcommentid;
     }
 
-    public void setClothingcommentid(int clothingcommentid) {
+    public void setClothingcommentid(Integer clothingcommentid) {
         this.clothingcommentid = clothingcommentid;
     }
 
 
     @Column(name = "userID")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
@@ -54,11 +55,11 @@ public class Clothingcomment {
 
 
     @Column(name = "clothingID")
-    public int getClothingid() {
+    public Integer getClothingid() {
         return clothingid;
     }
 
-    public void setClothingid(int clothingid) {
+    public void setClothingid(Integer clothingid) {
         this.clothingid = clothingid;
     }
 

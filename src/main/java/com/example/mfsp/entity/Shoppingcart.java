@@ -9,16 +9,17 @@ import java.time.LocalDateTime;
 public class Shoppingcart {
 
     //null int(10)
-    private int shoppingcartid;
+    @Id
+    private Integer shoppingcartid;
 
     //null int(10)
-    private int userid;
+    private Integer userid;
 
     //null int(10)
-    private int clothingid;
+    private Integer clothingid;
 
     //null int(10)
-    private int sccnum;
+    private Integer sccnum;
 
     @Override
     public String toString() {
@@ -33,41 +34,41 @@ public class Shoppingcart {
     @Id
     @GeneratedValue()
     @Column(name = "shoppingCartID")
-    public int getShoppingcartid() {
+    public Integer getShoppingcartid() {
         return shoppingcartid;
     }
 
-    public void setShoppingcartid(int shoppingcartid) {
+    public void setShoppingcartid(Integer shoppingcartid) {
         this.shoppingcartid = shoppingcartid;
     }
 
 
     @Column(name = "userID")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
 
     @Column(name = "clothingID")
-    public int getClothingid() {
+    public Integer getClothingid() {
         return clothingid;
     }
 
-    public void setClothingid(int clothingid) {
+    public void setClothingid(Integer clothingid) {
         this.clothingid = clothingid;
     }
 
 
     @Column(name = "SCCNum")
-    public int getSccnum() {
+    public Integer getSccnum() {
         return sccnum;
     }
 
-    public void setSccnum(int sccnum) {
+    public void setSccnum(Integer sccnum) {
         this.sccnum = sccnum;
     }
 

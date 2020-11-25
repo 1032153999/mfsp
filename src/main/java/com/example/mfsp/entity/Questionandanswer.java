@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 public class Questionandanswer {
 
     //null int(10)
-    private int id;
+    @Id
+    private Integer id;
 
     //null varchar(255)
     private String question;
@@ -21,11 +22,11 @@ public class Questionandanswer {
     @Id
     @GeneratedValue()
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

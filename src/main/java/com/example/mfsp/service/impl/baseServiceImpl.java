@@ -15,7 +15,7 @@ import java.util.List;
  * @Version 1.0
  */
 
-
+@SuppressWarnings("all")
 public abstract class baseServiceImpl<T> implements baseService<T> {
     @Autowired
     protected Mapper<T> mapper;
@@ -64,6 +64,12 @@ public abstract class baseServiceImpl<T> implements baseService<T> {
     @Override
     public String insert(T record){
         mapper.insert(record);
+        return "success";
+    }
+
+    public String delete(T record){
+        mapper.delete(record);
+        return "success";
     }
 
 

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class User {
 
     //null int(10)
-    private int userid;
+    private Integer userid;
 
     //null varchar(50)
     private String username;
@@ -30,11 +30,11 @@ public class User {
     @Id
     @GeneratedValue()
     @Column(name = "userID")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 

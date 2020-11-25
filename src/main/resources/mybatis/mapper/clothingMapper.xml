@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mfsp.dao.clothingMapper">
-
-
+    <select id="FuzzySearchClothing" resultType="com.example.mfsp.entity.Clothing" parameterType="com.example.mfsp.entity.Clothing">
+        select * from clothing where clothingName like concat(concat('%',#{clothingname}),'%')
+    </select>
 </mapper>

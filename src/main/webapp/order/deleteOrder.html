@@ -25,7 +25,7 @@
     <div class="layui-form-item">&nbsp;</div>
   <table id="orderform" lay-filter="orderform"></table>
   <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
   <script>
 
@@ -82,29 +82,24 @@ layui.use('table', function(){
       //监听工具条
       table.on('tool(orderform)', function(obj){
         var data = obj.data;
-        if(obj.event === 'edit'){
+        if(obj.event === 'del'){
           layer.open({
-            type:2,
-            title:'修改订单' + data.orderformid,
-            content:'./editOrder.html',
+            type:0,
+            title:'删除订单' + data.orderformid,
             area:['500px','250px'],
-            success: function (layero, index) {
-              //向layer页面传值，传值主要代码
-              var body = layer.getChildFrame('body', index);
-
-              //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-              //var iframeWin = window[layero.find('iframe')[0]['name']];
-
-              //将弹窗页面中属性名name="orderformid"的标签赋值
-              body.find("[name='orderformid']").val(data.orderformid);
-            },
-            cancel: function(layero, index){
+            yes: function(layero,index){
+              $.ajax({
+                url: "/deleteOrder",
+                type: "GET",
+              });
               table.reload('orderform', {
                 page: {
                   curr: 1 //重新从第 1 页开始
                 }
               });
+              layer.close(layero);
             }
+
           });
         }
       });

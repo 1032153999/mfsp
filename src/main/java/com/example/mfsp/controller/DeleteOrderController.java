@@ -17,10 +17,10 @@ public class DeleteOrderController {
     @GetMapping("/deleteOrder")
     @ResponseBody
     public String deleteOrder(){
-
+        System.out.println("del");
         Orderform orderform=new Orderform();
         orderform.setOrderformid(4);
-        orderService.delete(orderform);
+        //orderService.delete(orderform);
 
 
         return "success";

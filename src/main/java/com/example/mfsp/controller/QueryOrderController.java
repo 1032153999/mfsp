@@ -28,9 +28,7 @@ public class QueryOrderController {
     orderforms=orderService.selectAll();
     result.put("count",orderforms.size());
     result.put("data", orderforms);
-//    System.out.println("endddd");
-//
-//    System.out.println("orderforms.get(0);"+orderforms.get(0).getOrderformid()+orderforms.get(0).getTotalprice());
+
     return result;
     }
 
@@ -38,12 +36,13 @@ public class QueryOrderController {
     @RequestMapping(value="/QueryOrderById",method= RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> queryOrderById(@RequestParam("orderformid")  Integer orderformid) {
+
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
 
         List<Orderform> orderforms=new ArrayList<>();
-        if(orderformid==null){
+        if(orderformid==0){
             orderforms=orderService.selectAll();
         }else {
             Orderform orderform=new Orderform();
@@ -53,13 +52,9 @@ public class QueryOrderController {
 
         result.put("count",orderforms.size());
         result.put("data", orderforms);
-        System.out.println("endddd");
+
         return result;
     }
-
-
-
-
 
 
 

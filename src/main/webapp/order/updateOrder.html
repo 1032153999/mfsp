@@ -11,19 +11,18 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-  <form class="layui-form layui-bg-gray" action="">
     <div class="layui-form-item">&nbsp;</div>
     <div class="layui-form-item">
       <label class="layui-form-label ">账单号</label>
       <div class="layui-input-inline">
-        <input type="text" name="orderformid" id="orderformid" placeholder="" autocomplete="off" class="layui-input">
+        <input type="text" name="id" id="id" placeholder="" autocomplete="off" class="layui-input">
       </div>
       <div class="layui-input-inline">
-        <button class="layui-btn" lay-submit lay-filter="queryOrder" id=”queryOrder“>查找</button>
+        <!--<input type="button" class="layui-btn" id="but01s" value="查找">-->
+        <button class="layui-btn" data-type="reload">搜索</button>
       </div>
     </div>
     <div class="layui-form-item">&nbsp;</div>
-  </form>
   <table id="orderform" lay-filter="orderform"></table>
   <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -31,7 +30,20 @@
   </script>
   <script>
 
+/*    $("#but01s").click(function(){
+      var orderformid = 1;
+      alert(orderformid);
+      var table = layui.table;
+      table.reload('orderform',{
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+          orderformid :"1"
 
+        }
+      });
+    });*/
 
 layui.use('table', function(){
       var table = layui.table;
@@ -40,8 +52,11 @@ layui.use('table', function(){
         ,id:'orderform'
         ,height: 400
         ,even: true
-        ,url: '/QueryOrder' //数据接口
+        ,url: '/QueryOrderById' //数据接口
         ,page: true //开启分页
+        ,where:{
+          orderformid:0
+        }
         ,cols: [[ //表头
           {field: 'orderformid', title: '订单编号',  fixed: 'left',sort: true}
           ,{field: 'orderformclass', title: '订单类型',sort: true}
@@ -58,13 +73,57 @@ layui.use('table', function(){
         ]]
 
       });
+
+  var $ = layui.$, active = {
+    reload: function(){
+      //执行重载
+      var demoReload = $('#id');
+      alert(demoReload.val());
+      table.reload('orderform', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+          orderformid: demoReload.val()
+        }
+      }, 'data');
+    }
+  };
+
+  $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+
       //监听工具条
       table.on('tool(orderform)', function(obj){
         var data = obj.data;
         if(obj.event === 'del'){
-          layer.confirm('真的删除吗', function(index){
-            obj.del();
-            layer.close(index);
+          layer.open({
+            type:0,
+            title:'删除订单' + data.orderformid,
+            area:['500px','250px'],
+            yes: function(layero,index){
+              $.ajax({
+                url: "/deleteOrder",
+                type: "GET",
+                // data: {eqptType: data.eqptType, eqptIdCode: data.eqptIdCode},
+                // success: function (msg) {
+                //   // if (msg == 200) {
+                //   //   //删除这一行
+                //   //   obj.del();
+                //   //   //关闭弹框
+                //   //   layer.close(index);
+                //   //   layer.msg("删除成功", {icon: 6});
+                //   // } else {
+                //   //   layer.msg("删除失败", {icon: 5});
+                //   // }
+                // }
+              });
+
+              layer.close(layero);
+            }
+
           });
         } else if(obj.event === 'edit'){
           layer.open({
@@ -81,29 +140,21 @@ layui.use('table', function(){
 
               //将弹窗页面中属性名name="orderformid"的标签赋值
               body.find("[name='orderformid']").val(data.orderformid);
+            },
+            cancel: function(layero, index){
+              alert('q');
+              table.reload('orderform', {
+                page: {
+                  curr: 1 //重新从第 1 页开始
+                }
+              });
             }
-            });
+          });
         }
       });
 
 });
 
-$('#queryOrder').click(function () {
-  var te = $('input[name=orderformid]').val();
-  if (te===''||te==null){
-    $('input[name=orderformid]').val("").focus();
-    layer.msg("请输入搜索信息")
-  }else {
-    var table = layui.table;
-    table.reload('orderform', {
-      url: '/QueryOrderById'
-      ,where: {
-        "orderformid":te
-      } //设定异步数据接口的额外参数
-      //,height: 300
-    });
-  }
-});
   </script>
 </body>
 </html>

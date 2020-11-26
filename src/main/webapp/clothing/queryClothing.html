@@ -31,23 +31,23 @@
         elem: '#clothing'
         ,height: 400
         ,even: true
-        ,url: '' //数据接口
+        ,url: '/admin/SelectAllClothing' //数据接口
         ,page: true //开启分页
         ,where:{
-          clothing:0
+          clothingid:0
         }
         ,cols: [[ //表头
-          {field: 'clothingId', title: '服装编号',  fixed: 'left',sort: true}
-          ,{field: 'clothingName', title: '服装名字'}
-          ,{field: 'clothingDescr', title: '服装描述'}
-          ,{field: 'clothingPrice', title: '服装价格',sort: true} 
-          ,{field: 'clothingRentPrice', title: '服装租赁价格',sort: true}
-          ,{field: 'clothingMonRentalAmount', title: '服装月租赁量',sort: true}
-          ,{field: 'clothingMonthlySales', title: '服装月销售量',sort: true}
-          ,{field: 'clothingStatus', title: '服装状态',sort: true} 
-          ,{field: 'clothingNum', title: '服装数量',sort: true}
-          ,{field: 'clothingPic', title: '服装图片'}
-          ,{field: 'clothingCost', title: '服装成本价格',sort: true}
+          {field: 'clothingid', title: '服装编号',  fixed: 'left',sort: true}
+          ,{field: 'clothingname', title: '服装名字'}
+          ,{field: 'clothingdescr', title: '服装描述'}
+          ,{field: 'clothingprice', title: '服装价格',sort: true}
+          ,{field: 'clothingrentprice', title: '服装租赁价格',sort: true}
+          ,{field: 'clothingmonrentalamount', title: '服装月租赁量',sort: true}
+          ,{field: 'clothingmonthlysales', title: '服装月销售量',sort: true}
+          ,{field: 'clothingstatus', title: '服装状态',sort: true}
+          ,{field: 'clothingnum', title: '服装数量',sort: true}
+          ,{field: 'clothingpic', title: '服装图片'}
+          ,{field: 'clothingcost', title: '服装成本价格',sort: true}
         ]]
         
       });

@@ -91,12 +91,12 @@ layui.use('table', function(){
               $.ajax({
                 url: "/deleteOrder",
                 type: "GET",
+                data:{orderformid:data.orderformid},
+                // where:{
+                //   orderformid:data.orderformid
+                // }
               });
-              table.reload('orderform', {
-                page: {
-                  curr: 1 //重新从第 1 页开始
-                }
-              });
+              obj.del();
               layer.close(layero);
             }
 

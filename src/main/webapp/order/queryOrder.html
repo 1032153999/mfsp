@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <script src="../layui/layui.js" charset="utf-8"></script>
+  <script src="../js/jquery.min.js"></script>
+</head>
+<body class="layui-layout-body">
+    <div class="layui-form-item">&nbsp;</div>
+    <div class="layui-form-item">
+      <label class="layui-form-label ">账单号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="id" id="id" placeholder="" autocomplete="off" class="layui-input">
+      </div>
+      <div class="layui-input-inline">
+        <!--<input type="button" class="layui-btn" id="but01s" value="查找">-->
+        <button class="layui-btn" data-type="reload">搜索</button>
+      </div>
+    </div>
+    <div class="layui-form-item">&nbsp;</div>
+  <table id="orderform" lay-filter="orderform"></table>
+
+  <script>
+
+layui.use('table', function(){
+      var table = layui.table;
+      table.render({
+        elem: '#orderform'
+        ,id:'orderform'
+        ,height: 400
+        ,even: true
+        ,url: '/QueryOrderById' //数据接口
+        ,page: true //开启分页
+        ,where:{
+          orderformid:0
+        }
+        ,cols: [[ //表头
+          {field: 'orderformid', title: '订单编号',  fixed: 'left',sort: true}
+          ,{field: 'orderformclass', title: '订单类型',sort: true}
+          ,{field: 'userid', title: '用户Id',sort: true}
+          ,{field: 'realityrentaltime', title: '租赁时间'}
+          ,{field: 'starttime', title: '下单时间'}
+          ,{field: 'preconcertedreturntime', title: '服装预定归还时间'}
+          ,{field: 'realityreturmtime', title: '服装实际归还时间'}
+          ,{field: 'orderformaddress', title: '用户地址'}
+          ,{field: 'totalprice', title: '订单总价'}
+          ,{field: 'remark', title: '订单留言'}
+          ,{field: 'orderstatus', title: '订单状态'}
+        ]]
+
+      });
+
+  var $ = layui.$, active = {
+    reload: function(){
+      //执行重载
+      var demoReload = $('#id');
+      alert(demoReload.val());
+      table.reload('orderform', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+          orderformid: demoReload.val()
+        }
+      }, 'data');
+    }
+  };
+
+  $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+
+
+});
+
+  </script>
+</body>
+</html>

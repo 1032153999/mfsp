@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="../layui/css/layui.css" media="all">
   <script src="../layui/layui.js" charset="utf-8"></script>
   <script src="../js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-  <form class="layui-form" action="">
+  <form class="layui-form" id="clothingform" action="">
 
     <div class="layui-form-item">
         <label class="layui-form-label ">服装名字</label>
@@ -46,7 +46,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">服装描述</label>
         <div class="layui-input-inline">
-          <input type="text" name="clothingDescr" placeholder="" autocomplete="off" class="layui-input">
+          <input type="text" name="clothingdescr" id="clothingdescr" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -66,8 +66,22 @@
         var form = layui.form;
         
         //监听提交
-        form.on('submit(addClothing)', function(data){
-          layer.msg(JSON.stringify(data.field));
+        form.on('submit(addClothing)', function(){
+            var data = form.val("clothingform");
+            $.ajax({
+                url: "",
+                type: "GET",
+                where:{
+                    clothing:data,
+                    /*clothingname:data.clothingname.val(),
+                    clothingprice:data.clothingprice.val(),
+                    clothingrentprice:data.clothingrentprice.val(),
+                    clothingnum:data.clothingnum.val(),
+                    clothingcost:data.clothingcost.val(),
+                    clothingpic:data.clothingpic.val(),
+                    clothingdescr:date.clothingdescr.val()*/
+                }
+            });
           var table = layui.table;
           table.reload('clothing', {
               page: {
@@ -84,20 +98,23 @@
         elem: '#clothing'
         ,height: 400
         ,even: true
-        ,url: '' //数据接口
+        ,url: '/admin/addClothing' //数据接口
         ,page: true //开启分页
+          ,where:{
+              clothingid:0
+          }
         ,cols: [[ //表头
-          {field: 'clothingId', title: '服装编号',  fixed: 'left',sort: true}
-          ,{field: 'clothingName', title: '服装名字'}
-          ,{field: 'clothingDescr', title: '服装描述'}
-          ,{field: 'clothingPrice', title: '服装价格',sort: true} 
-          ,{field: 'clothingRentPrice', title: '服装租赁价格',sort: true}
-          ,{field: 'clothingMonRentalAmount', title: '服装月租赁量',sort: true}
-          ,{field: 'clothingMonthlySales', title: '服装月销售量',sort: true}
-          ,{field: 'clothingStatus', title: '服装状态',sort: true} 
-          ,{field: 'clothingNum', title: '服装数量',sort: true}
-          ,{field: 'clothingPic', title: '服装图片'}
-          ,{field: 'clothingCost', title: '服装成本价格',sort: true}
+          {field: 'clothingid', title: '服装编号',  fixed: 'left',sort: true}
+          ,{field: 'clothingname', title: '服装名字'}
+          ,{field: 'clothingdescr', title: '服装描述'}
+          ,{field: 'clothingprice', title: '服装价格',sort: true}
+          ,{field: 'clothingrentprice', title: '服装租赁价格',sort: true}
+          ,{field: 'clothingmonrentalamount', title: '服装月租赁量',sort: true}
+          ,{field: 'clothingmonthlysales', title: '服装月销售量',sort: true}
+          ,{field: 'clothingstatus', title: '服装状态',sort: true}
+          ,{field: 'clothingnum', title: '服装数量',sort: true}
+          ,{field: 'clothingpic', title: '服装图片'}
+          ,{field: 'clothingcost', title: '服装成本价格',sort: true}
         ]]
         
       });

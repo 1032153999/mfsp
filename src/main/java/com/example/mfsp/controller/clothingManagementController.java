@@ -76,9 +76,22 @@ public class clothingManagementController {
     */
     @RequestMapping(value = "/addClothing",method=RequestMethod.GET)
     @ResponseBody
-    public String addClothing(Clothing clothing){
-        clothingservice.insert(clothing);
-        return "success";
+    public Map<String, Object> addClothing(Clothing clothing){
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<Clothing> clothings=new ArrayList<>();
+        if(clothing.getClothingid()==0){
+            clothings=clothingservice.selectAll();
+        }else {
+            clothingservice.insert(clothing);
+            clothings=clothingservice.selectAll();
+        }
+        result.put("code", 0);
+        result.put("msg", "");
+        result.put("count",clothings.size());
+        result.put("data", clothings);
+        String f=clothing.toString();
+        System.out.println(f);
+        return result;
     }
 
     /*删除服装信息
@@ -141,4 +154,6 @@ public class clothingManagementController {
 
         return result;
     }
+
+
 }

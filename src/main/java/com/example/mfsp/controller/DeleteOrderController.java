@@ -6,6 +6,7 @@ import com.example.mfsp.service.orderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -16,13 +17,45 @@ public class DeleteOrderController {
 
     @GetMapping("/deleteOrder")
     @ResponseBody
-    public String deleteOrder(){
-        System.out.println("del");
-        Orderform orderform=new Orderform();
-        orderform.setOrderformid(4);
-        //orderService.delete(orderform);
+    public String deleteOrder(Orderform orderform){
+
+//        Orderform orderform=new Orderform();
+//        orderform.setOrderformid(orderformid);
+
+//        orderform.toString();
+        System.out.println("del"+ orderform.toString());
+        if(orderform.getOrderformid()==null){
+            System.out.println("orderform.getOrderformid()==null");
+        }else {
+            System.out.println("orderform.getOrderformid()==nonull");
+            orderService.delete(orderform);
+
+        }
 
 
         return "success";
     }
+
+    @GetMapping("/deleteOrderById")
+    @ResponseBody
+    public String deleteOrderById(@RequestParam("orderformid")  Integer orderformid){
+
+        Orderform orderform=new Orderform();
+        orderform.setOrderformid(orderformid);
+
+        System.out.println("del"+ orderform.toString());
+        if(orderform.getOrderformid()==null){
+            System.out.println("orderform.getOrderformid()==null");
+        }else {
+            System.out.println("orderform.getOrderformid()==nonull");
+//            orderService.delete(orderform);
+
+        }
+
+
+        return "success";
+    }
+
+
+
 }

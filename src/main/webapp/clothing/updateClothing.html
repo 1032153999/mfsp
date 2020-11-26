@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <script src="../layui/layui.js" charset="utf-8"></script>
+  <script src="../js/jquery.min.js"></script>
+</head>
+<body class="layui-layout-body">
+  <div class="layui-form-item">&nbsp;</div>
+    <div class="layui-form-item">
+      <label class="layui-form-label ">服装号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="id" id="id" placeholder="" autocomplete="off" class="layui-input">
+      </div>
+      <div class="layui-input-inline">
+        <!--<input type="button" class="layui-btn" id="but01s" value="查找">-->
+        <button class="layui-btn" data-type="reload">搜索</button>
+      </div>
+    </div>
+    <div class="layui-form-item">&nbsp;</div>
+  <table id="clothing" lay-filter="clothing"></table>
+  <script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  </script>
+    <script>
+      layui.use('table', function(){
+      var table = layui.table;
+      table.render({
+        elem: '#clothing'
+        ,height: 400
+        ,even: true
+        ,url: '' //数据接口
+        ,page: true //开启分页
+        ,where:{
+          clothing:0
+        }
+        ,cols: [[ //表头
+          {field: 'clothingId', title: '服装编号',  fixed: 'left',sort: true}
+          ,{field: 'clothingName', title: '服装名字'}
+          ,{field: 'clothingDescr', title: '服装描述'}
+          ,{field: 'clothingPrice', title: '服装价格',sort: true} 
+          ,{field: 'clothingRentPrice', title: '服装租赁价格',sort: true}
+          ,{field: 'clothingMonRentalAmount', title: '服装月租赁量',sort: true}
+          ,{field: 'clothingMonthlySales', title: '服装月销售量',sort: true}
+          ,{field: 'clothingStatus', title: '服装状态',sort: true} 
+          ,{field: 'clothingNum', title: '服装数量',sort: true}
+          ,{field: 'clothingPic', title: '服装图片'}
+          ,{field: 'clothingCost', title: '服装成本价格',sort: true}
+          ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
+        ]]
+        
+      });
+      var $ = layui.$, active = {
+    reload: function(){
+      //执行重载
+      var demoReload = $('#id');
+      alert(demoReload.val());
+      table.reload('clothing', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+          clothingid: demoReload.val()
+        }
+      }, 'data');
+    }
+  };
+
+  $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+
+  table.on('tool(clothing)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'edit'){
+          layer.open({
+            type:2,
+            title:'修改' + data.clothingname,
+            content:'./editClothing.html',
+            area:['500px','250px'],
+            success: function (layero, index) {
+              //向layer页面传值，传值主要代码
+              var body = layer.getChildFrame('body', index);
+
+              //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+              //var iframeWin = window[layero.find('iframe')[0]['name']];
+
+              //将弹窗页面中属性名name="orderformid"的标签赋值
+              body.find("[name='clothingid']").val(data.clothingid);
+            },
+            cancel: function(layero, index){
+              table.reload('clothing', {
+                page: {
+                  curr: 1 //重新从第 1 页开始
+                }
+              });
+            }
+          });
+        }
+      });
+    });
+    </script>
+    </body>
+</html>

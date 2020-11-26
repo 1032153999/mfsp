@@ -11,9 +11,9 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-    <div class="layui-form-item">&nbsp;</div>
+  <div class="layui-form-item">&nbsp;</div>
     <div class="layui-form-item">
-      <label class="layui-form-label ">账单号</label>
+      <label class="layui-form-label ">服装号</label>
       <div class="layui-input-inline">
         <input type="text" name="id" id="id" placeholder="" autocomplete="off" class="layui-input">
       </div>
@@ -23,52 +23,49 @@
       </div>
     </div>
     <div class="layui-form-item">&nbsp;</div>
-  <table id="orderform" lay-filter="orderform"></table>
+  <table id="clothing" lay-filter="clothing"></table>
   <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
-  <script>
-
-layui.use('table', function(){
+    <script>
+      layui.use('table', function(){
       var table = layui.table;
       table.render({
-        elem: '#orderform'
-        ,id:'orderform'
+        elem: '#clothing'
         ,height: 400
         ,even: true
-        ,url: '/QueryOrderById' //数据接口
+        ,url: '' //数据接口
         ,page: true //开启分页
         ,where:{
-          orderformid:0
+          clothing:0
         }
         ,cols: [[ //表头
-          {field: 'orderformid', title: '订单编号',  fixed: 'left',sort: true}
-          ,{field: 'orderformclass', title: '订单类型',sort: true}
-          ,{field: 'userid', title: '用户Id',sort: true}
-          ,{field: 'realityrentaltime', title: '租赁时间'}
-          ,{field: 'starttime', title: '下单时间'}
-          ,{field: 'preconcertedreturntime', title: '服装预定归还时间'}
-          ,{field: 'realityreturmtime', title: '服装实际归还时间'}
-          ,{field: 'orderformaddress', title: '用户地址'}
-          ,{field: 'totalprice', title: '订单总价'}
-          ,{field: 'remark', title: '订单留言'}
-          ,{field: 'orderstatus', title: '订单状态'}
+          {field: 'clothingId', title: '服装编号',  fixed: 'left',sort: true}
+          ,{field: 'clothingName', title: '服装名字'}
+          ,{field: 'clothingDescr', title: '服装描述'}
+          ,{field: 'clothingPrice', title: '服装价格',sort: true} 
+          ,{field: 'clothingRentPrice', title: '服装租赁价格',sort: true}
+          ,{field: 'clothingMonRentalAmount', title: '服装月租赁量',sort: true}
+          ,{field: 'clothingMonthlySales', title: '服装月销售量',sort: true}
+          ,{field: 'clothingStatus', title: '服装状态',sort: true} 
+          ,{field: 'clothingNum', title: '服装数量',sort: true}
+          ,{field: 'clothingPic', title: '服装图片'}
+          ,{field: 'clothingCost', title: '服装成本价格',sort: true}
           ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
         ]]
-
+        
       });
-
-  var $ = layui.$, active = {
+      var $ = layui.$, active = {
     reload: function(){
       //执行重载
       var demoReload = $('#id');
       alert(demoReload.val());
-      table.reload('orderform', {
+      table.reload('clothing', {
         page: {
           curr: 1 //重新从第 1 页开始
         }
         ,where: {
-          orderformid: demoReload.val()
+          clothingid: demoReload.val()
         }
       }, 'data');
     }
@@ -79,24 +76,20 @@ layui.use('table', function(){
     active[type] ? active[type].call(this) : '';
   });
 
-      //监听工具条
-      table.on('tool(orderform)', function(obj){
+  table.on('tool(clothing)', function(obj){
         var data = obj.data;
         if(obj.event === 'del'){
           layer.open({
             type:0,
-            title:'删除订单' + data.orderformid,
+            title:'删除' + data.clothingname,
             area:['500px','250px'],
             yes: function(layero,index){
               $.ajax({
-                url: "/deleteOrder",
+                url: "",
                 type: "GET",
-                data:{orderformid:data.orderformid},
-                // where:{
-                //   orderformid:data.orderformid
-                // }
+                data:{clothingid:data.clothingid}
               });
-              obj.del();
+              obj.del()
               layer.close(layero);
             }
 
@@ -104,8 +97,7 @@ layui.use('table', function(){
         }
       });
 
-});
-
-  </script>
-</body>
+    });
+    </script>
+    </body>
 </html>

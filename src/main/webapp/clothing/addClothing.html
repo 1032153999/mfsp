@@ -11,7 +11,7 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-  <form class="layui-form" action="">
+  <form class="layui-form" id="clothingform" action="">
 
     <div class="layui-form-item">
         <label class="layui-form-label ">服装名字</label>
@@ -46,7 +46,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">服装描述</label>
         <div class="layui-input-inline">
-          <input type="text" name="clothingDescr" placeholder="" autocomplete="off" class="layui-input">
+          <input type="text" name="clothingdescr" id="clothingdescr" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -66,8 +66,22 @@
         var form = layui.form;
         
         //监听提交
-        form.on('submit(addClothing)', function(data){
-          layer.msg(JSON.stringify(data.field));
+        form.on('submit(addClothing)', function(){
+            var data = form.val("clothingform");
+            $.ajax({
+                url: "",
+                type: "GET",
+                where:{
+                    clothing:data,
+                    /*clothingname:data.clothingname.val(),
+                    clothingprice:data.clothingprice.val(),
+                    clothingrentprice:data.clothingrentprice.val(),
+                    clothingnum:data.clothingnum.val(),
+                    clothingcost:data.clothingcost.val(),
+                    clothingpic:data.clothingpic.val(),
+                    clothingdescr:date.clothingdescr.val()*/
+                }
+            });
           var table = layui.table;
           table.reload('clothing', {
               page: {

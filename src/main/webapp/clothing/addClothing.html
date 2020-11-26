@@ -127,7 +127,6 @@
               var clothingcost = $('#clothingcost');
               var clothingpic = $('#clothingpic');
               var clothingdescr = $('#clothingdescr');
-              alert(clothingnum.val());
               $.ajax({
                   url: "/admin/addClothing",
                   type: "GET",
@@ -139,6 +138,12 @@
                       clothingnum:clothingnum.val(),
                       clothingcost:clothingcost.val(),
                       clothingpic:clothingpic.val()
+                  }
+              });
+              var table = layui.table;
+              table.reload('clothing', {
+                  page: {
+                      curr: 1 //重新从第 1 页开始
                   }
               });
           }
@@ -165,7 +170,15 @@
                 obj.preview(function(index, file, result){
                     $('#clothingpic').attr('src', result); //图片链接（base64）
                 });
+            }
+            ,done: function (res) {
+                //如果上传失败
+                if (res.code == 250) {
+                    return layer.msg('上传项目图片失败',{icon: 5});
                 }
+                //上传成功,获得图片地址
+                $('#clothingpic').attr('src', res.data);
+            }
         });
         });
         

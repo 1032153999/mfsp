@@ -11,7 +11,6 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-  <form class="layui-form" id="clothingform" action="">
 
     <div class="layui-form-item">
         <label class="layui-form-label ">服装名字</label>
@@ -48,13 +47,11 @@
         <div class="layui-input-inline">
           <input type="text" name="clothingdescr" id="clothingdescr" placeholder="" autocomplete="off" class="layui-input">
         </div>
-    </div>
-    <div class="layui-form-item">
-      <div class="layui-input-block">
-        <button class="layui-btn" lay-submit lay-filter="addClothing">立即提交</button>
+      <div class="layui-input-inline">
+          <button class="layui-btn" data-type="addClothing">上传</button>
       </div>
     </div> 
-</form>
+
 
         <!-- 内容主体区域 -->
         <table id="clothing" lay-filter="clothing"></table>
@@ -62,24 +59,25 @@
     </div>
     <script>
 
-      layui.use('form', function(){
+      /*layui.use('form', function(){
         var form = layui.form;
         
         //监听提交
         form.on('submit(addClothing)', function(){
             var data = form.val("clothingform");
+            alert(data);
             $.ajax({
-                url: "",
+                url: "/admin/addClothing",
                 type: "GET",
-                where:{
-                    clothing:data,
-                    /*clothingname:data.clothingname.val(),
-                    clothingprice:data.clothingprice.val(),
-                    clothingrentprice:data.clothingrentprice.val(),
-                    clothingnum:data.clothingnum.val(),
-                    clothingcost:data.clothingcost.val(),
-                    clothingpic:data.clothingpic.val(),
-                    clothingdescr:date.clothingdescr.val()*/
+                data:{
+                   /!* clothing:data,*!/
+                    clothingname:data.clothingname,
+                    clothingprice:data.clothingprice,
+                    clothingrentprice:data.clothingrentprice,
+                    clothingnum:data.clothingnum,
+                    clothingcost:data.clothingcost,
+                    clothingpic:data.clothingpic,
+                    clothingdescr:data.clothingdescr
                 }
             });
           var table = layui.table;
@@ -90,7 +88,7 @@
           });
           return false;
         });
-      });
+      });*/
 
       layui.use('table', function(){
       var table = layui.table;
@@ -98,7 +96,7 @@
         elem: '#clothing'
         ,height: 400
         ,even: true
-        ,url: '/admin/addClothing' //数据接口
+        ,url: '/admin/SelectAllClothing' //数据接口
         ,page: true //开启分页
           ,where:{
               clothingid:0
@@ -120,6 +118,37 @@
       });
     });
 
+      var $ = layui.$, active = {
+          addClothing: function(){
+              var clothingname = $('#clothingname');
+              var clothingprice = $('#clothingprice');
+              var clothingrentprice = $('#clothingrentprice');
+              var clothingnum = $('#clothingnum');
+              var clothingcost = $('#clothingcost');
+              var clothingpic = $('#clothingpic');
+              var clothingdescr = $('#clothingdescr');
+              alert(clothingnum.val());
+              $.ajax({
+                  url: "/admin/addClothing",
+                  type: "GET",
+                  data:{
+                      clothingname:clothingname.val(),
+                      clothingdescr:clothingdescr.val(),
+                      clothingprice:clothingprice.val(),
+                      clothingrentprice:clothingrentprice.val(),
+                      clothingnum:clothingnum.val(),
+                      clothingcost:clothingcost.val(),
+                      clothingpic:clothingpic.val()
+                  }
+              });
+          }
+      };
+
+      $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
+          var type = $(this).data('type');
+          active[type] ? active[type].call(this) : '';
+      });
+
     layui.use('upload', function(){
         var upload = layui.upload;
         
@@ -130,11 +159,11 @@
             ,accept: 'images'
             ,acceptMime: 'image/*'
             ,auto: false
-            ,bindAction: '#addClothing'
+            ,bindAction: ''
             ,choose: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#pic').attr('src', result); //图片链接（base64）
+                    $('#clothingpic').attr('src', result); //图片链接（base64）
                 });
                 }
         });

@@ -27,14 +27,18 @@ public class clothingManagementController {
     /*根据服装序号查找服装*/
     @RequestMapping(value="/SelectClothingById",method= RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> SelectClothingById(@RequestParam("id")  Integer id) {
+    public Map<String, Object> SelectClothingById(@RequestParam("Clothingid")  Integer id) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
         Clothing clothing=new Clothing();
         clothing.setClothingid(id);
         List<Clothing> clothings=new ArrayList<>();
-        clothings=clothingservice.selectAll(clothing);
+        if(clothing.getClothingid()==0){
+            clothings=clothingservice.selectAll();
+        }else{
+            clothings=clothingservice.selectAll(clothing);
+        }
         result.put("count",clothings.size());
         result.put("data", clothings);
       /*  System.out.println("endddd");
@@ -76,22 +80,30 @@ public class clothingManagementController {
     */
     @RequestMapping(value = "/addClothing",method=RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> addClothing(Clothing clothing){
-        Map<String, Object> result = new HashMap<String, Object>();
-        List<Clothing> clothings=new ArrayList<>();
-        if(clothing.getClothingid()==0){
-            clothings=clothingservice.selectAll();
-        }else {
-            clothingservice.insert(clothing);
-            clothings=clothingservice.selectAll();
+    public void addClothing(Clothing clothing){
+            System.out.println("已经进入");
+
+            System.out.println(clothing.getClothingnum());
+            System.out.println(clothing.getClothingpic());
+
+        /*Map<String, Object> result = new HashMap<String, Object>();
+        List<Clothing> clothings=new ArrayList<>();*/
+        clothingservice.insert(clothing);
+       /* if(clothing==null){
+            System.out.println("clothing is null");
         }
-        result.put("code", 0);
+        System.out.println(clothing.toString());*/
+           /* if(clothing.getClothingid()==0){
+                clothings=clothingservice.selectAll();
+            }else {
+                //clothingservice.insert(clothing);
+                clothings=clothingservice.selectAll();
+            }*/
+       /* result.put("code", 0);
         result.put("msg", "");
         result.put("count",clothings.size());
-        result.put("data", clothings);
-        String f=clothing.toString();
-        System.out.println(f);
-        return result;
+        result.put("data", clothings);*/
+
     }
 
     /*删除服装信息

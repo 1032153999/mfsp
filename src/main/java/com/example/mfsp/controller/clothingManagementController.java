@@ -4,17 +4,22 @@ package com.example.mfsp.controller;
 import com.example.mfsp.entity.Clothing;
 import com.example.mfsp.service.clothingService;
 import jdk.nashorn.internal.ir.RuntimeNode;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.jstl.sql.Result;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,12 +27,13 @@ public class clothingManagementController {
 
     @Autowired
     private clothingService clothingservice;
+    private Object ResultCodeConstants;
 
 
     /*根据服装序号查找服装*/
     @RequestMapping(value="/SelectClothingById",method= RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> SelectClothingById(@RequestParam("Clothingid")  Integer id) {
+    public Map<String, Object> SelectClothingById(@RequestParam("clothingid")  Integer id) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
@@ -67,12 +73,15 @@ public class clothingManagementController {
     /*修改服装信息
     * 返回情况不清楚*/
     @RequestMapping(value="/updateClothing",method= RequestMethod.GET)
-    public String updateOrder(Clothing clothing){
+    public String updateClothing(Clothing clothing){
+
+        System.out.println(clothing.getClothingid());
         clothingservice.updateByPrimaryKeySelective(clothing);
+
 
        /* String T=clothing.toString();
         System.out.println(T);*/
-        return "";
+        return "success";
     }
 
     /*添加服装信息
@@ -80,29 +89,10 @@ public class clothingManagementController {
     */
     @RequestMapping(value = "/addClothing",method=RequestMethod.GET)
     @ResponseBody
-    public void addClothing(Clothing clothing){
-            System.out.println("已经进入");
+    public void addClothing( Clothing clothing){
 
-            System.out.println(clothing.getClothingnum());
-            System.out.println(clothing.getClothingpic());
-
-        /*Map<String, Object> result = new HashMap<String, Object>();
-        List<Clothing> clothings=new ArrayList<>();*/
+        System.out.println(clothing.getClothingpic());
         clothingservice.insert(clothing);
-       /* if(clothing==null){
-            System.out.println("clothing is null");
-        }
-        System.out.println(clothing.toString());*/
-           /* if(clothing.getClothingid()==0){
-                clothings=clothingservice.selectAll();
-            }else {
-                //clothingservice.insert(clothing);
-                clothings=clothingservice.selectAll();
-            }*/
-       /* result.put("code", 0);
-        result.put("msg", "");
-        result.put("count",clothings.size());
-        result.put("data", clothings);*/
 
     }
 
@@ -110,12 +100,17 @@ public class clothingManagementController {
     返回情况不清楚
      */
 
-    @RequestMapping(value="/deleteByID",method=RequestMethod.GET)
+    @GetMapping("/deleteByID")
     @ResponseBody
-    public String deleteByID(@RequestParam("id")  Integer id){
-        Clothing clothing=new Clothing();
-        clothing.setClothingid(id);
-        clothingservice.delete(clothing);
+    public String deleteByID(Clothing clothing){
+
+        System.out.println("del"+ clothing.toString());
+        if(clothing.getClothingid()==null){
+            System.out.println("clothing.getClothingid()==null");
+        }else {
+            System.out.println("clothing.getClothingid()==nonull");
+            clothingservice.delete(clothing);
+        }
         return "success";
     }
 
@@ -167,5 +162,70 @@ public class clothingManagementController {
         return result;
     }
 
+
+    @ResponseBody
+    @RequestMapping("/upload")
+    public JSONObject upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException, JSONException {
+        JSONObject res = new JSONObject();
+        JSONObject resUrl = new JSONObject();
+
+        //String path = request.getSession().getServletContext().getRealPath("upload");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式  HH:mm:ss
+        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        /*路径*/
+        String path = "C:\\Users\\风\\Pictures\\Saved Pictures";
+        /*为命名准备*/
+        UUID uuid=UUID.randomUUID();
+        String originalFilename = file.getOriginalFilename();  /*应该是获取原始文件名*/
+        // String fileName = uuid.toString() + originalFilename;
+        /*拓展名 */
+        String extendName = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
+
+        /*新文件名*/
+        String fileName = uuid.toString() + extendName;
+        /*封装上传图片位置的全路径*/
+        File dir = new File(path+fileName);
+        /**/
+        File filepath = new File(path);
+        System.out.println("路径=="+filepath.getParentFile());
+        if(!filepath.getParentFile().exists()){
+            filepath.getParentFile().mkdirs();
+        }else{
+            System.out.println(filepath.getParentFile());
+        }
+//        if(!filepath.exists()) {
+        //把本地文件上传到封装上传文件位置的全路径
+        //使用transferTo(dest)方法将上传文件写到服务器上指定的文件;
+        file.transferTo(dir);
+        //获得当前项目所在路径
+        String pathRoot=request.getSession().getServletContext().getRealPath("");
+        System.out.println("当前项目所在路径："+pathRoot);
+
+        String sqlFile = "http://localhost:8080/"+fileName;
+        /*Clothing clothing =new Clothing();
+        clothing.setClothingpic(sqlFile);
+        clothingservice.insert(clothing);*/
+//        }
+        resUrl.put("src", sqlFile);
+        res.put("code", 0);
+        res.put("msg", "上传成功");
+        res.put("data", resUrl);
+        String str="";
+        str = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" +dir + "\"}}";
+
+        return res;
+
+        /*Map<String, String> map = new HashMap<>();
+        map.put("filePath", path);
+        map.put("fileName", fileName);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 0);
+        result.put("msg", "上传成功");
+        result.put("count", 1);
+        result.put("data", map);
+        return result;*/
+
+    }
 
 }

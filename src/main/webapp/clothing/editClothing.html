@@ -13,6 +13,7 @@
 </head>
 <body class="layui-layout-body">
     <form class="layui-form" action="">
+        <div class="layui-form-item">&nbsp;</div>
         <div class="layui-form-item">
             <label class="layui-form-label ">服装名字</label>
             <div class="layui-input-inline">
@@ -65,7 +66,7 @@
 
             //执行实例
             var uploadInst = upload.render({
-                elem: '#clothingpic' //绑定元素
+                elem: '#pic' //绑定元素
                 ,url: '' //上传接口
                 ,accept: 'images'
                 ,acceptMime: 'image/*'

@@ -1,23 +1,26 @@
 package com.example.mfsp.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.mfsp.entity.Clothing;
 import com.example.mfsp.service.clothingService;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import javax.servlet.jsp.jstl.sql.Result;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -165,7 +168,7 @@ public class clothingManagementController {
 
     @ResponseBody
     @RequestMapping("/upload")
-    public JSONObject upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException, JSONException {
+    public JSONObject upload(/*@RequestParam("clothingpic")*/MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException, JSONException {
         JSONObject res = new JSONObject();
         JSONObject resUrl = new JSONObject();
 
@@ -173,7 +176,7 @@ public class clothingManagementController {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式  HH:mm:ss
         String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         /*路径*/
-        String path = "C:\\Users\\风\\Pictures\\Saved Pictures";
+        String path = "C:\\Users\\风\\Desktop\\mfsp01\\src\\main\\webapp\\images\\photo";
         /*为命名准备*/
         UUID uuid=UUID.randomUUID();
         String originalFilename = file.getOriginalFilename();  /*应该是获取原始文件名*/
@@ -201,7 +204,7 @@ public class clothingManagementController {
         String pathRoot=request.getSession().getServletContext().getRealPath("");
         System.out.println("当前项目所在路径："+pathRoot);
 
-        String sqlFile = "http://localhost:8080/"+fileName;
+        String sqlFile = filepath.getParentFile()+fileName;
         /*Clothing clothing =new Clothing();
         clothing.setClothingpic(sqlFile);
         clothingservice.insert(clothing);*/
@@ -213,6 +216,7 @@ public class clothingManagementController {
         String str="";
         str = "{\"code\": 0,\"msg\": \"\",\"data\": {\"src\":\"" +dir + "\"}}";
 
+        System.out.println(str);
         return res;
 
         /*Map<String, String> map = new HashMap<>();

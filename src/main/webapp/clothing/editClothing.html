@@ -12,7 +12,7 @@
   <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body class="layui-layout-body">
-    <form class="layui-form" action="">
+    <form class="layui-form" action="/admin//updateClothing">
         <div class="layui-form-item">&nbsp;</div>
         <div class="layui-form-item">
             <label class="layui-form-label ">服装名字</label>
@@ -51,6 +51,9 @@
             <label class="layui-form-label">服装状态</label>
             <div class="layui-input-inline">
               <input type="text" name="clothingstatus" id=“clothingstatus” placeholder="" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <input type="hidden" class="layui-input layui-disabled" name="clothingid" id=“clothingid” >
             </div>
           <div class="layui-input-inline">
             <button class="layui-btn" lay-submit lay-filter="edit">修改</button>

@@ -97,6 +97,9 @@ layui.use('table', function(){
 
               //将弹窗页面中属性名name="orderformid"的标签赋值
               body.find("[name='orderformid']").val(data.orderformid);
+              body.find("[name='realityreturmtime']").val(data.realityreturmtime);
+              body.find("[name='orderstatus']").val(data.orderstatus);
+              body.find("[name='orderformaddress']").val(data.orderformaddress);
             },
             cancel: function(layero, index){
               table.reload('orderform', {

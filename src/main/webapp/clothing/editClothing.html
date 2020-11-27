@@ -40,8 +40,9 @@
             <label class="layui-form-label">服装图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="pic" name="pic"><i class="layui-icon">&#xe67c;</i>上传图片</button>
-                    <img class="layui-upload-img" width="60px" height="50px" id="clothingpic" name="clothingpic">
+                    <img class="layui-upload-img" width="60px" height="50px" id="picaddress" name="picaddress" src="/images/default.jpg">
                   </div>
+            <input type="hidden" class="layui-input layui-disabled" id="clothingpic" name="clothingpic">
             </div>
         <div class="layui-form-item">
             <label class="layui-form-label">服装描述</label>
@@ -76,16 +77,18 @@
                 ,choose: function(obj){
                     //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
-                        $('#clothingpic').attr('src', result); //图片链接（base64）
+                        $('#picaddress').attr('src', result); //图片链接（base64）
                     });
                 }
                 ,done: function (res) {
                     //如果上传失败
-                    if (res.code == 250) {
-                        return layer.msg('上传项目图片失败',{icon: 5});
+                    if(res.code > 0){
+                        return layer.msg('上传失败');
                     }
                     //上传成功,获得图片地址
-                    $('#clothingpic').attr('src', res.data);
+                    $("#picaddress").attr('src', res.data.src);
+                    $('#clothingpic').attr('value',res.data.src);
+
                 }
             });
         });

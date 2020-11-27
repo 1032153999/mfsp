@@ -94,6 +94,15 @@
 
               //将弹窗页面中属性名name="orderformid"的标签赋值
               body.find("[name='clothingid']").val(data.clothingid);
+              body.find("[name='clothingname']").val(data.clothingname);
+              body.find("[name='clothingprice']").val(data.clothingprice);
+              body.find("[name='clothingrentprice']").val(data.clothingrentprice);
+              body.find("[name='clothingnum']").val(data.clothingnum);
+              body.find("[name='clothingcost']").val(data.clothingcost);
+              body.find("[name='clothingpic']").val(data.clothingpic);
+              body.find("[name='clothingdescr']").val(data.clothingdescr);
+              body.find("[name='clothingstatus']").val(data.clothingstatus);
+
             },
             cancel: function(layero, index){
               table.reload('clothing', {

@@ -38,7 +38,7 @@
         <label class="layui-form-label">服装图片</label>
         <div class="layui-upload">
             <button type="button" class="layui-btn" id="pic" name="pic"><i class="layui-icon">&#xe67c;</i>上传图片</button>
-                <img class="layui-upload-img" width="60px" height="50px" id="picaddress" name="picaddress">
+                <img class="layui-upload-img" width="60px" height="50px" id="picaddress" name="picaddress" src='/images/default.jpg'>
               </div>
         <input type="hidden" class="layui-input layui-disabled" id="clothingpic" name="clothingpic">
         </div> 
@@ -95,7 +95,7 @@
       var table = layui.table;
       table.render({
         elem: '#clothing'
-        ,height: 400
+        ,height: 500
         ,even: true
         ,url: '/admin/SelectClothingById' //数据接口
         ,page: true //开启分页
@@ -112,7 +112,16 @@
           ,{field: 'clothingmonthlysales', title: '服装月销售量',sort: true}
           ,{field: 'clothingstatus', title: '服装状态',sort: true}
           ,{field: 'clothingnum', title: '服装数量',sort: true}
-          ,{field: 'clothingpic', title: '服装图片'}
+          ,{field: 'clothingpic', title: '服装图片',templet: function (d) {
+              if(d.clothingpic === ''||d.clothingpic == null){
+                  return "<img src='/images/default.jpg'>";
+                 /* return "<div style=\"width:95px;height:100px;\" ><a href=\"javascript:void(0)\" οnclick=\"Image('{{d.header}}')\" ><div id=\"imagetou1\" style=\"width:100%;height:100%;padding:0px;\" >\n" +
+                      "        <img src=\"/images/default.jpg\" style=\"width: 100%;height: 100%;\">\n" +
+                      "    </div></a></div>";*/
+              }else{
+                  return "<img src='" + d.clothingpic + "'>";
+              }
+          }}
           ,{field: 'clothingcost', title: '服装成本价格',sort: true}
         ]]
         
@@ -147,6 +156,22 @@
                       curr: 1 //重新从第 1 页开始
                   }
               });
+              let name = document.querySelector('#clothingname')
+              name.value = ""
+              let price = document.querySelector('#clothingprice')
+              price.value = "";
+              let rentprice = document.querySelector('#clothingrentprice')
+              rentprice.value = "";
+              let num = document.querySelector('#clothingnum')
+              num.value = "";
+              let cost = document.querySelector('#clothingcost')
+              cost.value = "";
+              let pic = document.querySelector('#clothingpic')
+              pic.value = "";
+              let address = document.querySelector('#picaddress')
+              address.src = "/images/default.jpg";
+              let descr = document.querySelector('#clothingdescr')
+              descr.value = "";
           }
       };
 
@@ -171,15 +196,13 @@
             }
             ,done: function (res) {
                 //如果上传失败
-                alert('123');
                 if(res.code > 0){
                     return layer.msg('上传失败');
                 }
                 //上传成功,获得图片地址
-                alert(res.data.src);
-                /*$("#picaddress").attr('src', res.data.src);
-                var document = $('#clothingpic').attr('src', res.data.src);
-                alert(document.val());*/
+                $("#picaddress").attr('src', res.data.src);
+                $('#clothingpic').attr('value',res.data.src);
+
             }
         });
         });

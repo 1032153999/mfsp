@@ -204,7 +204,7 @@ public class clothingManagementController {
         String pathRoot=request.getSession().getServletContext().getRealPath("");
         System.out.println("当前项目所在路径："+pathRoot);
 
-        String sqlFile = filepath.getParentFile()+fileName;
+        String sqlFile = "\\images\\photo"+fileName;
         /*Clothing clothing =new Clothing();
         clothing.setClothingpic(sqlFile);
         clothingservice.insert(clothing);*/

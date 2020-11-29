@@ -1,0 +1,221 @@
+/*去除浏览器默认样式*/
+* {
+	margin:0;
+	padding:0;
+}
+ 
+/*去掉超链接下划线*/
+a{
+	text-decoration: none;
+}
+ 
+/*设置总的div*/
+.container {
+	position: relative;
+	width: 900px;
+	height: 500px;
+	margin:100px auto 0 auto;
+	box-shadow: 0 0 1px rgb(51,122,183);
+	overflow: hidden;
+}
+ 
+/*设置装图片的div*/
+.container .wrap {
+	position: absolute;
+	width: 4200px;
+	height: 400px;
+	z-index: 1;
+}
+ 
+/*设置图片格式*/
+.container .wrap img {
+	float: left;
+	width: 600px;
+	height: 400px;
+}
+ 
+/*设置按钮位置*/
+.container .buttons {
+	position: absolute;
+	right: 50px;
+	bottom:40px;
+	width: 150px;
+	height: 10px;
+	z-index: 2;
+}
+ 
+/*设置按钮样式*/
+.container .buttons span {
+	margin-left: 5px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color:grey;
+	text-align: center;
+	color:white;
+	cursor: pointer;
+}
+ 
+/*按钮滚动颜色*/
+.container .buttons span.on{
+	background-color: rgb(51,122,183);
+}
+ 
+/*设置左右两个箭头*/
+.container .arrow {
+	position: absolute;
+	top: 35%;
+	color: rgb(51,122,183);
+	padding:0px 25px;
+	border-radius: 100%;
+	font-size: 50px;
+	z-index: 2;
+	
+	/*display: none;*/
+}
+ 
+/*左箭头*/
+.container .arrow_left {
+	left: 10px;
+	color: rgb(51,122,183);
+	display: none;
+}
+ 
+/*右箭头*/
+.container .arrow_right {
+	color: rgb(51,122,183);
+	right: 10px;
+	display: none;
+
+}
+ 
+/*设置箭头隐藏*/
+.container:hover .arrow {
+	display: block;
+}
+ 
+/*设置箭头被鼠标滑过的背景颜色*/
+.container .arrow:hover {
+	background-color: rgba(0,0,0,0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*轮播图*/
+.account_img_box{
+	margin-top: 32px;
+}
+#carousel,.picture img{
+	width: 847px;
+	height: 432px;
+}
+#carousel{
+	position: relative;
+	margin-top: 24px;
+	overflow: hidden;
+}
+.picture{
+	position: absolute;
+	font-size: 0;
+}
+.picture>li{
+	display: inline-block;
+}
+.pre,.next{
+	width: 28px;
+	height: 60px;
+	display: block;
+	background: #000;
+	opacity: .5;
+	color: #fff;
+	position: absolute;
+	top: 50%;
+	margin-top: -20px;
+	cursor: pointer;
+	z-index: 1;
+}
+.pre{
+	left: 0;						
+}
+.next{			
+	right: 0;
+}
+.pre .info_sprite{
+	width: 10px;
+	height: 15px;
+	background-position: -730px 0;
+	margin: 22px 0 0 8px;
+}
+.next .info_sprite{
+	width: 10px;
+	height: 15px;
+	background-position: -739px 0;
+	margin: 22px 0 0 11px;
+}
+.breviary{
+	position: absolute;
+	bottom: 19px;
+	left: 50%;
+	width: 616px;
+	height: 70px;
+	overflow: hidden;
+	margin-left: -308px;
+}
+.banner_bg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 847px;
+	height: 432px;
+	background: url(./img/banner_bg.png) no-repeat;
+	background-position: 0 272px;
+}
+.follow{
+	font-size: 0;
+}
+.text_align_c{
+	text-align: center;
+}
+.follow>li{
+	display: inline-block;
+	margin-left: 8px;
+	margin-top: 6px;
+	cursor: pointer;
+	vertical-align: top;
+	transition: All 0.3s ease-in-out;
+	-webkit-transition: All 0.3s ease-in-out;
+}
+.follow>li.hover{
+	margin-top: 0;
+}
+.follow>li:first-child{
+	margin-left: 0;
+}
+.follow>li:first-child img{
+	width: 132px;
+	height: 66px;
+	border: 2px solid #fff;
+}
+.follow>li img{
+	width: 112px;
+	height: 57px;
+}
+.follow .hover img{
+	border: 0px solid #fff;
+}
+
+
+.chothing_pic{
+	width: 300px;
+	height: 300px;
+}

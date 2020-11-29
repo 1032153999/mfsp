@@ -4,7 +4,7 @@ package com.example.mfsp.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.mfsp.entity.Clothing;
 import com.example.mfsp.service.clothingService;
-import jdk.nashorn.internal.ir.RuntimeNode;
+//import jdk.nashorn.internal.ir.RuntimeNode;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;

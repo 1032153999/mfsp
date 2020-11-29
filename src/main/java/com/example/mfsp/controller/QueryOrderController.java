@@ -58,6 +58,57 @@ public class QueryOrderController {
 
 
 
+    @RequestMapping(value="/QueryOrderByIdTest",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> queryOrderByIdTest(@RequestParam("orderformid")  Integer orderformid) {
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        System.out.println("QueryOrderByIdTest"+orderformid);
+        List<Orderform> orderforms=new ArrayList<>();
+        if(orderformid==0){
+            orderforms=orderService.selectAll();
+        }else {
+            Orderform orderform=new Orderform();
+            orderform.setOrderformid(orderformid);
+            orderforms=orderService.selectAll(orderform);
+        }
+
+        result.put("count",orderforms.size());
+        result.put("data", orderforms);
+
+        return result;
+    }
+
+    @RequestMapping(value="/QueryOrderByObjTest",method= RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> queryOrderByObjTest(@RequestBody(required = true) Orderform orderform) {
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        System.out.println("queryOrderByObjTest"+orderform.toString());
+        List<Orderform> orderforms=new ArrayList<>();
+        if(orderform.getOrderformid()==0){
+            orderforms=orderService.selectAll();
+        }else {
+//            Orderform orderform=new Orderform();
+//            orderform.setOrderformid(orderformid);
+            orderforms=orderService.selectAll(orderform);
+        }
+
+        result.put("count",orderforms.size());
+        result.put("data", orderforms);
+
+        return result;
+    }
+
+
+
+
+
+
 
 
 }

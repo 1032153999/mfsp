@@ -19,13 +19,14 @@ public class AddtoShoppingcartController {
     @ResponseBody
     public String addtoShoppingcart(Shoppingcart shoppingcart) {
 
+        System.out.println(shoppingcart.toString());
         shoppingcart.setShoppingcartid(65165156);
-        shoppingcart.setClothingid(4);
-        shoppingcart.setUserid(15);
+        shoppingcart.setClothingid(shoppingcart.getShoppingcartid());
+        shoppingcart.setUserid(shoppingcart.getUserid());
         shoppingcart.setSccnum(151);
         System.out.println("设置成功");
 
-        shoppingcartService.insert(shoppingcart);
+//        shoppingcartService.insert(shoppingcart);
 
         System.out.println("添加成功");
 

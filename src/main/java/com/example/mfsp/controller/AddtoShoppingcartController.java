@@ -23,7 +23,7 @@ public class AddtoShoppingcartController {
 
     @GetMapping("Addtoshoppingcart")
     @ResponseBody
-    public String addtoShoppingcart(Shoppingcart shoppingcart, @RequestParam("id")  Integer id) {
+    public String addtoShoppingcart(Shoppingcart shoppingcart) {
 
         Shoppingcart shoppingcart2 =new Shoppingcart();
         shoppingcart2.setUserid(19);
@@ -43,11 +43,11 @@ public class AddtoShoppingcartController {
         if (shoppingcarts2.size() == 1){
 
             shoppingcart.setSccnum(zhongzhuan+1000);
-            shoppingcartService.updateByPrimaryKeySelective(shoppingcart);
+//            shoppingcartService.updateByPrimaryKeySelective(shoppingcart);
 
         }
         else {
-            shoppingcartService.insert(shoppingcart);
+//            shoppingcartService.insert(shoppingcart);
             System.out.println("添加成功");}
 
         return "success";

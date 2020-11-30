@@ -27,6 +27,8 @@ public class User {
     //null int(10)
     private Integer phone;
 
+    private String userstatus;
+
 
     @Id
     @GeneratedValue()
@@ -39,6 +41,12 @@ public class User {
         this.userid = userid;
     }
 
+
+    @Column(name="userstatus")
+    public String getUserstatus(){ return  userstatus; }
+
+    public void setUserstatus(String userstatus){ this.userstatus=userstatus;
+    }
 
     @Column(name = "userName")
     public String getUsername() { return username; }

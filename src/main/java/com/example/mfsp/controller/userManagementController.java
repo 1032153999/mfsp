@@ -63,15 +63,35 @@ public class userManagementController {
         return result;
     }
 
-    @GetMapping("/deleteUserByID")
+
+    /*添加用户*/
+    @RequestMapping(value = "/addUser",method=RequestMethod.GET)
     @ResponseBody
-    public String deleteByID(User user) {
+    public void addUser(User user){
+
+        System.out.println("已经进入添加用户控制类");
+        System.out.println(user.getUserid());
+        userservice.insert(user);
+
+    }
+    @RequestMapping(value="/deleteUser",method= RequestMethod.GET)
+    @ResponseBody
+    public String deleteUser(User user){
+
+        System.out.println(user.getUserid());
+        user.setUserstatus("不存在");
+        userservice.updateByPrimaryKeySelective(user);
 
 
-        userservice.delete(user);
         return "success";
     }
 
+    @RequestMapping(value="/updateUserRole",method=RequestMethod.GET)
+    @ResponseBody
+    public String updateUserRole(User user){
+        userservice.updateByPrimaryKeySelective(user);
+        return "success";
+    }
     /*根据用户姓名  模糊查询*/
     @RequestMapping(value="/FuzzySearchUser", method=RequestMethod.GET)
     @ResponseBody

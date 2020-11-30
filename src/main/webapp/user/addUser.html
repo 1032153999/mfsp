@@ -63,7 +63,7 @@
         elem: '#user'
         ,height: 500
         ,even: true
-        ,url: '' //数据接口
+        ,url: '/SelectUserById' //数据接口
         ,page: true //开启分页
           ,where:{userid:0}
         ,cols: [[ //表头
@@ -80,7 +80,7 @@
                   var userid = $('#userid');
                   var userpassword = $('#userpassword');
                   $.ajax({
-                      url: "",
+                      url: "/addUser",
                       type: "GET",
                       data:{
                           userid:userid.val(),

@@ -36,25 +36,25 @@ public class DeleteOrderController {
         return "success";
     }
 
-    @GetMapping("/deleteOrderById")
-    @ResponseBody
-    public String deleteOrderById(@RequestParam("orderformid")  Integer orderformid){
-
-        Orderform orderform=new Orderform();
-        orderform.setOrderformid(orderformid);
-
-        System.out.println("del"+ orderform.toString());
-        if(orderform.getOrderformid()==null){
-            System.out.println("orderform.getOrderformid()==null");
-        }else {
-            System.out.println("orderform.getOrderformid()==nonull");
-//            orderService.delete(orderform);
-
-        }
-
-
-        return "success";
-    }
+//    @GetMapping("/deleteOrderById")
+//    @ResponseBody
+//    public String deleteOrderById(@RequestParam("orderformid")  Integer orderformid){
+//
+//        Orderform orderform=new Orderform();
+//        orderform.setOrderformid(orderformid);
+//
+//        System.out.println("del"+ orderform.toString());
+//        if(orderform.getOrderformid()==null){
+//            System.out.println("orderform.getOrderformid()==null");
+//        }else {
+//            System.out.println("orderform.getOrderformid()==nonull");
+////            orderService.delete(orderform);
+//
+//        }
+//
+//
+//        return "success";
+//    }
 
 
 

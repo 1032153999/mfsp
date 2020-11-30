@@ -14,7 +14,6 @@
 <body class="layui-layout-body">
         <!-- 内容主体区域 -->
 
-        <form class="layui-form" action="">
           <div class="layui-form-item">&nbsp;</div>
 
           <div class="layui-form-item">
@@ -29,11 +28,10 @@
           </div>
           <div class="layui-form-item">
             <div class="layui-input-block">
-              <button class="layui-btn" lay-submit lay-filter="addUser">立即提交</button>
+                <button class="layui-btn" data-type="addUser">提交</button>
             </div>
           </div> 
           <div class="layui-form-item">&nbsp;</div>
-        </form>    
 
 
         <table id="user" lay-filter="user"></table>
@@ -41,7 +39,7 @@
 
 
     <script>
-      //Demo
+      /*//Demo
       layui.use('form', function(){
         var form = layui.form;
         
@@ -56,14 +54,14 @@
           });
           return false;
         });
-      });
+      });*/
 
       //user表
       layui.use('table', function(){
       var table = layui.table;
       table.render({
         elem: '#user'
-        ,height: 450
+        ,height: 500
         ,even: true
         ,url: '' //数据接口
         ,page: true //开启分页
@@ -76,6 +74,36 @@
           ,{field: 'phone', title: '电话号码'}
         ]]
       });
+
+          var $ = layui.$, active = {
+              addUser: function(){
+                  var userid = $('#userid');
+                  var userpassword = $('#userpassword');
+                  $.ajax({
+                      url: "",
+                      type: "GET",
+                      data:{
+                          userid:userid.val(),
+                          userpassword:userpassword.val()
+                      }
+                  });
+                  var table = layui.table;
+                  table.reload('user', {
+                      page: {
+                          curr: 1 //重新从第 1 页开始
+                      }
+                  });
+                  let id = document.querySelector('#userid')
+                  id.value = ""
+                  let password = document.querySelector('#userpassword')
+                  password.value = "";
+              }
+          };
+
+          $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
+              var type = $(this).data('type');
+              active[type] ? active[type].call(this) : '';
+          });
     });
     </script>
     </body>

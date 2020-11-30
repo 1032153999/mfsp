@@ -6,10 +6,7 @@ import com.example.mfsp.entity.Orderform;
 import com.example.mfsp.service.clothingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +35,8 @@ public class QueryClothingController {
 //        return result;
 //    }
 
-// 通过ID查询单个服装数据    @RequestMapping(value="/QueryClothingById",method= RequestMethod.GET)
+// //通过ID查询单个服装数据
+//    @RequestMapping(value="/QueryClothingById",method= RequestMethod.GET)
 //    @ResponseBody
 //    public Map<String, Object> QueryClothingById(@RequestParam("id")  Integer id) {
 //        Map<String, Object> result = new HashMap<String, Object>();
@@ -79,6 +77,58 @@ public class QueryClothingController {
         }
         return result;
     }
+
+
+    //通过对象查询单个服装数据
+    @RequestMapping(value="/QueryClothingByObj",method= RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> QueryClothingByObj(@RequestBody(required = true)  Clothing clothing) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        List<Clothing> clothings=new ArrayList<>();
+        if(clothing.getClothingid()==null){
+            System.out.println("clothing.getClothingid()==null");
+            clothings =clothingService.selectAll();
+        }else {
+            clothings =clothingService.selectAll(clothing);
+
+        }
+
+
+        result.put("count",clothings.size());
+        result.put("data", clothings);
+
+        return result;
+    }
+
+ //通过ID查询单个服装数据
+    @RequestMapping(value="/QueryClothingById0",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> QueryClothingById(@RequestParam("clothingid")  Integer id) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        Clothing clothing=new Clothing();
+        List<Clothing> clothings=new ArrayList<>();
+        if(id==0){
+            clothings=clothingService.selectAll();
+        }else {
+            clothing.setClothingid(id);
+            clothings=clothingService.selectAll(clothing);
+        }
+
+
+
+
+
+        result.put("count",clothings.size());
+        result.put("data", clothings);
+        System.out.println("endddd");
+        return result;
+    }
+
+
 
 
 }

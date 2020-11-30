@@ -7,6 +7,7 @@ import com.example.mfsp.service.clothingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,16 +119,25 @@ public class QueryClothingController {
             clothings=clothingService.selectAll(clothing);
         }
 
-
-
-
-
         result.put("count",clothings.size());
         result.put("data", clothings);
         System.out.println("endddd");
         return result;
     }
 
+//跳转服装详细页面方法
+    @RequestMapping(value = "ceshi", method= RequestMethod.GET)
+    @ResponseBody
+     public ModelAndView toParticulars(List<Clothing> clothings,@RequestParam("clothingid")  Integer id){
+
+        Clothing clothing = new Clothing();
+        clothing.setClothingid(id);
+        clothings=clothingService.selectAll(clothing);
+        ModelAndView mav =new ModelAndView();
+        mav.setViewName("demo2.html");
+        mav.addObject("clothings",clothings);
+        return  mav;
+     }
 
 
 

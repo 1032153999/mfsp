@@ -18,9 +18,25 @@ public class userServiceImpl extends baseServiceImpl<User> implements userServic
 
 
     @Override
+    public List<User> findByName(String username) {
+        return usermapper.findByName(username);
+    }
+
+    @Override
+    public void register(User user) {
+        usermapper.register(user);
+    }
+
+    @Override
+    public List<User> findByName(String username, String userpassword) {
+        return null;
+    }
+
+    @Override
     public List<User> FuzzySearchUser(String username) {
 
         System.out.println(username);
         return usermapper.FuzzySearchUser(username);
     }
+
 }

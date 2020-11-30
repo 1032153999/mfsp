@@ -5,5 +5,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	
  
-	
+	<mappers>
+        <mapper resource="com.example.mfsp.dao.userMapper"/>
+    </mappers>
 </configuration>

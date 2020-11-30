@@ -22,6 +22,9 @@ public class userServiceImpl extends baseServiceImpl<User> implements userServic
         return usermapper.findByName(username);
     }
 
+ public User findByUserPassword(String username,String userpassword){
+     return usermapper.findByUserPassword(username, userpassword);
+ }
     @Override
     public void register(User user) {
         usermapper.register(user);
@@ -31,6 +34,8 @@ public class userServiceImpl extends baseServiceImpl<User> implements userServic
     public List<User> findByName(String username, String userpassword) {
         return null;
     }
+
+
 
     @Override
     public List<User> FuzzySearchUser(String username) {

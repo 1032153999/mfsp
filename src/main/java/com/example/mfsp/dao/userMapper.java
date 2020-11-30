@@ -19,6 +19,8 @@ public interface userMapper extends Mapper<User> {
      */
     List<User> findByName(String username);
 
+    User findByUserPassword(String username,String userpassword);
+
     /**
      * 注册
      * @param user

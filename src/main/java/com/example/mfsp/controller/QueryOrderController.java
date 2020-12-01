@@ -41,7 +41,7 @@ public class QueryOrderController {
         result.put("code", 0);
         result.put("msg", "");
 
-        List<Orderform> orderforms=new ArrayList<>();
+        List<Orderform> orderforms;
         if(orderformid==0){
             orderforms=orderService.selectAll();
         }else {
@@ -55,6 +55,34 @@ public class QueryOrderController {
 
         return result;
     }
+
+
+    @RequestMapping(value="/QueryOrderByUid",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> queryOrderByUid(@RequestParam("userid")  Integer userid) {
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+
+        List<Orderform> orderforms=new ArrayList<>();
+        if(userid==0){
+            orderforms=orderService.selectAll();
+        }else {
+            Orderform orderform=new Orderform();
+            orderform.setOrderformid(userid);
+            orderforms=orderService.selectAll(orderform);
+        }
+
+        result.put("count",orderforms.size());
+        result.put("data", orderforms);
+
+        return result;
+    }
+
+
+
+
 
 
 

@@ -118,12 +118,37 @@ public class QueryClothingController {
             clothing.setClothingid(id);
             clothings=clothingService.selectAll(clothing);
         }
+        System.out.println(clothings);
 
         result.put("count",clothings.size());
         result.put("data", clothings);
         System.out.println("endddd");
         return result;
     }
+
+
+    @RequestMapping(value = "QueryClothingByIdee", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toParticulars(@RequestParam("clothingid")  Integer id){//参数传入对象
+        Clothing clothing = new Clothing();
+        clothing.setClothingid(id);
+        Object yifu = clothingService.selectAll(clothing).get(0);
+        ModelAndView mav = new ModelAndView();
+        //要跳转的页面
+        mav.setViewName("admin.html");
+        //传入对象
+        mav.addObject("yifu",yifu);
+        System.out.println(mav.getViewName());
+
+
+        return mav;
+    }
+
+
+
+
+
+
 
 //跳转服装详细页面方法
     @RequestMapping(value = "ceshi", method= RequestMethod.GET)

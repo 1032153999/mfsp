@@ -36,7 +36,7 @@
 
 
 
-                <div class="nav navbar-nav navbar-right col-2">你好!{{username}}</div>
+                <div class="nav navbar-nav navbar-right col-2">你好!{{user.username}}</div>
                
 
                 <div class="nav navbar-nav navbar-right col-1">
@@ -49,10 +49,10 @@
                 </div>
 
                 <div class="nav navbar-nav navbar-right cart col-2">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
+                    <button class="btn btn-light" @click="checkOut">
+                       <a>
                                 <span class="glyphicon glyphicon-shopping-cart ">
-                                    <span class="badge badge-primary badge-pill">{{countNum}}</span> CheckedOut
+                                    <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
                                    
                                 </span>
                             </span>
@@ -217,7 +217,11 @@
         el: '#app',
         data:{
             sitename:"会员制时装共享平台",
-            username:"游客",
+            user:{
+                username:"游客",
+                userid:1,
+            },
+            count_Num:0,
             showclothing:true,
             RimgUrl:"",
             clothings:[
@@ -252,6 +256,7 @@
 
         mounted:function(){
             this.Query0();
+            this.checkOut0();
             this.play();
         },
 
@@ -259,6 +264,8 @@
             addToCart:function(clothing){
                 if(this.canAddToCart){
                     this.cart.push(clothing.clothingid)
+                   
+                   
                 }
               
 
@@ -269,7 +276,7 @@
                     type: 'get',
 
                     data: {clothingid:clothing.clothingid ,     //传单值到后台成功
-                            userid:1,
+                            userid:that.user.userid,
 
                     },
 
@@ -298,6 +305,58 @@
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
+            checkOut0(){
+              
+                let that = this;
+                $.ajax({
+                    url: 'QueryShoppingcart',
+
+                    type: 'get',
+
+                    data: {
+                        userid:that.user.userid ,     //传单值到后台成功
+                           
+
+                    },
+
+                    // dataType: "json",
+
+                    success: function (e) {
+                        console.log('success:', e);
+                     
+                        that.count_Num=e.count;
+                       
+                      
+                    }
+
+                })
+
+            },
+            checkOut(){
+              
+              let that = this;
+              $.ajax({
+                  url: 'QueryShoppingcart',
+
+                  type: 'get',
+
+                  data: {
+                      userid:that.user.userid ,     //传单值到后台成功
+                         
+
+                  },
+
+                  // dataType: "json",
+
+                  success: function (e) {
+                      console.log('success:', e);
+                    
+
+                  }
+
+              })
+
+          },
             //轮播图
             autoPlay:function(){
                     this.mark++;
@@ -326,7 +385,12 @@
                 },
 
                 //轮播图
+                goToSDetails:function (clothingid) {
+                
 
+                    window.open('clothingDetail.html?'+'clothingid=' + encodeURI(clothingid))
+
+                    },
 
 
 
@@ -366,39 +430,21 @@
                     }
 
                 })
+
+
+
+
             },
 
 
 
 
             Query(clothing){
-                alert("Query");
-                var _this = this;
-
-                $.ajax({
-                    url: 'QueryClothingById0',
-
-                    type: 'get',
-
-                    data: {clothingid: clothing.clothingid      //传单值到后台成功
-
-
-                    },
-
-                    // dataType: "json",
-
-                    success: function (e) {
-                        console.log('success:', e);
-
-                        _this.str = e;
-
-                    }
-
-                })
+                this.goToSDetails(clothing.clothingid);
+             
             }
 
 
-            // },
 
 
 
@@ -557,13 +603,15 @@
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
             countNum:function(){
-                countNum = 0
+                countNum = 0;
+                
                 for (let i in this.clothings){
                     let num = this.cartCount(this.clothings[i].clothingid)
                     countNum += num
                 }
                 return countNum
             },
+
             countMoney:function(){
                 
                 countMoney = 0

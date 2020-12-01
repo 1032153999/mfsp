@@ -22,21 +22,36 @@ public class QueryShoppingcartController {
     private shoppingcartService shoppingcartService;
 
     //通过userid查询用户的购物车
+//    @RequestMapping(value="/QueryShoppingcart",method= RequestMethod.GET)
+//    @ResponseBody
+//    public Map<String, Object> QueryShoppingcartbyid(@RequestParam("userid")  Integer id) {
+//        Map<String, Object> result = new HashMap<String, Object>();
+//        result.put("code", 0);
+//        result.put("msg", "");
+//        Shoppingcart shoppingcart =new Shoppingcart();
+//        shoppingcart.setUserid(id);
+//        List<Shoppingcart> shoppingcarts=new ArrayList<>();
+//        shoppingcarts= shoppingcartService.selectAll(shoppingcart);
+//        result.put("count",shoppingcarts.size());
+//        result.put("data", shoppingcarts);
+//        System.out.println("endddd");
+//        return result;
+//    }
+
     @RequestMapping(value="/QueryShoppingcart",method= RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> QueryShoppingcartbyid(@RequestParam("id")  Integer id) {
+    public Map<String, Object> QueryShoppingcartbyid(Shoppingcart shoppingcart) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
-        Shoppingcart shoppingcart =new Shoppingcart();
-        shoppingcart.setUserid(id);
+    System.out.println(shoppingcart.toString());
         List<Shoppingcart> shoppingcarts=new ArrayList<>();
+
         shoppingcarts= shoppingcartService.selectAll(shoppingcart);
         result.put("count",shoppingcarts.size());
         result.put("data", shoppingcarts);
         System.out.println("endddd");
         return result;
     }
-
 
 }

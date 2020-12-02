@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>demo</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <script src="../layui/layui.js" charset="utf-8"></script>
+  <script src="../js/jquery.min.js"></script>
+</head>
+<body class="layui-layout-body">
+  <h1> 三级联动查询 </h1>
+   <div id="sanji"></div>
+    <script>
+       $(document).ready(function(e) {
+      
+      //在DIV里面造三个下拉
+      $("#sanji").html("<select id='sheng'></select><select id='shi'></select><select id='qu'></select>");
+      
+      //填充数据
+      FillSheng(); //填充省的数据
+      FillShi(); //填充市的数据
+      FillQu(); //填充区的数据
+  
+      //填充省的方法
+      function FillSheng()
+      {
+          var code = "0001"; //省的父级代号
+         //调用ajax查询省的数据
+          $.ajax({
+              
+              async:false, //变为同步AJAX
+              url:"/queryProvince",
+              data:{code:code},
+              type:"GET",
+              dataType:"TEXT",
+              success: function(data){
+                      //拆分字符串，返回行的数组
+                      var hang = data.split(",");
+                      var str = "";
+                      for(var i=0;i<hang.length;i++)
+                      {
+                          /*var lie = hang[i].split("^");*/
+                          
+                          //var a=lie[0].trim();
+                          str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                      }
+                      //将所有的option放到省下拉里面
+                      $("#sheng").html(str);
+                  }
+              
+              });
+      }
+      
+      //填充市的方法
+      function FillShi()
+      {
+          var code = $("#sheng").val(); //市的父级代号
+  
+          //调用ajax查询省的数据
+          $.ajax({
+              
+              async:false, //变为同步AJAX
+              url:"/queryCity",
+              data:{province:code},
+              type:"GET",
+              dataType:"TEXT",
+              success: function(data){
+          
+                      //拆分字符串，返回行的数组
+                      var hang = data.split(",");
+                      var str = "";
+                      for(var i=0;i<hang.length;i++)
+                      {
+                          /*var lie = hang[i].split("^");*/
+                          //var a = lie[0].trim();
+                          str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                      }
+                      //将所有的option放到省下拉里面
+                      $("#shi").html(str);
+                  }
+              
+              });
+      }
+      
+      //填充区的方法
+      function FillQu()
+      {
+          var code = $("#shi").val(); //区的父级代号
+          var sheng = $("#sheng").val();
+          //调用ajax查询省的数据
+          $.ajax({
+              
+              async:false, //变为同步AJAX
+              url:"/queryDistrict",
+             data:{city:code,
+                 province:sheng},
+             type:"GET",
+             dataType:"TEXT",
+             success: function(data){
+                     //拆分字符串，返回行的数组
+                     var hang = data.split(",");
+                     var str = "";
+                     for(var i=0;i<hang.length;i++)
+                     {
+                         /*var lie = hang[i].split("^");*/
+                         
+                         str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                     }
+                     //将所有的option放到省下拉里面
+                     $("#qu").html(str);
+                 }
+             
+             });
+     }
+     
+     //当省的选中发生变化的时候，去改变市和区
+     $("#sheng").change(function(){
+             FillShi();
+             FillQu();
+         })
+         
+     //当市的选中发生变化的时候，去改变区
+     $("#shi").change(function(){
+             FillQu();
+         })
+ });
+    </script>
+</body>

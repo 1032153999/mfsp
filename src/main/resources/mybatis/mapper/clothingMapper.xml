@@ -5,4 +5,13 @@
     <select id="FuzzySearchClothing" resultType="com.example.mfsp.entity.Clothing" parameterType="com.example.mfsp.entity.Clothing">
         select * from clothing where clothingName like concat(concat('%',#{clothingname}),'%')
     </select>
+    <select id="findProvince" resultType="String" parameterType="com.example.mfsp.entity.Clothing">
+        select  DISTINCT province from city
+    </select>
+    <select id="findCity"  resultType="String" >
+        select  DISTINCT cityname from city where province=#{province}
+    </select>
+    <select id="findDistrict"  resultType="String" >
+        select  DISTINCT district from city where province=#{province} and cityname=#{city}
+    </select>
 </mapper>

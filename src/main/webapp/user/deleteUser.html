@@ -44,7 +44,7 @@
         elem: '#user'
         ,height: 500
         ,even: true
-        ,url: '' //数据接口
+        ,url: '/SelectUserById' //数据接口
         ,page: true //开启分页
           ,where:{
               userid:0
@@ -55,6 +55,7 @@
           ,{field: 'userpassword', title: '密码'}
           ,{field: 'userrole', title: '角色',sort: true}
           ,{field: 'phone', title: '电话号码'}
+          ,{field: 'userstatus', title: '用户状态',sort: true}
           ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
         ]]
       });
@@ -81,17 +82,21 @@
       });
 
       //监听工具条
-      table.on('tool(test)', function(obj){
+      table.on('tool(user)', function(obj){
         var data = obj.data;
         if(obj.event === 'del'){
           layer.open({
             type:0,
-            title:'删除用户' + data.username,
+            title:false,
+              content:'删除用户' + data.username,
             area:['500px','250px'],
             yes: function(layero,index){
               $.ajax({
-                url: "",
+                url: "/deleteUser",
                 type: "GET",
+                  data:{
+                    userid:data.userid
+                  }
               });
               table.reload('user', {
                 page: {

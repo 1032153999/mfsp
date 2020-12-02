@@ -22,8 +22,8 @@ public class userServiceImpl extends baseServiceImpl<User> implements userServic
         return usermapper.findByName(username);
     }
 
- public User findByUserPassword(String username,String userpassword){
-     return usermapper.findByUserPassword(username, userpassword);
+     public User findByUserPassword(Integer userid,String userpassword){
+     return usermapper.findByUserPassword(userid, userpassword);
  }
     @Override
     public void register(User user) {

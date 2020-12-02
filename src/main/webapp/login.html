@@ -33,7 +33,7 @@
 </style>
 </head>
 <body class="bg">
-    <form class="layui-form" action="">
+    <form class="layui-form" >
         <div class="layui-form-item">&nbsp;</div>
         <div class="layui-form-item">&nbsp;</div>
         <div class="layui-form-item">&nbsp;</div>
@@ -96,7 +96,7 @@
                     var userid = $('#userid');
                     var userpassword = $('#userpassword');
                     $.ajax({
-                        url:'',
+                        url:'/login',
                         type:'GET',
                         data:{
                             userid:userid.val(),

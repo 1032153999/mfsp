@@ -19,7 +19,7 @@ public class User {
     private String userpassword;
 
     //null varchar(20)
-    private String userrole;
+    private Integer userrole;
 
     //null varchar(50)
     private String userpic;
@@ -71,11 +71,11 @@ public class User {
 
 
     @Column(name = "userRole")
-    public String getUserrole() {
+    public Integer getUserrole() {
         return userrole;
     }
 
-    public void setUserrole(String userrole) {
+    public void setUserrole(Integer userrole) {
         this.userrole = userrole;
     }
 

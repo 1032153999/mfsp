@@ -20,10 +20,108 @@
 
 
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <style>
+        /* 弹窗部分css */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #shade{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index:100;
+        }
+        .shade-background{
+            width: 100%;
+            height: 100%;
+            background-color: rgb(59, 59, 59);
+            opacity: 0.5;
+            z-index:100;
+        }
+        #register{
+            position: relative;
+            background-color: #fff;
+            width: 500px;
+            height: 185px;
+            top: -70%;
+            margin: 0 auto;
+        }
+        
+        
+    </style>
 </head>
 
 <body>
 <div id='app'>
+
+
+
+
+    <div id="shade">
+        <!-- 弹窗部分 -->
+        <div class="shade-background"></div>
+        <div id="register">
+            
+            <!-- <div class="Modal-content"> -->
+               
+                <div class="row col-lg-12 " style="text-align:center">
+                    <br>
+                    <br>
+
+                    <div class=" col-lg-6">
+                        <label class　="radio-inline">
+                            <input type="radio" name="RentRadioOptions" id="rentByTimes" value="0" @click="testCheckBox()"><h4>
+                                按次租赁
+                            </h4>
+                          </label>
+                    </div>
+                    <div class=" col-lg-6">
+                        <input type="number"  class="form-control" min="1">
+                    </div>
+             
+                  
+
+                  </div>
+                  <div class="row col-lg-12" style="text-align:center">
+
+                    <div class=" col-lg-6">
+                        <label class　="radio-inline">
+                            <input type="radio" name="RentRadioOptions" value="1" id="rentByMonths" @click="testCheckBox()"><h4>
+                                按月租赁
+                            </h4>
+                          </label>
+                    </div>
+                    <div class=" col-lg-6">
+                        <input type="number"  class="form-control" min="1">
+                    </div>
+                  </div>
+
+                  <button  id="back" class="btn btn-primary">返回</button>   
+            <!-- <div class="row" style="text-align:center">
+               
+           <div class="col-lg-4">
+            <button type="submit" id="reg" class="btn btn-primary">注册</button>
+           </div>
+           <div class="col-lg-4">
+            <button type="submit" id="login" class="btn btn-primary">登陆</button>
+        </div>
+        <div class="col-lg-4">
+            <button  id="back" class="btn btn-primary">返回</button>   
+        </div>
+          
+          </div> -->
+         
+           
+            <!-- </div> -->
+           
+        </div>
+    </div>
+
+
+
+
     <div id="title">
 
 
@@ -36,7 +134,7 @@
 
 
 
-                <div class="nav navbar-nav navbar-right col-2">你好!{{username}}</div>
+                <div class="nav navbar-nav navbar-right col-2">你好!{{user.username}}</div>
                
 
                 <div class="nav navbar-nav navbar-right col-1">
@@ -49,10 +147,10 @@
                 </div>
 
                 <div class="nav navbar-nav navbar-right cart col-2">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
+                    <button class="btn btn-light" @click="checkOut">
+                       <a>
                                 <span class="glyphicon glyphicon-shopping-cart ">
-                                    <span class="badge badge-primary badge-pill">{{countNum}}</span> CheckedOut
+                                    <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
                                    
                                 </span>
                             </span>
@@ -124,7 +222,7 @@
         </div>
 
 
-        <div class="row "  style="text-align:center"  v-for="clothing in clothings">
+        <div class="row "  style="text-align:center"  v-for="(clothing,key) in clothings" :value="key">
             <div class="col-lg-2">
                {{clothing.clothingname}}
             </div>
@@ -133,30 +231,30 @@
             </div>
            
               <div class="col-lg-2">
-                {{clothing.clothingnum}}
+                {{shoppingCart[key].sccnum}}
               </div>
               <div class="col-lg-2">
-                {{clothing.clothingprice*clothing.clothingnum|formatclothingprice}}
+                {{clothing.clothingprice*shoppingCart[key].sccnum|formatclothingprice}}
               </div>
 
         </div>
         <br>
         <br>
         
+      
               <div class="col-lg-6">
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                    <h3>
-                        购买
-                    </h3> 
-                </label>
+                <button type="button" @click="showBuyButton" class="btn btn-info"> <h3>
+                    购买
+                </h3> </button>
+                   
+               
               </div>
               <div class="col-lg-6">
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 
-                    <h3>
-                        租赁
-                    </h3>
+
+                <button type="button" @click="showRentButton" class="btn btn-info" id="rentBtn"><h3>
+                    租赁
+                </h3></button>
+                    
                 
                 </label>
               </div>
@@ -211,29 +309,34 @@
         el: '#app',
         data:{
             sitename:"会员制时装共享平台",
-            username:"游客",
+            user:{
+                username:"游客",
+                userid:1,
+            },
+            showBuy:true,
+            showRent:false,
+            shadeDisplay:"block",
+
+
             showclothing:true,
             RimgUrl:"",
-            
+            radio:"check",
+           
+            count_Num:0,
+            shoppingCart:[
+
+            ],
             clothings:[
-            {
-                    clothingid: 1,
-                    clothingname: "garment",
-                    clothingdescr: "<em>new garment</em>",
-                    clothingprice: 699900,
-                    clothingpic: 'img/1.png',
-                    clothingnum: 4,
-                    sccnum:1,
-                },
-                {
-                    clothingid: 2,
-                    clothingname: "garment",
-                    clothingdescr: "<em>new garment</em>",
-                    clothingprice: 699900,
-                    clothingpic: 'img/1.png',
-                    clothingnum: 4,
-                    sccnum:1,
-                },
+            // {
+            //         clothingid: 1,
+            //         clothingname: "garment",
+            //         clothingdescr: "<em>new garment</em>",
+            //         clothingprice: 699900,
+            //         clothingpic: 'img/1.png',
+            //         clothingnum: 4,
+            //         sccnum:1,
+            //     },
+           
 
 
             ],
@@ -252,13 +355,8 @@
 
         },
 
-        // created:function(){
-        //     this.clothings.push(this.clothing);
-
-        // },
-
         mounted:function(){
-            // this.Query0();
+            this.checkOut0();
           
            
         },
@@ -294,6 +392,16 @@
 
 
             },
+            showBuyButton:function(){
+                    this.showBuy=true;
+                    this.showRent=false;
+                    
+                },
+                showRentButton:function(){
+                    this.showBuy=false;
+                    this.showRent=true;
+                    
+                },
             
             cartCount(clothingid){
                 let count = 0
@@ -307,8 +415,111 @@
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
-      
 
+            testCheckBox(){
+                var RentMethod = document.getElementsByName('RentRadioOptions');
+                
+                // var rBT =$("rentByTimes");
+                // var rBM =$("rentByMonths");
+                var inpAttr=$("input[name='RentRadioOptions']").attr("value")   
+                for (var i = 0; i < RentMethod.length; i++) {
+                        if (RentMethod[i].checked == true) {
+
+                        alert(RentMethod[i].value);
+                        }
+                        }
+                    },
+      
+            checkOut0(){
+              
+              let that = this;
+              $.ajax({
+                  url: 'QueryShoppingcart',
+                  type: 'get',
+                  data: {
+                      userid:that.user.userid ,     //传单值到后台成功
+                         
+
+                  },
+
+                  // dataType: "json",
+
+                  success: function (e) {
+                      console.log('success:', e);
+                   
+                      that.count_Num=e.count;
+
+                      for (let index = 0; index < e.data.length; index++) {
+                        that.shoppingCart.push(e.data[index]);
+
+
+
+
+
+                 
+                        $.ajax({
+                    url: 'QueryClothingById0',
+
+                    type: 'get',
+
+                    data: {clothingid: e.data[index].clothingid      //传单值到后台成功
+
+
+                    },
+
+               
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                      that.clothings.push(e.data[0]);
+                      if(that.shoppingCart[index].sccnum>e.data[0].clothingnum){
+
+                          alert("商品"+[index+1]+"库存数量不足，已设置为最大数量")
+                        that.shoppingCart[index].sccnum=e.data[0].clothingnum;
+                      }
+                      
+                    
+
+                    }
+
+                })
+
+
+                        }
+                    
+                    
+                  }
+
+              })
+            
+
+          },
+          checkOut(){
+            
+            let that = this;
+            $.ajax({
+                url: 'QueryShoppingcart',
+
+                type: 'get',
+
+                data: {
+                    userid:that.user.userid ,     //传单值到后台成功
+                       
+
+                },
+
+                // dataType: "json",
+
+                success: function (e) {
+                    console.log('success:', e);
+                  
+
+                }
+
+            })
+
+        },
 
 
 
@@ -352,17 +563,16 @@
 
 
 
-
-            Query(clothing){
+            Query(cid){
                 alert("Query");
-                var _this = this;
+                let that = this;
 
                 $.ajax({
                     url: 'QueryClothingById0',
 
                     type: 'get',
 
-                    data: {clothingid: clothing.clothingid      //传单值到后台成功
+                    data: {clothingid: cid      //传单值到后台成功
 
 
                     },
@@ -372,7 +582,8 @@
                     success: function (e) {
                         console.log('success:', e);
 
-                        _this.str = e;
+                      that.clothing=e.data[0];
+                    
 
                     }
 
@@ -380,124 +591,9 @@
             }
 
 
-            // },
-
-
-
-
-
-            //     created(clothing){
-            //         alert("created");
-            //         var _this = this;
-
-            //         $.ajax({
-            //         url: 'QueryOrderByIdTest',
-
-            //         type: 'get',
-
-            //         data: {orderformid: clothing.id      //传单值到后台成功
-
-
-            //         },
-
-            //         // dataType: "json",
-
-            //         success: function (e) {
-            //         console.log('success:', e);
-
-            //         _this.str = e;
-
-            //         }
-
-            //         })
-            //     }
-
-            // },
-
-
-
-
-
-
-            // Query(clothing){
-            //         alert("query")
-            //         var _this = this;
-            //         // alert( clothing.clothingid);
-            //         var clothing = {
-            //                     "clothingid": clothing.clothingid ,    //这两个属性要和实体类的属性一样
-
-            //                 };
-
-            //    //传对象到后台成功
-
-
-
-
-
-            //         $.ajax({
-            //         url: 'QueryClothingByObj',
-
-            //         type: 'POST',
-
-
-            //         // type:"Post",
-            //         dataType : "JSON",
-            //         contentType:"application/json; charset=utf-8",
-            //         data:JSON.stringify(clothing),
-
-
-
-
-            //         // dataType: "json",
-
-            //         success: function (e) {
-            //         console.log('success:', e);
-
-            //         _this.str = e;
-
-            //         if(e.count>0){
-
-            //         //     let n=0;
-            //         // while(n<e.data.length){
-
-
-
-            //         // alert("while"+e.data[n].clothingid);
-
-            //         // clothingB.id= e.data[n].clothingid,
-            //         // this.clothingB.title=e.data[n].userid,
-
-
-
-
-            //         // this.clothings.push(e.data[n].clothingid)
-
-            //         // listData:[],
-            //         // list:[{"张三","李四"}]
-            //         //比如想把另外一个数组中编列出来的值加入到这个数组中
-
-            //         // let data0[]=e.data;
-            //         for (let index = 0; index < _this.str.data.length; index++) {
-            //             alert(_this.str.data[index].clothingid)
-
-            //             let id=1;
-            //                 this.clothings.push(id)
-            //                 // this.clothings.push({ clothingid:"" });
-            //                 // this.clothings[index].clothingid=_this.str.data[index].clothingid;
-            //                 // this.listData[index].name= this.list[index];
-            //                 }
-
-            //             n++;
-            //         // }
-            //         }
-
-
-            //         }
-
-            //         })
-            //     }
 
         },
+        
 
 
 
@@ -571,7 +667,23 @@
     })
 
 </script>
+<!--弹窗部分js -->
+<script>
+    var shade = document.getElementById("shade");
+    var btn = document.getElementById("rentBtn");
+    var back = document.getElementById("back");
+  
 
+
+    btn.onclick = function(){
+        shade.style.display = "block"
+    }
+    back.onclick = function(){
+        shade.style.display = "none"
+    }
+
+
+</script>
 
 </body>
 

@@ -17,7 +17,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">用户数<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
                 <div class="layui-card-body">
-                    <h2>内容1</h2><br>123
+                    <h2 id="userCount">内容1</h2><br>123
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">销售量<span class="layui-badge layui-bg-orange" style="float:right">月</span></div>
                 <div class="layui-card-body">
-                    <h2>内容2</h2><br>231
+                    <h2 id="monthlysales">内容2</h2><br>231
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">租赁量<span class="layui-badge layui-bg-orange" style="float:right">月</span></div>
                 <div class="layui-card-body">
-                    <h2 id="abc">内容3</h2><br>456
+                    <h2 id="monrentalamount">内容3</h2><br>456
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">成交额<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
                 <div class="layui-card-body">
-                    <h2>内容4</h2><br>654
+                    <h2 id="totalprice">内容4</h2><br>654
                 </div>
             </div>
         </div>
@@ -61,9 +61,33 @@
               url:'',
               type: "GET",
               success:function(msg){
-                  $('#abc').text("msg");
+                  $('#monrentalamount').text(msg);
               }
           });
+
+        $.ajax({
+            url:'',
+            type: "GET",
+            success:function(msg){
+                $('#monthlysales').text(msg);
+            }
+        });
+
+        $.ajax({
+            url:'',
+            type: "GET",
+            success:function(msg){
+                $('#userCount').text(msg);
+            }
+        });
+
+        $.ajax({
+            url:'',
+            type: "GET",
+            success:function(msg){
+                $('#totalprice').text(msg);
+            }
+        });
       });
 </script>
 </body>

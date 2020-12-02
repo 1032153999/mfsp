@@ -12,6 +12,10 @@
         select * from user where userName = #{user}
     </select>
 
+    <select id="findByUserPassword" resultType="com.example.mfsp.entity.User" parameterType="String">
+            select * from user where userName=#{username} and userPassword=#{userpassword}
+    </select>
+
     <insert id="register" parameterType="com.example.mfsp.entity.User">
         <!--配置插入后能拿到id-->
         <!--        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">-->

@@ -36,7 +36,7 @@
 
 
 
-                <div class="nav navbar-nav navbar-right col-2">你好!{{user.username}}</div>
+                <div class="nav navbar-nav navbar-right col-2">你好!{{username}}</div>
                
 
                 <div class="nav navbar-nav navbar-right col-1">
@@ -49,10 +49,10 @@
                 </div>
 
                 <div class="nav navbar-nav navbar-right cart col-2">
-                    <button class="btn btn-light" @click="checkOut">
-                       <a>
+                    <button class="btn btn-light">
+                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
                                 <span class="glyphicon glyphicon-shopping-cart ">
-                                    <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
+                                    <span class="badge badge-primary badge-pill">{{countNum}}</span> CheckedOut
                                    
                                 </span>
                             </span>
@@ -80,128 +80,122 @@
 
     </div>
 
-
-
-                <div>
-
-                    <div class="row" style="text-align:center">
-
-                        <!-- 轮播图部分div -->
-                        <div class="col-lg-8">
-                            <div id="Carousel" class="container" @mouseout="play" @mouseover="stopPlay">
-
-                                <div v-for="(imgUrl, index) in bannerList" v-show="index==mark" :key="index"  class="wrap" >
-
-                                    <img :src=imgUrl >
-
-                                </div>
-                                <div class="buttons">
-                                    <span v-for="(item, index) in bannerList"  :key="index"  @mouseover="change(index)">{{index+1}}</span>
-                                </div>
-                                <a href="#" class="arrow arrow_left" @click="prev_pic">&lt;</a>
-                                <a href="#" class="arrow arrow_right" @click="autoPlay">&gt;</a>
-                            </div>
-                        </div>
-
-
-
-                        <!-- 轮播图右侧 -->
-                        <div class="col-lg-4">
-                            <div id="ad">
-                                <form>
-                                    <div class="row" style="text-align:center">
-                                        <div class="col-lg-8">
-                                            <input class="form-control" id="focusedInput" type="text" value="" placeholder="search">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <button type="submit" class="btn btn-default">Confirm</button>
-                                        </div>
-
-                                    </div>
-
-                                </form>
-                            </div>
-
-                            <img :src=RimgUrl>
-
-
-                        </div>
-                    </div>
-
-                </div>
-    <br>
-
-    <div class=" col-lg-12 col-lg-offset-1">
-        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-
-            <button type="button" class="btn btn-secondary">综合排序</button>
-
-
-            <button type="button" class="btn btn-secondary">价格</button>
-
-
-            <button type="button" class="btn btn-secondary">热度</button>
-
+    <main>
+        <div class=" col-lg-12 col-lg-offset-1">
+            <h1>
+                选择地址
+            </h1>
+            <div  v-for='(address,key) in addresses' :value="key">
+                <label class　="radio-inline">
+                    <input type="radio" name="inlineRadioOptions"> {{address}}  {{names[key]}}  {{phones[key]}} <a href="">修改地址</a>
+                  </label>
+            </div>
+            <br>
+           
+            
+            <button type="button" class="btn btn-default">使用新地址</button>
+         
+             
 
 
         </div>
-    </div>
+       
+    <br>
+    <br>
+    <div class=" col-lg-12 col-lg-offset-1">
+        <h1>
+            确认订单信息
+        </h1>
+        <div class="row "  style="text-align:center">
+            <div class="col-lg-2">
+                商品名字
+            </div>
+           
+            <div class="col-lg-2">
+                单价
+            </div>
+            <div class="col-lg-2">
+                数量
+            </div>
+            <div class="col-lg-2">
+                小计
+            </div>
 
-    <main>
-        <div id="clothing">
-
-
-            <div v-if="showclothing">
-                <div v-for="clothing in clothings">
-
-                    <div>
-                        <div class="col-lg-3">
-                            <figure class="" >
-                                <br><br>
-                                <img class='clothing chothing_pic' v-bind:src="clothing.clothingpic" alt=""  @click='Query(clothing)' >
-                            </figure>
-
-
-
-
-
-                            <h1>{{clothing.clothingname}}</h1>
-                            <!-- {{clothing.id}} -->
-                            <p v-html='clothing.clothingdescr'></p>
-                            <p>{{clothing.clothingprice|formatclothingprice}}</p>
-                            <div class="form-inline footer">
-                                <button class='btn btn-primary btn-lg '
-                                        @click='addToCart(clothing)'
-                                        v-if=true>Add to cart</button>
-                                <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
-                                <div class="col-2">
-                                <span class="inventory-message" v-if='clothing.clothingnum=== 0'>
-                                    All Out!
-                                </span>
-                                    <span class="inventory-message" v-else-if='clothing.clothingnum-cartCount(clothing.clothingid) < 5'>
-                                    Only {{clothing.clothingnum}} left!
-                                </span>
-                                    <span class="inventory-message" v-else>
-                                    Buy Now!
-                                </span>
-                                </div>
-                                <!-- <div class="col-3 rating">
-                                    <span v-bind:class="{'rating-active':checkRating(n, clothing)}" v-for="n in 5">★</span>
-                                </div> -->
-                            </div>
+        </div>
 
 
+        <div class="row "  style="text-align:center"  v-for="clothing in clothings">
+            <div class="col-lg-2">
+               {{clothing.clothingname}}
+            </div>
+            <div class="col-lg-2">
+              {{clothing.clothingprice|formatclothingprice}}
+            </div>
+           
+              <div class="col-lg-2">
+                {{clothing.clothingnum}}
+              </div>
+              <div class="col-lg-2">
+                {{clothing.clothingprice*clothing.clothingnum|formatclothingprice}}
+              </div>
 
-                        </div>
+        </div>
+        <br>
+        <br>
+        
+              <div class="col-lg-6">
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <h3>
+                        购买
+                    </h3> 
+                </label>
+              </div>
+              <div class="col-lg-6">
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 
+                    <h3>
+                        租赁
+                    </h3>
+                
+                </label>
+              </div>
+      
+        
 
 
-
-                    </div>
-                </div>
-
+        <div class="row ">
+            <div class="col-lg-6">
+                <h4>
+                    留言                                    
+                </h4>
+    
+            </div>
+            <div class="col-lg-6">
+                <h4>
+                    总计{{countMoney}}
+                </h4>
+              
             </div>
         </div>
-    </main>
+        
+        <div class="col-lg-8">
+            <textarea class="form-control" rows="3" style="resize:none ;"></textarea>
+        </div>
+        <div>
+            <button type="button" class="btn btn-info">提交订单</button> 
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</main>
+
 
 
 
@@ -217,34 +211,43 @@
         el: '#app',
         data:{
             sitename:"会员制时装共享平台",
-            user:{
-                username:"游客",
-                userid:1,
-            },
-            count_Num:0,
+            username:"游客",
             showclothing:true,
             RimgUrl:"",
+            
             clothings:[
-                // {
-                //     clothingid: 1,
-                //     clothingname: "garment",
-                //     clothingdescr: "<em>new garment</em>",
-                //     clothingprice: 699900,
-                //     clothingpic: 'img/1.png',
-                //     clothingnum: 4,
-                //     rating: 3
-                // },
-       
+            {
+                    clothingid: 1,
+                    clothingname: "garment",
+                    clothingdescr: "<em>new garment</em>",
+                    clothingprice: 699900,
+                    clothingpic: 'img/1.png',
+                    clothingnum: 4,
+                    sccnum:1,
+                },
+                {
+                    clothingid: 2,
+                    clothingname: "garment",
+                    clothingdescr: "<em>new garment</em>",
+                    clothingprice: 699900,
+                    clothingpic: 'img/1.png',
+                    clothingnum: 4,
+                    sccnum:1,
+                },
+
+
             ],
+
+           
+                
+            address:"",
+			addresses:["beking","shanghai","guangdong"],
+			names:["tim","tom","jerry"],
+            phones:["123","321","2345"],
+			totalprice:0,
+       
+            
             cart:[],
-
-
-             //轮播图
-            mark: 0, //比对图片索引的变量
-                timer : null,
-                bannerList:["img/1.png","img/2.png","img/3.png","img/4.png"]
-
-                 //轮播图
 
 
         },
@@ -255,17 +258,16 @@
         // },
 
         mounted:function(){
-            this.Query0();
-            this.checkOut0();
-            this.play();
+            // this.Query0();
+          
+           
         },
 
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
+                    console.log('canAddToCart:');
                     this.cart.push(clothing.clothingid)
-                   
-                   
                 }
               
 
@@ -276,7 +278,7 @@
                     type: 'get',
 
                     data: {clothingid:clothing.clothingid ,     //传单值到后台成功
-                            userid:that.user.userid,
+                            userid:1,
 
                     },
 
@@ -305,92 +307,8 @@
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
-            checkOut0(){
-              
-                let that = this;
-                $.ajax({
-                    url: 'QueryShoppingcart',
+      
 
-                    type: 'get',
-
-                    data: {
-                        userid:that.user.userid ,     //传单值到后台成功
-                           
-
-                    },
-
-                    // dataType: "json",
-
-                    success: function (e) {
-                        console.log('success:', e);
-                     
-                        that.count_Num=e.count;
-                       
-                      
-                    }
-
-                })
-
-            },
-            checkOut(){
-              
-              let that = this;
-              $.ajax({
-                  url: 'QueryShoppingcart',
-
-                  type: 'get',
-
-                  data: {
-                      userid:that.user.userid ,     //传单值到后台成功
-                         
-
-                  },
-
-                  // dataType: "json",
-
-                  success: function (e) {
-                      console.log('success:', e);
-                    
-
-                  }
-
-              })
-
-          },
-            //轮播图
-            autoPlay:function(){
-                    this.mark++;
-                    if (this.mark == this.bannerList.length) { //当遍历到最后一张图片置零
-                        this.mark = 0
-                    }
-                },
-                prev_pic:function(){
-                    if(this.mark==0){
-
-                        this.mark=this.bannerList.length-1;
-                    }else{
-                        this.mark--;
-                    }
-
-                } ,
-                stopPlay:function(){
-                    clearInterval(timer);
-                },
-                play () {  //自动播放：设置一个定时器，创建一个可以自动播放的函数并调用
-                    timer=setInterval(this.autoPlay, 2500)
-                },
-                change (index) {
-
-                    this.mark = index
-                },
-
-                //轮播图
-                goToSDetails:function (clothingid) {
-                
-
-                    window.open('clothingDetail.html?'+'clothingid=' + encodeURI(clothingid))
-
-                    },
 
 
 
@@ -430,21 +348,39 @@
                     }
 
                 })
-
-
-
-
             },
 
 
 
 
             Query(clothing){
-                this.goToSDetails(clothing.clothingid);
-             
+                alert("Query");
+                var _this = this;
+
+                $.ajax({
+                    url: 'QueryClothingById0',
+
+                    type: 'get',
+
+                    data: {clothingid: clothing.clothingid      //传单值到后台成功
+
+
+                    },
+
+                    // dataType: "json",
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                        _this.str = e;
+
+                    }
+
+                })
             }
 
 
+            // },
 
 
 
@@ -603,17 +539,16 @@
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
             countNum:function(){
-                countNum = 0;
-                
+              
+                countNum = 0
                 for (let i in this.clothings){
                     let num = this.cartCount(this.clothings[i].clothingid)
                     countNum += num
                 }
                 return countNum
             },
-
             countMoney:function(){
-                
+             
                 countMoney = 0
                 for (let i in this.clothings){
                     money = this.clothings[i].clothingprice*this.cartCount(this.clothings[i].clothingid)

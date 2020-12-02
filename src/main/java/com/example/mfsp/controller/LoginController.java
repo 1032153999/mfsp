@@ -21,10 +21,12 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(String username, String userpassword, HttpSession session, Model model) {
-        //获取用户信息
-       List<User> userList = userService.findByName(username, userpassword);
+
+        //findByUserPassword通过传递过来的用户名和密码，在数据库进行查询，当查询不到用户的时候，返回一个空的User对象，对空的User对象进行逻辑判断，继续下一步业务
+       User userList = userService.findByUserPassword(username, userpassword);
+        System.out.println(userList);
         //List<User> userList = userService.findByName(username);
-        if (CollectionUtils.isEmpty(userList)) {
+        if (userList==null) {
             //返回登录页面
             model.addAttribute("msg", "输入账号或密码有误，请重新输入！");
             return "/login";

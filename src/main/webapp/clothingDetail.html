@@ -80,9 +80,9 @@
 
     </div>
 
+    <main>
 
-
-                <div>
+                <div >
 
                     <div class="row" style="text-align:center">
 
@@ -107,40 +107,58 @@
 
                         <!-- 轮播图右侧 -->
                         <div class="col-lg-4">
-                            <div id="clothing">
-                                <form>
-                                    <div class="col-md-6 col-md-offset-0 description">
-                                       
+                            <div id="ad">       
+                                  
                             <h1>{{clothing.clothingname}}</h1>
-                            <!-- {{clothing.id}} -->
-                            <p v-html='clothing.clothingdescr'></p>
-                            <p>{{clothing.clothingprice|formatclothingprice}}</p>
+                           
+                            <p>购买价格  {{clothing.clothingprice|formatclothingprice}}</p>
+                            
+                            <p> 租赁价格  {{clothing.clothingprice|formatclothingprice}}</p>
+                            <p>月销量:{{clothing.monthSell}} |月租赁量: {{clothing.monthRent}} </p>
+                            <div class="row" style="text-align:center"> 
+                                数量<input type="number" v-model.number="sccnum" min="1">
+                                <div class="col-2">
+                                    <span class="inventory-message" v-if='clothing.clothingnum=== 0'>
+                                        All Out!
+                                    </span>
+                                        <span class="inventory-message" v-else-if='clothing.clothingnum-cartCount(clothing.clothingid) < 5'>
+                                        Only {{clothing.clothingnum}} left!
+                                    </span>
+                                        <span class="inventory-message" v-else>
+                                        Buy Now!
+                                    </span>
+                                    </div>
+                            </div>
+                        
+                            <br>
+                            
                             <div class="form-inline footer">
                                 <button class='btn btn-primary btn-lg '
                                         @click='addToCart(clothing)'
                                         v-if=true>Add to cart</button>
                                 <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
-                                <div class="col-2">
-                                <span class="inventory-message" v-if='clothing.clothingnum=== 0'>
-                                    All Out!
-                                </span>
-                                    <span class="inventory-message" v-else-if='clothing.clothingnum-cartCount(clothing.clothingid) < 5'>
-                                    Only {{clothing.clothingnum}} left!
-                                </span>
-                                    <span class="inventory-message" v-else>
-                                    Buy Now!
-                                </span>
-                                </div>
-                                <!-- <div class="col-3 rating">
-                                    <span v-bind:class="{'rating-active':checkRating(n, clothing)}" v-for="n in 5">★</span>
-                                </div> -->
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class='btn btn-primary btn-lg '
+                                @click='addToCart(clothing)'
+                                v-if=true>租赁</button>
+                                <button class='btn btn-primary btn-lg' disabled='true' v-else>租赁</button>
+
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                <button class='btn btn-primary btn-lg '
+                                @click='addToCart(clothing)'
+                                v-if=true>立即购买</button>
+                                <button class='btn btn-primary btn-lg' disabled='true' v-else>立即购买</button>
+
+
+
+                             
+                             
                             </div>
-                                    </div>
-                                </form>
+                             
                             </div>
 
-                            <img :src=RimgUrl>
-
+                         
 
                         </div>
                     </div>
@@ -151,73 +169,48 @@
     <div class=" col-lg-12 col-lg-offset-1">
         <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
 
-            <button type="button" class="btn btn-secondary">商品详情</button>
+            <button type="button"  @click="showDetailClick" class="btn btn-secondary">商品详情</button>
 
 
-            <button type="button" class="btn btn-secondary">商品评论</button>
+            <button type="button" @click="showCommentClick" class="btn btn-secondary">商品评论</button>
 
 
+          
 
 
 
         </div>
     </div>
 
-    <main>
-        <div id="clothingDetail">
+    <div v-if="showDetail">
+            商品描述: <p v-html='clothing.clothingdescr'></p>
 
 
-            <div v-if="showclothing">
-                <div v-for="clothing in clothings">
-
-                    <div>
-                        <div class="col-lg-3">
-                            <figure class="" >
-                                <br><br>
-                                <img class='clothing chothing_pic' v-bind:src="clothing.clothingpic" alt=""  @click='Query(clothing)' >
-                            </figure>
-
-
-
-
-
-                            <h1>{{clothing.clothingname}}</h1>
-                            <!-- {{clothing.id}} -->
-                            <p v-html='clothing.clothingdescr'></p>
-                            <p>{{clothing.clothingprice|formatclothingprice}}</p>
-                            <div class="form-inline footer">
-                                <button class='btn btn-primary btn-lg '
-                                        @click='addToCart(clothing)'
-                                        v-if=true>Add to cart</button>
-                                <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
-                                <div class="col-2">
-                                <span class="inventory-message" v-if='clothing.clothingnum=== 0'>
-                                    All Out!
-                                </span>
-                                    <span class="inventory-message" v-else-if='clothing.clothingnum-cartCount(clothing.clothingid) < 5'>
-                                    Only {{clothing.clothingnum}} left!
-                                </span>
-                                    <span class="inventory-message" v-else>
-                                    Buy Now!
-                                </span>
-                                </div>
-                                <!-- <div class="col-3 rating">
-                                    <span v-bind:class="{'rating-active':checkRating(n, clothing)}" v-for="n in 5">★</span>
-                                </div> -->
-                            </div>
-
-
-
-                        </div>
-
-
-
-                    </div>
-                </div>
-
+            <div v-for="item in picList">
+               <br>
+            <figure>
+                <img :src=item>
+             
+            </figure>
             </div>
-        </div>
-    </main>
+
+
+
+    </div>
+    <div v-if="showComment">
+        商品评价:
+
+
+    </div>
+    
+
+        
+
+
+
+
+</main>
+
 
 
 
@@ -236,28 +229,35 @@
             username:"游客",
             showclothing:true,
             RimgUrl:"",
-            clothings:[
-                // {
-                //     clothingid: 1,
-                //     clothingname: "garment",
-                //     clothingdescr: "<em>new garment</em>",
-                //     clothingprice: 699900,
-                //     clothingpic: 'img/1.png',
-                //     clothingnum: 4,
-                //     rating: 3
-                // },
+            cid:"",
+            sccnum:1,
+
+            showDetail:true,
+            showComment:false,
+
+            clothing:
+                {
+                    // clothingid: 1,
+                    // clothingname: "garment",
+                    // clothingdescr: "<em>new garment</em>",
+                    // clothingprice: 699900,
+                    // clothingpic: 'img/1.png',
+                    // clothingnum: 4,
+                    // sccnum:1,
+                },
        
-            ],
+            
             cart:[],
 
 
              //轮播图
             mark: 0, //比对图片索引的变量
                 timer : null,
-                bannerList:["img/1.png","img/2.png","img/3.png","img/4.png"]
-
+                // bannerList:["img/1.png","img/2.png","img/3.png","img/4.png"],
+                bannerList:[],
                  //轮播图
-
+                // picList:["img/1.png","img/2.png","img/3.png","img/4.png"],
+                picList:[],
 
         },
 
@@ -267,13 +267,19 @@
         // },
 
         mounted:function(){
-            this.Query0();
+            // this.Query0();
+           
+             this.cid=this.getUrlParam("clothingid");
+         
+            this.Query(this.cid);
             this.play();
+           
         },
 
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
+                    console.log('canAddToCart:');
                     this.cart.push(clothing.clothingid)
                 }
               
@@ -314,6 +320,27 @@
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
+
+
+
+            showClothingPic:function(clothing){
+
+              
+                this.picList.push(clothing.clothingpic);
+                this.bannerList.push(clothing.clothingpic);
+            },
+
+            
+            showDetailClick:function(){
+                this.showDetail=true;
+                this.showComment=false;
+            },
+            showCommentClick:function(){
+                this.showDetail=false;
+                this.showComment=true;
+            },
+
+
             //轮播图
             autoPlay:function(){
                     this.mark++;
@@ -342,6 +369,16 @@
                 },
 
                 //轮播图
+               getUrlParam(name) {  
+              
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");   
+                 
+                    var r = window.location.search.substr(1).match(reg);   
+                    if (r != null) {
+                        return unescape(r[2]); 
+                    }
+                 
+                    return null;   },
 
 
 
@@ -354,49 +391,48 @@
 
 
 
-
-            Query0(){
+            // Query0(){
             
-                let that = this;
-                $.ajax({
-                    url: 'QueryClothingById0',
+            //     let that = this;
+            //     $.ajax({
+            //         url: 'QueryClothingById0',
 
-                    type: 'get',
+            //         type: 'get',
 
-                    data: {clothingid: 0      //传单值到后台成功
+            //         data: {clothingid: 0      //传单值到后台成功
 
 
-                    },
+            //         },
 
-                    // dataType: "json",
+            //         // dataType: "json",
 
-                    success: function (e) {
-                        console.log('success:', e);
+            //         success: function (e) {
+            //             console.log('success:', e);
 
                      
-                        for (let index = 0; index < e.data.length; index++) {
-                            that.clothings.push(e.data[index]);
+            //             for (let index = 0; index < e.data.length; index++) {
+            //                 that.clothings.push(e.data[index]);
 
-                        }
+            //             }
 
-                    }
+            //         }
 
-                })
-            },
-
-
+            //     })
+            // },
 
 
-            Query(clothing){
+
+
+            Query(cid){
                 alert("Query");
-                var _this = this;
+                let that = this;
 
                 $.ajax({
                     url: 'QueryClothingById0',
 
                     type: 'get',
 
-                    data: {clothingid: clothing.clothingid      //传单值到后台成功
+                    data: {clothingid: cid      //传单值到后台成功
 
 
                     },
@@ -406,7 +442,8 @@
                     success: function (e) {
                         console.log('success:', e);
 
-                        _this.str = e;
+                      that.clothing=e.data[0];
+                      that.showClothingPic(that.clothing);
 
                     }
 

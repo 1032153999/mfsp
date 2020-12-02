@@ -30,6 +30,10 @@ public class User {
     private String userstatus;
 
 
+
+
+
+
     @Id
     @GeneratedValue()
     @Column(name = "userID")

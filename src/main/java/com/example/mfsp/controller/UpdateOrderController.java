@@ -20,7 +20,6 @@ public class UpdateOrderController {
     @RequestMapping(value="/updateOrder",method= RequestMethod.GET)
     @ResponseBody
     public String updateOrder(Orderform orderform){
-
    orderService.updateByPrimaryKeySelective(orderform);
 
 

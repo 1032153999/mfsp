@@ -45,6 +45,13 @@ public class Clothing {
     //null varchar(50)
     private String clothingcost;
 
+    private String FirstKind;
+
+    private String SecondKind;
+
+    private String ThirdlyKind;
+
+
 
     @Id
     @GeneratedValue()
@@ -57,6 +64,17 @@ public class Clothing {
         this.clothingid = clothingid;
     }
 
+    @Column(name = "FirstKind")
+    public String getFirstKind(){ return FirstKind;}
+    public void setFirstKind(String FirstKind){this.FirstKind=FirstKind;}
+
+    @Column(name = "SecondKind")
+    public String getSecondKind(){ return SecondKind;}
+    public void setSecondKind(String SecondKind){this.FirstKind=FirstKind;}
+
+    @Column(name = "ThirdlyKind")
+    public String getThirdlyKind(){ return ThirdlyKind;}
+    public void setThirdlyKind(String ThirdlyKind){this.FirstKind=FirstKind;}
 
     @Column(name = "clothingName")
     public String getClothingname() {

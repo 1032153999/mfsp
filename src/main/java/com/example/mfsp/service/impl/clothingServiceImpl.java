@@ -2,13 +2,11 @@ package com.example.mfsp.service.impl;
 
 import com.example.mfsp.dao.clothingMapper;
 import com.example.mfsp.entity.Clothing;
-import com.example.mfsp.entity.pcd;
 import com.example.mfsp.service.clothingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 
 @Service
@@ -26,16 +24,16 @@ public class clothingServiceImpl extends baseServiceImpl<Clothing> implements cl
     }
 
     @Override
-    public  List<String> findProvince(){
-        return clothingmapper.findProvince();
+    public  List<String> findFirstKind(){
+        return clothingmapper.findFirstKind();
     }
     @Override
-    public List<String> findCity(String province){
-        return clothingmapper.findCity(province);
+    public List<String> findSecondKind(String FirstKind){
+        return clothingmapper.findSecondKind(FirstKind);
     }
     @Override
-    public List<String> findDistrict(String province, String city){
+    public List<String> findThirdlyKind(String FirstKind, String SecondKind){
 
-        return clothingmapper.findDistrict(province,city);
+        return clothingmapper.findThirdlyKind(FirstKind,SecondKind);
     }
 }

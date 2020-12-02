@@ -10,14 +10,61 @@
   <script src="layui/layui.js" charset="utf-8"></script>
   <script src="js/jquery.min.js"></script>
 </head>
-<body class="layui-layout-body">
-      <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">主界面</div>
-      </div>
-      
-
-    <script>
-    </script>
-    </body>
+<body class="layui-layout-body layui-bg-gray">
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">用户数<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
+                <div class="layui-card-body">
+                    <h2>内容1</h2><br>123
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">销售量<span class="layui-badge layui-bg-orange" style="float:right">月</span></div>
+                <div class="layui-card-body">
+                    <h2>内容2</h2><br>231
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">租赁量<span class="layui-badge layui-bg-orange" style="float:right">月</span></div>
+                <div class="layui-card-body">
+                    <h2 id="abc">内容3</h2><br>456
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">成交额<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
+                <div class="layui-card-body">
+                    <h2>内容4</h2><br>654
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">标题5</div>
+                <div class="layui-card-body">
+                    内容5
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+          $.ajax({
+              url:'',
+              type: "GET",
+              success:function(msg){
+                  $('#abc').text("msg");
+              }
+          });
+      });
+</script>
+</body>
 </html>

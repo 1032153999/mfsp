@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class GotoShoppingcartController {
@@ -26,24 +28,30 @@ public class GotoShoppingcartController {
     private shoppingcartService shoppingcartService;
 
 
-    @RequestMapping(value = "shoppingcart", method = RequestMethod.POST)
+    @RequestMapping(value = "shoppingcart", method = RequestMethod.GET)
     public String up(MultipartFile uploadFile, RedirectAttributes redirectAttributes) throws IOException {
-        Integer id = 1 ;
+        Integer id = 4;
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
         Shoppingcart shoppingcart = new Shoppingcart();
         shoppingcart.setUserid(id);
         List<Shoppingcart> shoppingcarts = new ArrayList<>();
         shoppingcarts = shoppingcartService.selectAll(shoppingcart);
-        redirectAttributes.addAttribute("file", shoppingcarts);
+        result.put("count",shoppingcarts.size());
+        result.put("data", shoppingcarts);
+        redirectAttributes.addAttribute("file", result.toString());
+        System.out.println(1231561561);
         return "redirect:ceshidemo";
     }
 
-    @RequestMapping("/ceshidemo")
+    @RequestMapping(value = "/ceshidemo" , method = RequestMethod.GET)
     public ModelAndView index(@ModelAttribute("file") Object file) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("file", file);
         // 封装返回结果到Model中
         // 设置返回的视图名称
-        modelAndView.setViewName("demo2.html");
+        modelAndView.setViewName("placeOrderPage.html");
         System.out.println(file);
         return modelAndView;
 

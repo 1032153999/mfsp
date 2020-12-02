@@ -18,6 +18,10 @@ public class Address {
     //null int(10)
     private Integer userid;
 
+    private Integer userphone;
+
+    private String username;
+
 
     @Id
     @GeneratedValue()
@@ -30,6 +34,20 @@ public class Address {
         this.id = id;
     }
 
+    @Column(name ="username")
+    public String getUsername(){
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    @Column(name ="userphone")
+    public Integer getUserphone(){ return userphone;}
+
+    public void setUserphone(Integer userphone) {
+        this.userphone = userphone;
+    }
 
     @Column(name = "userAddress")
     public String getUseraddress() {

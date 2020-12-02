@@ -19,15 +19,13 @@
           <div class="layui-form-item">
             <label class="layui-form-label ">账号名</label>
             <div class="layui-input-inline">
-              <input type="text" name="userid" id="userid" placeholder="请输入账号名" autocomplete="off" class="layui-input">
+              <input type="text" name="username" id="username" placeholder="请输入账号名" autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label">密码框</label>
             <div class="layui-input-inline">
               <input type="text" name="userpassword" id="userpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
-          </div>
-          <div class="layui-form-item">
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <button class="layui-btn" data-type="addUser">提交</button>
             </div>
           </div> 
@@ -72,19 +70,22 @@
           ,{field: 'userpassword', title: '密码'}
           ,{field: 'userrole', title: '角色',sort: true}
           ,{field: 'phone', title: '电话号码'}
+              ,{field: 'userstatus', title: '用户状态',sort: true}
         ]]
       });
 
           var $ = layui.$, active = {
               addUser: function(){
-                  var userid = $('#userid');
+                  var username = $('#username');
                   var userpassword = $('#userpassword');
                   $.ajax({
                       url: "/addUser",
                       type: "GET",
                       data:{
-                          userid:userid.val(),
-                          userpassword:userpassword.val()
+                          username:username.val(),
+                          userpassword:userpassword.val(),
+                          userrole:'管理员',
+                          userstatus:'存在'
                       }
                   });
                   var table = layui.table;

@@ -87,6 +87,7 @@ public class clothingManagementController {
         return "success";
     }
 
+
     /*添加服装信息
     返回情况不清楚
     */
@@ -94,7 +95,6 @@ public class clothingManagementController {
     @ResponseBody
     public void addClothing( Clothing clothing){
 
-        System.out.println(clothing.getClothingpic());
         clothingservice.insert(clothing);
 
     }
@@ -231,5 +231,6 @@ public class clothingManagementController {
         return result;*/
 
     }
+
 
 }

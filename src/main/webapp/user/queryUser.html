@@ -35,7 +35,7 @@
         elem: '#user'
         ,height: 500
         ,even: true
-        ,url: '' //数据接口
+        ,url: '/SelectUserById' //数据接口
         ,page: true //开启分页
         ,where:{
           userid:0
@@ -46,6 +46,7 @@
           ,{field: 'userpassword', title: '密码'}
           ,{field: 'userrole', title: '角色',sort: true}
           ,{field: 'phone', title: '电话号码'}
+          ,{field: 'userstatus', title: '用户状态',sort: true}
 
         ]]
       });

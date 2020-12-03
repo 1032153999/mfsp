@@ -48,14 +48,12 @@
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-form">
             <label class="layui-form-label">服装类型一</label>
-            <div class="layui-input-inline" id="sanjione"></div>
+            <div class="layui-input-inline" id="sanjione"><select id='sheng' class="layui-select"></select></div>
             <label class="layui-form-label">服装类型二</label>
-            <div class="layui-input-inline" id="sanjitwo"></div>
+            <div class="layui-input-inline" id="sanjitwo"><select id='shi' class="layui-select"></select></div>
             <label class="layui-form-label">服装类型三</label>
-            <div class="layui-input-inline" id="sanjithree"></div>
-        </div>
+            <div class="layui-input-inline" id="sanjithree"><select id='qu' class="layui-select"></select></div>
       <div class="layui-input-inline">
           <button class="layui-btn" data-type="addClothing">上传</button>
 
@@ -68,13 +66,20 @@
       
     </div>
     <script>
+        /*layui.use('form', function() {
+            var form = layui.form;
+            form.on('select(sheng)', function (data) {
+                alert('123');
+                console.log(data.value); //得到被选中的值
+            });
+        });*/
         //三级联动查询
         $(document).ready(function(e) {
 
             //在DIV里面造三个下拉
-            $("#sanjione").html("<select id='sheng'></select>");
-            $("#sanjitwo").html("<select id='shi'></select>");
-            $("#sanjithree").html("<select id='qu'></select>");
+/*            $("#sanjione").html("");
+            $("#sanjitwo").html("");
+            $("#sanjithree").html("");*/
             //填充数据
             FillSheng(); //填充省的数据
             FillShi(); //填充市的数据
@@ -88,7 +93,7 @@
                 $.ajax({
 
                     async:false, //变为同步AJAX
-                    url:"/queryProvince",
+                    url:"/admin/queryFirstKind",
                     data:{code:code},
                     type:"GET",
                     dataType:"TEXT",
@@ -114,13 +119,12 @@
             function FillShi()
             {
                 var code = $("#sheng").val(); //市的父级代号
-
                 //调用ajax查询省的数据
                 $.ajax({
 
                     async:false, //变为同步AJAX
-                    url:"/queryCity",
-                    data:{province:code},
+                    url:"/admin/querySecondKind",
+                    data:{FirstKind:code},
                     type:"GET",
                     dataType:"TEXT",
                     success: function(data){
@@ -150,9 +154,9 @@
                 $.ajax({
 
                     async:false, //变为同步AJAX
-                    url:"/queryDistrict",
-                    data:{city:code,
-                        province:sheng},
+                    url:"/admin/queryThirdlyKind",
+                    data:{SecondKind:code,
+                        FirstKind:sheng},
                     type:"GET",
                     dataType:"TEXT",
                     success: function(data){
@@ -174,6 +178,7 @@
 
             //当省的选中发生变化的时候，去改变市和区
             $("#sheng").change(function(){
+                console.log("hahahaha")
                 FillShi();
                 FillQu();
             })
@@ -220,7 +225,7 @@
         elem: '#clothing'
         ,height: 500
         ,even: true
-        ,url: '/admin/SelectClothingById' //数据接口
+        //,url: '/admin/SelectClothingById' //数据接口
         ,page: true //开启分页
           ,where:{
               clothingid:0

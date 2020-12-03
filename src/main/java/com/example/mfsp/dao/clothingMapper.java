@@ -3,7 +3,7 @@ package com.example.mfsp.dao;
 
 import com.example.mfsp.entity.Clothing;
 import com.example.mfsp.entity.User;
-import com.example.mfsp.entity.pcd;
+
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.common.Mapper;
 

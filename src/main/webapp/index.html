@@ -338,29 +338,29 @@
 
             },
             checkOut(){
-                window.open('QueryShoppingcart')
+                // window.open('demo111')
               
-            //   let that = this;
-            //   $.ajax({
-            //       url: 'QueryShoppingcart',
+              let that = this;
+              $.ajax({
+                //   url: 'QueryShoppingcart',
+                url: 'demo111',
+                  type: 'get',
 
-            //       type: 'get',
-
-            //       data: {
-            //           userid:that.user.userid ,     //传单值到后台成功
+                  data: {
+                    //   userid:that.user.userid ,     //传单值到后台成功
                          
 
-            //       },
+                  },
 
-            //       // dataType: "json",
+                  // dataType: "json",
 
-            //       success: function (e) {
-            //           console.log('success:', e);
+                  success: function (e) {
+                      console.log('success:', e);
                     
 
-            //       }
+                  }
 
-            //   })
+              })
 
           },
             //轮播图
@@ -658,6 +658,30 @@
 
 </script>
 
+
+<script>
+    $.ajaxSetup( {
+	//设置ajax请求结束后的执行动作
+	complete :
+		function(XMLHttpRequest, textStatus) {
+			// 通过XMLHttpRequest取得响应头，sessionstatus
+		
+			var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+			if (sessionstatus == "TIMEOUT") {
+				var win = window;
+				while (win != win.top){
+					win = win.top;
+				}
+		
+				// win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+				win.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
+			}else if(XMLHttpRequest.getResponseHeader("CONTEXTPATH")!=null){
+           
+                window.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
+            }
+		}
+});
+</script>
 
 </body>
 

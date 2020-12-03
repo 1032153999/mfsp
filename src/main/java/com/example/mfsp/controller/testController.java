@@ -2,7 +2,7 @@ package com.example.mfsp.controller;
 
 
 
-import com.example.mfsp.entity.pcd;
+
 import com.example.mfsp.service.clothingService;
 
 import org.springframework.beans.factory.annotation.Autowired;

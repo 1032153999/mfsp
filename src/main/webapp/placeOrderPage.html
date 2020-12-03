@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js">
     </script>
-
+ <script src="js/index.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
     <style>
@@ -77,8 +77,10 @@
                             </h4>
                           </label>
                     </div>
-                    <div class=" col-lg-6">
-                        <input type="number"  class="form-control" min="1">
+                    <div class=" col-lg-6" v-if="showRentByT">
+                     
+                        <input type="number"  class="form-control"  min="1" max="30" placeholder="30天内">
+                     
                     </div>
              
                   
@@ -86,35 +88,24 @@
                   </div>
                   <div class="row col-lg-12" style="text-align:center">
 
-                    <div class=" col-lg-6">
+                    <div class=" col-lg-6" >
                         <label class　="radio-inline">
                             <input type="radio" name="RentRadioOptions" value="1" id="rentByMonths" @click="testCheckBox()"><h4>
                                 按月租赁
                             </h4>
                           </label>
                     </div>
-                    <div class=" col-lg-6">
-                        <input type="number"  class="form-control" min="1">
+                    <div class=" col-lg-6" v-if="showRentByM" >
+                       
+                        <input type="number"  class="form-control" min="1" max="6" placeholder="6个月内">
+                      
                     </div>
                   </div>
 
                   <button  id="back" class="btn btn-primary">返回</button>   
-            <!-- <div class="row" style="text-align:center">
-               
-           <div class="col-lg-4">
-            <button type="submit" id="reg" class="btn btn-primary">注册</button>
-           </div>
-           <div class="col-lg-4">
-            <button type="submit" id="login" class="btn btn-primary">登陆</button>
-        </div>
-        <div class="col-lg-4">
-            <button  id="back" class="btn btn-primary">返回</button>   
-        </div>
-          
-          </div> -->
-         
-           
-            <!-- </div> -->
+                  <button type="submit" id="submit_Rent" class="btn btn-primary">确定</button>
+
+        
            
         </div>
     </div>
@@ -185,7 +176,7 @@
             </h1>
             <div  v-for='(address,key) in addresses' :value="key">
                 <label class　="radio-inline">
-                    <input type="radio" name="inlineRadioOptions"> {{address}}  {{names[key]}}  {{phones[key]}} <a href="">修改地址</a>
+                    <input type="radio" name="addressRadioOptions"> {{address}}  {{names[key]}}  {{phones[key]}} <a href="">修改地址</a>
                   </label>
             </div>
             <br>
@@ -221,39 +212,70 @@
 
         </div>
 
+        <div v-if="showBuy">
+            <div class="row "  style="text-align:center"  v-for="(clothing,key) in clothings" :value="key">
+                <div class="col-lg-2">
+                {{clothing.clothingname}}
+                </div>
+                <div class="col-lg-2">
+                {{clothing.clothingprice|formatclothingprice}}
+                </div>
+            
+                <div class="col-lg-2">
+                    {{shoppingCart[key].sccnum}}
+                </div>
+                <div class="col-lg-2">
+                    {{clothing.clothingprice*shoppingCart[key].sccnum|formatclothingprice}}
+                </div>
 
-        <div class="row "  style="text-align:center"  v-for="(clothing,key) in clothings" :value="key">
-            <div class="col-lg-2">
-               {{clothing.clothingname}}
             </div>
-            <div class="col-lg-2">
-              {{clothing.clothingprice|formatclothingprice}}
-            </div>
-           
-              <div class="col-lg-2">
-                {{shoppingCart[key].sccnum}}
-              </div>
-              <div class="col-lg-2">
-                {{clothing.clothingprice*shoppingCart[key].sccnum|formatclothingprice}}
-              </div>
-
         </div>
+    
+        <div v-if="showRent">
+            <div class="row "  style="text-align:center"  v-for="(clothing,key) in clothings" :value="key">
+                <div class="col-lg-2">
+                {{clothing.clothingname}}
+                </div>
+                <div class="col-lg-2">
+                {{clothing.clothingrentprice|formatclothingprice}}
+                </div>
+            
+                <div class="col-lg-2">
+                    {{shoppingCart[key].sccnum}}
+                </div>
+                <div class="col-lg-2">
+                    {{clothing.clothingrentprice*shoppingCart[key].sccnum|formatclothingprice}}
+                </div>
+
+            </div>
+        </div>
+
+
         <br>
         <br>
         
       
               <div class="col-lg-6">
-                <button type="button" @click="showBuyButton" class="btn btn-info"> <h3>
+                <label class　="radio-inline">
+                    <input type="radio" name="BuyOrRentRadioOptions" @click="showBuyButton"> <h3>
+                        购买
+                    </h3>
+                  </label>
+                <!-- <button type="button" @click="showBuyButton" class="btn btn-info"> <h3>
                     购买
-                </h3> </button>
+                </h3> </button> -->
                    
                
               </div>
               <div class="col-lg-6">
 
-                <button type="button" @click="showRentButton" class="btn btn-info" id="rentBtn"><h3>
+                <label class　="radio-inline">
+                    <input type="radio" name="BuyOrRentRadioOptions"  id="rentBtn" @click="showRentButton"> <h3>
+                        租赁
+                    </h3>
+                <!-- <button type="button" @click="showRentButton" class="btn btn-info" id="rentBtn"><h3>
                     租赁
-                </h3></button>
+                </h3></button> -->
                     
                 
                 </label>
@@ -316,7 +338,8 @@
             showBuy:true,
             showRent:false,
             shadeDisplay:"block",
-
+            showRentByT:true,
+            showRentByM:false,
 
             showclothing:true,
             RimgUrl:"",
@@ -357,6 +380,7 @@
 
         mounted:function(){
             this.checkOut0();
+            this.setAddressDefault()
           
            
         },
@@ -418,16 +442,32 @@
 
             testCheckBox(){
                 var RentMethod = document.getElementsByName('RentRadioOptions');
-                
-                // var rBT =$("rentByTimes");
-                // var rBM =$("rentByMonths");
-                var inpAttr=$("input[name='RentRadioOptions']").attr("value")   
+               
+              
                 for (var i = 0; i < RentMethod.length; i++) {
                         if (RentMethod[i].checked == true) {
+                            if(RentMethod[i].value==0){
+                             
+                                this.showRentByT=true;
+                                 this.showRentByM=false;
+                            }else if(RentMethod[i].value==1){
+                                this.showRentByT=false;
+                                 this.showRentByM=true;
+                               
+                            }
+                     
+                        }
+                       
+                        }
+                    },
+                    setAddressDefault(){
+                        var option = document.getElementsByName('addressRadioOptions');
+                        option[0].checked=true;
+                        var BuyOrRentoption = document.getElementsByName('BuyOrRentRadioOptions');
+                        BuyOrRentoption[0].checked=true;
+                        var RentMethod = document.getElementsByName('RentRadioOptions');
+                        RentMethod[0].checked=true;
 
-                        alert(RentMethod[i].value);
-                        }
-                        }
                     },
       
             checkOut0(){
@@ -672,13 +712,17 @@
     var shade = document.getElementById("shade");
     var btn = document.getElementById("rentBtn");
     var back = document.getElementById("back");
-  
+    var sub = document.getElementById("submit_Rent");
 
 
     btn.onclick = function(){
         shade.style.display = "block"
+      
     }
     back.onclick = function(){
+        shade.style.display = "none"
+    }
+    sub.onclick = function(){
         shade.style.display = "none"
     }
 
@@ -688,6 +732,29 @@
 </body>
 
 
+<script>
+    $.ajaxSetup( {
+	//设置ajax请求结束后的执行动作
+	complete :
+		function(XMLHttpRequest, textStatus) {
+			// 通过XMLHttpRequest取得响应头，sessionstatus
+	
+			var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+			if (sessionstatus == "TIMEOUT") {
+				var win = window;
+				while (win != win.top){
+					win = win.top;
+				}
+				
+				// win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+				win.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
+			}else if(XMLHttpRequest.getResponseHeader("CONTEXTPATH")!=null){
+             
+                window.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
+            }
+		}
+});
+</script>
 
 
 

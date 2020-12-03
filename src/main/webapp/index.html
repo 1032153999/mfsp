@@ -40,8 +40,8 @@
                
 
                 <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
+                    <button class="btn btn-light" @click="gotoClientPage()">
+                        <a >
                             个人中心
                             </span>
                         </a>
@@ -50,7 +50,7 @@
 
                 <div class="nav navbar-nav navbar-right cart col-2">
                     <button class="btn btn-light" @click="checkOut">
-                       <a>
+                       <a >
                                 <span class="glyphicon glyphicon-shopping-cart ">
                                     <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
                                    
@@ -264,6 +264,7 @@
 
         mounted:function(){
             this.Query0();
+            this.QueryUserSession();
             this.checkOut0();
             this.play();
         },
@@ -312,6 +313,11 @@
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
+            gotoClientPage(){
+
+                window.open('client.html')
+
+            },
             checkOut0(){
               
                 let that = this;
@@ -343,7 +349,7 @@
               let that = this;
               $.ajax({
                 //   url: 'QueryShoppingcart',
-                url: 'demo111',
+                url: 'GotoShoppingcart',
                   type: 'get',
 
                   data: {
@@ -413,7 +419,39 @@
                     this.showHot=true;
                 },
 
+                QueryUserSession(){
+                
+            
+                let that = this;
+                $.ajax({
+                    url: 'QueryUserSession',
 
+                    type: 'get',
+
+                    data: {    //传单值到后台成功
+
+
+                    },
+
+                    // dataType: "json",
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                     
+                        for (let index = 0; index < e.data.length; index++) {
+                            that.user=e.data[index];
+
+                        }
+
+                    }
+
+                })
+
+
+
+
+            },
 
 
 
@@ -425,6 +463,8 @@
 
 
             Query0(){
+                // var userid=getUrlParameter('USER_SESSION');
+                // alert(userid);
             
                 let that = this;
                 $.ajax({

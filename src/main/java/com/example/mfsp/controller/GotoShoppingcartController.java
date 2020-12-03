@@ -4,6 +4,7 @@ package com.example.mfsp.controller;
 import com.example.mfsp.entity.Shoppingcart;
 import com.example.mfsp.entity.User;
 import com.example.mfsp.service.shoppingcartService;
+import com.example.mfsp.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,10 @@ public class GotoShoppingcartController {
     private shoppingcartService shoppingcartService;
 
 
+    @Autowired
+    private com.example.mfsp.service.userService userService;
+
+
 //    @RequestMapping(value = "GotoShoppingcart")
 //    public ModelAndView up(MultipartFile uploadFile, RedirectAttributes redirectAttributes, HttpSession session) throws IOException {
 //        Object xinxi = session.getAttribute("USER_SESSION");
@@ -54,7 +59,7 @@ public class GotoShoppingcartController {
 
     @GetMapping(value = "GotoShoppingcart")
     @ResponseBody
-    public Map<String, Object> dadasdadas(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+    public Map<String, Object> gotoShoppingcart(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
@@ -87,7 +92,11 @@ public class GotoShoppingcartController {
         }else {
             httpServletResponse.setHeader("CONTEXTPATH", homeUrl + "/placeOrderPage.html");
         }
-
+        User user  = new User();
+        user.setUserid(user_id);
+        List<User> users = userService.selectAll(user);
+        result.put("count",users.size());
+        result.put("data", users);
         System.out.println("result"+result);
         return result;
     }

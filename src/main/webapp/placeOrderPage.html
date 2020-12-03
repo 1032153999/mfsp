@@ -97,12 +97,13 @@
                     </div>
                     <div class=" col-lg-6" v-if="showRentByM" >
                        
-                        <input type="number"  class="form-control" min="1" max="6" placeholder="6个月内">
+                        <input type="number"  class="form-control" min="2"  placeholder="1个月以上" v-model="RentMonthsTime">
                       
                     </div>
                   </div>
 
                   <button  id="back" class="btn btn-primary">返回</button>   
+                  <!-- <button type="submit" id="submit_Rent" class="btn btn-primary" @click="submitRentClick()">确定</button> -->
                   <button type="submit" id="submit_Rent" class="btn btn-primary">确定</button>
 
         
@@ -243,8 +244,11 @@
                 <div class="col-lg-2">
                     {{shoppingCart[key].sccnum}}
                 </div>
-                <div class="col-lg-2">
-                    {{clothing.clothingrentprice*shoppingCart[key].sccnum|formatclothingprice}}
+                <div class="col-lg-2" v-if="showRentByT">
+                    {{clothing.clothingrentprice*shoppingCart[key].sccnum|formatclothingprice}}+保证金({{parseInt(clothing.clothingprice*0.2)*shoppingCart[key].sccnum|formatclothingprice}})
+                </div>
+                <div class="col-lg-2" v-if="showRentByM">
+                    {{(parseInt(clothing.clothingrentprice)+parseInt(clothing.clothingprice*0.08*RentMonthsTime))*shoppingCart[key].sccnum|formatclothingprice}}+保证金({{parseInt(clothing.clothingprice*0.2)*shoppingCart[key].sccnum|formatclothingprice}})
                 </div>
 
             </div>
@@ -261,9 +265,7 @@
                         购买
                     </h3>
                   </label>
-                <!-- <button type="button" @click="showBuyButton" class="btn btn-info"> <h3>
-                    购买
-                </h3> </button> -->
+             
                    
                
               </div>
@@ -272,11 +274,7 @@
                 <label class　="radio-inline">
                     <input type="radio" name="BuyOrRentRadioOptions"  id="rentBtn" @click="showRentButton"> <h3>
                         租赁
-                    </h3>
-                <!-- <button type="button" @click="showRentButton" class="btn btn-info" id="rentBtn"><h3>
-                    租赁
-                </h3></button> -->
-                    
+               
                 
                 </label>
               </div>
@@ -293,7 +291,7 @@
             </div>
             <div class="col-lg-6">
                 <h4>
-                    总计{{countMoney}}
+                    总计{{countMoney|formatclothingprice}}
                 </h4>
               
             </div>
@@ -340,6 +338,7 @@
             shadeDisplay:"block",
             showRentByT:true,
             showRentByM:false,
+            RentMonthsTime:2,
 
             showclothing:true,
             RimgUrl:"",
@@ -426,6 +425,11 @@
                     this.showRent=true;
                     
                 },
+                // submitRentClick(){
+                //     // if(this.showRentByM){
+                //     //     this.RentMonthsTime*0.08*
+                //     // }
+                // },
             
             cartCount(clothingid){
                 let count = 0
@@ -684,12 +688,30 @@
                 return countNum
             },
             countMoney:function(){
-             
+           
                 countMoney = 0
-                for (let i in this.clothings){
-                    money = this.clothings[i].clothingprice*this.cartCount(this.clothings[i].clothingid)
+                if(this.showRent){
+                    if(this.showRentByM){
+                        for (let i in this.clothings){
+                           
+                            money = (parseInt(this.clothings[i].clothingprice*0.08*this.RentMonthsTime)+parseInt(this.clothings[i].clothingrentprice)+parseInt(this.clothings[i].clothingprice*0.2))*this.shoppingCart[i].sccnum
+
+                            countMoney += money
+                        }
+                    }else{
+                        for (let i in this.clothings){
+                            money = (parseInt(this.clothings[i].clothingrentprice)+parseInt(this.clothings[i].clothingprice*0.2))*this.shoppingCart[i].sccnum
+                            countMoney += money
+                        }
+                    }
+              
+                }else{
+                    for (let i in this.clothings){
+                    money = this.clothings[i].clothingprice*this.shoppingCart[i].sccnum
                     countMoney += money
                 }
+                }
+               
                 return countMoney
             },
 

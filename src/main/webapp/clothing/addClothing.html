@@ -225,7 +225,7 @@
         elem: '#clothing'
         ,height: 500
         ,even: true
-        //,url: '/admin/SelectClothingById' //数据接口
+        ,url: '/admin/SelectClothingById' //数据接口
         ,page: true //开启分页
           ,where:{
               clothingid:0
@@ -265,6 +265,9 @@
               var clothingcost = $('#clothingcost');
               var clothingpic = $('#clothingpic');
               var clothingdescr = $('#clothingdescr');
+              var sheng = $('#sheng');
+              var shi=$('#shi');
+              var qu=$('#qu');
               $.ajax({
                   url: "/admin/addClothing",
                   type: "GET",
@@ -275,7 +278,10 @@
                       clothingrentprice:clothingrentprice.val(),
                       clothingnum:clothingnum.val(),
                       clothingcost:clothingcost.val(),
-                      clothingpic:clothingpic.val()
+                      clothingpic:clothingpic.val(),
+                      FirstKind:sheng.val(),
+                      SecondKind: shi.val(),
+                      ThirdlyKind:qu.val()
                   }
               });
               var table = layui.table;

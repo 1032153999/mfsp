@@ -2,7 +2,7 @@ package com.example.mfsp.service.impl;
 
 import com.example.mfsp.dao.clothingMapper;
 import com.example.mfsp.entity.Clothing;
-import com.example.mfsp.entity.pcd;
+
 import com.example.mfsp.service.clothingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

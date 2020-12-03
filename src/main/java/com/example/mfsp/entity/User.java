@@ -25,7 +25,7 @@ public class User {
     private String userpic;
 
     //null int(10)
-    private Integer phone;
+    private Long phone;
 
     private String userstatus;
 
@@ -91,11 +91,11 @@ public class User {
 
 
     @Column(name = "phone")
-    public Integer getPhone() {
+    public Long getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

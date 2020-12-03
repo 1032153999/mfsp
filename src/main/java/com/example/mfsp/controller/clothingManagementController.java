@@ -4,7 +4,6 @@ package com.example.mfsp.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.mfsp.entity.Clothing;
 import com.example.mfsp.service.clothingService;
-//import jdk.nashorn.internal.ir.RuntimeNode;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +41,15 @@ public class clothingManagementController {
         Clothing clothing=new Clothing();
         clothing.setClothingid(id);
         List<Clothing> clothings=new ArrayList<>();
-        if(clothing.getClothingid()==0){
-            clothings=clothingservice.selectAll();
-        }else{
-            clothings=clothingservice.selectAll(clothing);
+        if( clothing.getClothingid()==null) {
+            clothings = clothingservice.selectAll();
+        } else {
+            if (clothing.getClothingid() == 0) {
+                clothings = clothingservice.selectAll();
+            } else {
+                clothings = clothingservice.selectAll(clothing);
+            }
+
         }
         result.put("count",clothings.size());
         result.put("data", clothings);

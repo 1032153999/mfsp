@@ -70,11 +70,11 @@ public class Clothing {
 
     @Column(name = "SecondKind")
     public String getSecondKind(){ return SecondKind;}
-    public void setSecondKind(String SecondKind){this.FirstKind=FirstKind;}
+    public void setSecondKind(String SecondKind){this.SecondKind=SecondKind;}
 
     @Column(name = "ThirdlyKind")
     public String getThirdlyKind(){ return ThirdlyKind;}
-    public void setThirdlyKind(String ThirdlyKind){this.FirstKind=FirstKind;}
+    public void setThirdlyKind(String ThirdlyKind){this.ThirdlyKind=ThirdlyKind;}
 
     @Column(name = "clothingName")
     public String getClothingname() {

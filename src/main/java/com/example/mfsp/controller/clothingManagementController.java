@@ -151,12 +151,13 @@ public class clothingManagementController {
 
     @RequestMapping(value="/FuzzySearchClothing", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> FuzzySearchClothing(@RequestParam("name")  String clothingname){
+    public Map<String, Object> FuzzySearchClothing(Clothing clothing){
 
+        System.out.println("FuzzySearchClothing");
         Map<String, Object> result = new HashMap<String, Object>();
         List<Clothing> clothings=new ArrayList<>();
-        System.out.println(clothingname);
-        clothings=clothingservice.FuzzySearchClothing(clothingname);
+        System.out.println("clothingname"+clothing.getClothingname());
+        clothings=clothingservice.FuzzySearchClothing(clothing.getClothingname());
         result.put("code", 0);
         result.put("msg", "");
         result.put("count",clothings.size());

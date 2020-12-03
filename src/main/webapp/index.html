@@ -18,7 +18,7 @@
     <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js">
     </script>
 
-
+<script src="js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
 </head>
 
@@ -111,10 +111,10 @@
                                 <form>
                                     <div class="row" style="text-align:center">
                                         <div class="col-lg-8">
-                                            <input class="form-control" id="focusedInput" type="text" value="" placeholder="search">
+                                            <input class="form-control" id="focusedInput" type="text"  placeholder="search" v-model="searchClothingName">
                                         </div>
                                         <div class="col-lg-4">
-                                            <button type="submit" class="btn btn-default">Confirm</button>
+                                            <button type="button" class="btn btn-default" @click="SearchClothing()">Confirm</button>
                                         </div>
 
                                     </div>
@@ -223,11 +223,12 @@
             sitename:"会员制时装共享平台",
             user:{
                 username:"游客",
-                userid:1,
+                userid:0,
             },
             showDefault:true,
             showPrice:false,
             showHot:false,
+            searchClothingName:"",
 
             count_Num:0,
             showclothing:true,
@@ -287,10 +288,7 @@
                             userid:that.user.userid,
 
                     },
-
-                    // dataType: "json",
-
-                    success: function (e) {
+                  success: function (e) {
                         console.log('success:', e);
 
                     }
@@ -300,6 +298,7 @@
 
 
             },
+
             
             cartCount(clothingid){
                 let count = 0
@@ -312,6 +311,10 @@
             },
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+            },
+            SearchClothing(){
+                     
+                      window.open('searchResult.html?'+'searchClothingName=' + encodeURI(this.searchClothingName))
             },
             gotoClientPage(){
 
@@ -447,9 +450,6 @@
                     }
 
                 })
-
-
-
 
             },
 
@@ -699,29 +699,6 @@
 </script>
 
 
-<script>
-    $.ajaxSetup( {
-	//设置ajax请求结束后的执行动作
-	complete :
-		function(XMLHttpRequest, textStatus) {
-			// 通过XMLHttpRequest取得响应头，sessionstatus
-		
-			var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-			if (sessionstatus == "TIMEOUT") {
-				var win = window;
-				while (win != win.top){
-					win = win.top;
-				}
-		
-				// win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-				win.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
-			}else if(XMLHttpRequest.getResponseHeader("CONTEXTPATH")!=null){
-           
-                window.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
-            }
-		}
-});
-</script>
 
 </body>
 

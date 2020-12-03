@@ -103,7 +103,7 @@
                   </div>
 
                   <button  id="back" class="btn btn-primary">返回</button>   
-                  <!-- <button type="submit" id="submit_Rent" class="btn btn-primary" @click="submitRentClick()">确定</button> -->
+             
                   <button type="submit" id="submit_Rent" class="btn btn-primary">确定</button>
 
         
@@ -331,7 +331,7 @@
             sitename:"会员制时装共享平台",
             user:{
                 username:"游客",
-                userid:1,
+                userid:0,
             },
             showBuy:true,
             showRent:false,
@@ -379,6 +379,7 @@
 
         mounted:function(){
             this.checkOut0();
+            this.QueryUserSession();
             this.setAddressDefault()
           
            
@@ -464,7 +465,7 @@
                        
                         }
                     },
-                    setAddressDefault(){
+            setAddressDefault(){
                         var option = document.getElementsByName('addressRadioOptions');
                         option[0].checked=true;
                         var BuyOrRentoption = document.getElementsByName('BuyOrRentRadioOptions');
@@ -473,6 +474,35 @@
                         RentMethod[0].checked=true;
 
                     },
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            searchAddressOfUser(){
+                let that = this;
+                $.ajax({
+                    url: '',
+
+                    type: 'get',
+
+                    data: {    
+
+
+                    },
+
+                    // dataType: "json",
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                     
+                        for (let index = 0; index < e.data.length; index++) {
+                            that.addresses.push(e.data[index]);
+
+                        }
+
+                    }
+
+                })
+                    },
+
       
             checkOut0(){
               
@@ -495,11 +525,6 @@
 
                       for (let index = 0; index < e.data.length; index++) {
                         that.shoppingCart.push(e.data[index]);
-
-
-
-
-
                  
                         $.ajax({
                     url: 'QueryClothingById0',
@@ -564,6 +589,36 @@
             })
 
         },
+        QueryUserSession(){
+                
+            
+                let that = this;
+                $.ajax({
+                    url: 'QueryUserSession',
+
+                    type: 'get',
+
+                    data: {    //传单值到后台成功
+
+
+                    },
+
+                    // dataType: "json",
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                     
+                        for (let index = 0; index < e.data.length; index++) {
+                            that.user=e.data[index];
+
+                        }
+
+                    }
+
+                })
+
+            },
 
 
 
@@ -754,29 +809,7 @@
 </body>
 
 
-<script>
-    $.ajaxSetup( {
-	//设置ajax请求结束后的执行动作
-	complete :
-		function(XMLHttpRequest, textStatus) {
-			// 通过XMLHttpRequest取得响应头，sessionstatus
-	
-			var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-			if (sessionstatus == "TIMEOUT") {
-				var win = window;
-				while (win != win.top){
-					win = win.top;
-				}
-				
-				// win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-				win.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
-			}else if(XMLHttpRequest.getResponseHeader("CONTEXTPATH")!=null){
-             
-                window.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
-            }
-		}
-});
-</script>
+
 
 
 

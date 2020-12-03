@@ -18,7 +18,7 @@
     <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js">
     </script>
 
-
+<script src="js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
 </head>
 
@@ -242,7 +242,7 @@
             sitename:"会员制时装共享平台",
             user:{
                 username:"游客",
-                userid:1,
+                userid:0,
             },
             showclothing:true,
             RimgUrl:"",
@@ -278,16 +278,13 @@
 
         },
 
-        // created:function(){
-        //     this.clothings.push(this.clothing);
 
-        // },
 
         mounted:function(){
             // this.Query0();
            
              this.cid=this.getUrlParam("clothingid");
-         
+             this.QueryUserSession();
             this.Query(this.cid);
             this.checkOut0();
             this.play();
@@ -373,30 +370,25 @@
 
           },
           checkOut(){
-            
-            let that = this;
-            $.ajax({
-                url: 'QueryShoppingcart',
+             
+              
+             let that = this;
+             $.ajax({
+           
+               url: 'GotoShoppingcart',
+                 type: 'get',
 
-                type: 'get',
-
-                data: {
-                    userid:that.user.userid ,     //传单值到后台成功
-                       
-
+                 data: {
                 },
+                 success: function (e) {
+                     console.log('success:', e);
+                   
 
-                // dataType: "json",
+                 }
 
-                success: function (e) {
-                    console.log('success:', e);
-                  
+             })
 
-                }
-
-            })
-
-        },
+         },
 
             
             showDetailClick:function(){
@@ -449,44 +441,37 @@
                     return null;   },
 
 
-
-
-
-
-
-
-
-
-
-
-            // Query0(){
+                    QueryUserSession(){
+                
             
-            //     let that = this;
-            //     $.ajax({
-            //         url: 'QueryClothingById0',
+                let that = this;
+                $.ajax({
+                    url: 'QueryUserSession',
 
-            //         type: 'get',
+                    type: 'get',
 
-            //         data: {clothingid: 0      //传单值到后台成功
+                    data: {    //传单值到后台成功
 
 
-            //         },
+                    },
 
-            //         // dataType: "json",
+                    // dataType: "json",
 
-            //         success: function (e) {
-            //             console.log('success:', e);
+                    success: function (e) {
+                        console.log('success:', e);
 
                      
-            //             for (let index = 0; index < e.data.length; index++) {
-            //                 that.clothings.push(e.data[index]);
+                        for (let index = 0; index < e.data.length; index++) {
+                            that.user=e.data[index];
 
-            //             }
+                        }
 
-            //         }
+                    }
 
-            //     })
-            // },
+                })
+
+            },
+
 
 
 
@@ -519,122 +504,7 @@
             }
 
 
-            // },
 
-
-
-
-
-            //     created(clothing){
-            //         alert("created");
-            //         var _this = this;
-
-            //         $.ajax({
-            //         url: 'QueryOrderByIdTest',
-
-            //         type: 'get',
-
-            //         data: {orderformid: clothing.id      //传单值到后台成功
-
-
-            //         },
-
-            //         // dataType: "json",
-
-            //         success: function (e) {
-            //         console.log('success:', e);
-
-            //         _this.str = e;
-
-            //         }
-
-            //         })
-            //     }
-
-            // },
-
-
-
-
-
-
-            // Query(clothing){
-            //         alert("query")
-            //         var _this = this;
-            //         // alert( clothing.clothingid);
-            //         var clothing = {
-            //                     "clothingid": clothing.clothingid ,    //这两个属性要和实体类的属性一样
-
-            //                 };
-
-            //    //传对象到后台成功
-
-
-
-
-
-            //         $.ajax({
-            //         url: 'QueryClothingByObj',
-
-            //         type: 'POST',
-
-
-            //         // type:"Post",
-            //         dataType : "JSON",
-            //         contentType:"application/json; charset=utf-8",
-            //         data:JSON.stringify(clothing),
-
-
-
-
-            //         // dataType: "json",
-
-            //         success: function (e) {
-            //         console.log('success:', e);
-
-            //         _this.str = e;
-
-            //         if(e.count>0){
-
-            //         //     let n=0;
-            //         // while(n<e.data.length){
-
-
-
-            //         // alert("while"+e.data[n].clothingid);
-
-            //         // clothingB.id= e.data[n].clothingid,
-            //         // this.clothingB.title=e.data[n].userid,
-
-
-
-
-            //         // this.clothings.push(e.data[n].clothingid)
-
-            //         // listData:[],
-            //         // list:[{"张三","李四"}]
-            //         //比如想把另外一个数组中编列出来的值加入到这个数组中
-
-            //         // let data0[]=e.data;
-            //         for (let index = 0; index < _this.str.data.length; index++) {
-            //             alert(_this.str.data[index].clothingid)
-
-            //             let id=1;
-            //                 this.clothings.push(id)
-            //                 // this.clothings.push({ clothingid:"" });
-            //                 // this.clothings[index].clothingid=_this.str.data[index].clothingid;
-            //                 // this.listData[index].name= this.list[index];
-            //                 }
-
-            //             n++;
-            //         // }
-            //         }
-
-
-            //         }
-
-            //         })
-            //     }
 
         },
 
@@ -713,29 +583,6 @@
 </body>
 
 
-<script>
-    $.ajaxSetup( {
-	//设置ajax请求结束后的执行动作
-	complete :
-		function(XMLHttpRequest, textStatus) {
-			// 通过XMLHttpRequest取得响应头，sessionstatus
-		
-			var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-			if (sessionstatus == "TIMEOUT") {
-				var win = window;
-				while (win != win.top){
-					win = win.top;
-				}
-		
-				// win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-				win.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
-			}else if(XMLHttpRequest.getResponseHeader("CONTEXTPATH")!=null){
-           
-                window.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
-            }
-		}
-});
-</script>
 
 
 

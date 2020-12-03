@@ -188,7 +188,7 @@ public class QueryClothingController {
     }
 
     /*根据服装价格排序----降序*/
-    @RequestMapping(value="/sortedbyprice",method=RequestMethod.GET)
+    @RequestMapping(value="/sortedbyprice1",method=RequestMethod.GET)
     @ResponseBody
     public List<Clothing> sortedbyprice1 (){
         return clothingService.sortedbyprice1();

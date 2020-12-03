@@ -14,7 +14,7 @@ public interface   userService extends baseService<User>{
     /**
      * 登录
      */
-    List<User> findByName(String username);
+    List<User> findByName(String name);
 
     /**
      * 注册
@@ -22,10 +22,10 @@ public interface   userService extends baseService<User>{
      */
     void register(User user);
 
-    List<User> findByName(String username, String userpassword);
+    List<User> findByName(String name, String userpassword);
 
-    User findByUserPassword(@RequestParam("userpassword")String username,@RequestParam("userpassword") String userpassword);
+    User findByUserPassword(@RequestParam("userid")Integer userid,@RequestParam("userpassword") String userpassword);
 
-    List<User> FuzzySearchUser(String username);
+    List<User> FuzzySearchUser(String name);
 
 }

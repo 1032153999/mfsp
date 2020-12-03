@@ -36,7 +36,7 @@
 
 
 
-                <div class="nav navbar-nav navbar-right col-2">你好!{{username}}</div>
+                <div class="nav navbar-nav navbar-right col-2">你好!{{user.username}}</div>
                
 
                 <div class="nav navbar-nav navbar-right col-1">
@@ -49,10 +49,10 @@
                 </div>
 
                 <div class="nav navbar-nav navbar-right cart col-2">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
+                    <button class="btn btn-light" @click="checkOut">
+                       <a>
                                 <span class="glyphicon glyphicon-shopping-cart ">
-                                    <span class="badge badge-primary badge-pill">{{countNum}}</span> CheckedOut
+                                    <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
                                    
                                 </span>
                             </span>
@@ -113,7 +113,7 @@
                            
                             <p>购买价格  {{clothing.clothingprice|formatclothingprice}}</p>
                             
-                            <p> 租赁价格  {{clothing.clothingprice|formatclothingprice}}</p>
+                            <p> 租赁价格  {{clothing.clothingrentprice|formatclothingprice}}</p>
                             <p>月销量:{{clothing.monthSell}} |月租赁量: {{clothing.monthRent}} </p>
                             <div class="row" style="text-align:center"> 
                                 数量<input type="number" v-model.number="sccnum" min="1">
@@ -181,29 +181,43 @@
 
         </div>
     </div>
+    <div class=" col-lg-12 col-lg-offset-1">
+        <div v-if="showDetail">
+                商品描述: <p v-html='clothing.clothingdescr'></p>
 
-    <div v-if="showDetail">
-            商品描述: <p v-html='clothing.clothingdescr'></p>
+
+                <div v-for="item in picList">
+                <br>
+                <figure>
+                    <img :src=item>
+                
+                </figure>
+                </div>
 
 
-            <div v-for="item in picList">
-               <br>
-            <figure>
-                <img :src=item>
-             
-            </figure>
+
+        </div>
+        <div v-if="showComment">
+            <div>
+                -------------------
             </div>
+            
+            
+            
+            
+            商品评价:
 
-
-
-    </div>
-    <div v-if="showComment">
-        商品评价:
-
-
-    </div>
+            <div>
+                <div class="col-lg-8">
+                    <textarea class="form-control" rows="3" style="resize:none ;"></textarea>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-info">发表评价</button> 
+                </div>
+            </div>
+         </div>
     
-
+    </div>
         
 
 
@@ -226,12 +240,15 @@
         el: '#app',
         data:{
             sitename:"会员制时装共享平台",
-            username:"游客",
+            user:{
+                username:"游客",
+                userid:1,
+            },
             showclothing:true,
             RimgUrl:"",
             cid:"",
             sccnum:1,
-
+            count_Num:0,
             showDetail:true,
             showComment:false,
 
@@ -272,6 +289,7 @@
              this.cid=this.getUrlParam("clothingid");
          
             this.Query(this.cid);
+            this.checkOut0();
             this.play();
            
         },
@@ -329,6 +347,56 @@
                 this.picList.push(clothing.clothingpic);
                 this.bannerList.push(clothing.clothingpic);
             },
+            checkOut0(){
+              
+              let that = this;
+              $.ajax({
+                  url: 'QueryShoppingcart',
+                  type: 'get',
+                  data: {
+                      userid:that.user.userid ,     //传单值到后台成功
+                         
+
+                  },
+
+                  // dataType: "json",
+
+                  success: function (e) {
+                      console.log('success:', e);
+                   
+                      that.count_Num=e.count;
+                     
+                    
+                  }
+
+              })
+
+          },
+          checkOut(){
+            
+            let that = this;
+            $.ajax({
+                url: 'QueryShoppingcart',
+
+                type: 'get',
+
+                data: {
+                    userid:that.user.userid ,     //传单值到后台成功
+                       
+
+                },
+
+                // dataType: "json",
+
+                success: function (e) {
+                    console.log('success:', e);
+                  
+
+                }
+
+            })
+
+        },
 
             
             showDetailClick:function(){
@@ -645,6 +713,29 @@
 </body>
 
 
+<script>
+    $.ajaxSetup( {
+	//设置ajax请求结束后的执行动作
+	complete :
+		function(XMLHttpRequest, textStatus) {
+			// 通过XMLHttpRequest取得响应头，sessionstatus
+		
+			var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+			if (sessionstatus == "TIMEOUT") {
+				var win = window;
+				while (win != win.top){
+					win = win.top;
+				}
+		
+				// win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+				win.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
+			}else if(XMLHttpRequest.getResponseHeader("CONTEXTPATH")!=null){
+           
+                window.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
+            }
+		}
+});
+</script>
 
 
 

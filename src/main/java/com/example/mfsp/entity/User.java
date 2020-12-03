@@ -19,13 +19,13 @@ public class User {
     private String userpassword;
 
     //null varchar(20)
-    private String userrole;
+    private Integer userrole;
 
     //null varchar(50)
     private String userpic;
 
     //null int(10)
-    private Integer phone;
+    private Long phone;
 
     private String userstatus;
 
@@ -71,11 +71,11 @@ public class User {
 
 
     @Column(name = "userRole")
-    public String getUserrole() {
+    public Integer getUserrole() {
         return userrole;
     }
 
-    public void setUserrole(String userrole) {
+    public void setUserrole(Integer userrole) {
         this.userrole = userrole;
     }
 
@@ -91,11 +91,11 @@ public class User {
 
 
     @Column(name = "phone")
-    public Integer getPhone() {
+    public Long getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

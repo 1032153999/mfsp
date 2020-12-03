@@ -111,10 +111,10 @@
                     var userid = $('#userid');
                     var userpassword = $('#userpassword');
                     var phone = $('#phone');
-                    var password = $('#upassword');
-                    if(userpassword.val()==userpassword.val()){
+                    var password = $('#password');
+                    if(userpassword.val()==password.val()){
                         $.ajax({
-                            url:'',
+                            url:'/register',
                             type:'GET',
                             data:{
                                 userid:userid.val(),

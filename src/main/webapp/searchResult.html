@@ -40,8 +40,8 @@
                
 
                 <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light" @click="gotoClientPage()">
-                        <a >
+                    <button class="btn btn-light">
+                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
                             个人中心
                             </span>
                         </a>
@@ -50,7 +50,7 @@
 
                 <div class="nav navbar-nav navbar-right cart col-2">
                     <button class="btn btn-light" @click="checkOut">
-                       <a >
+                       <a>
                                 <span class="glyphicon glyphicon-shopping-cart ">
                                     <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
                                    
@@ -83,50 +83,18 @@
 
 
                 <div>
-
-                    <div class="row" style="text-align:center">
-
-                        <!-- 轮播图部分div -->
-                        <div class="col-lg-8">
-                            <div id="Carousel" class="container" @mouseout="play" @mouseover="stopPlay">
-
-                                <div v-for="(imgUrl, index) in bannerList" v-show="index==mark" :key="index"  class="wrap" >
-
-                                    <img :src=imgUrl >
-
-                                </div>
-                                <div class="buttons">
-                                    <span v-for="(item, index) in bannerList"  :key="index"  @mouseover="change(index)">{{index+1}}</span>
-                                </div>
-                                <a href="#" class="arrow arrow_left" @click="prev_pic">&lt;</a>
-                                <a href="#" class="arrow arrow_right" @click="autoPlay">&gt;</a>
+                    <form>
+                        <div class="row" style="text-align:center">
+                            <div class="col-lg-8 col-lg-offset-1">
+                                <input class="form-control" id="focusedInput" type="text" value="" placeholder="search">
                             </div>
-                        </div>
-
-
-
-                        <!-- 轮播图右侧 -->
-                        <div class="col-lg-4">
-                            <div id="ad">
-                                <form>
-                                    <div class="row" style="text-align:center">
-                                        <div class="col-lg-8">
-                                            <input class="form-control" id="focusedInput" type="text" value="" placeholder="search">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <button type="submit" class="btn btn-default">Confirm</button>
-                                        </div>
-
-                                    </div>
-
-                                </form>
+                            <div class="col-lg-3">
+                                <button type="submit" class="btn btn-default">Confirm</button>
                             </div>
 
-                            <img :src=RimgUrl>
-
-
                         </div>
-                    </div>
+
+                    </form>
 
                 </div>
     <br>
@@ -247,13 +215,7 @@
             cart:[],
 
 
-             //轮播图
-            mark: 0, //比对图片索引的变量
-                timer : null,
-                bannerList:["img/1.png","img/2.png","img/3.png","img/4.png"]
-
-                 //轮播图
-
+            
 
         },
 
@@ -264,7 +226,6 @@
 
         mounted:function(){
             this.Query0();
-            this.QueryUserSession();
             this.checkOut0();
             this.play();
         },
@@ -313,11 +274,6 @@
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
             },
-            gotoClientPage(){
-
-                window.open('client.html')
-
-            },
             checkOut0(){
               
                 let that = this;
@@ -344,16 +300,15 @@
 
             },
             checkOut(){
-                // window.open('demo111')
               
               let that = this;
               $.ajax({
-                //   url: 'QueryShoppingcart',
-                url: 'GotoShoppingcart',
+                  url: 'QueryShoppingcart',
+
                   type: 'get',
 
                   data: {
-                    //   userid:that.user.userid ,     //传单值到后台成功
+                      userid:that.user.userid ,     //传单值到后台成功
                          
 
                   },
@@ -369,34 +324,7 @@
               })
 
           },
-            //轮播图
-            autoPlay:function(){
-                    this.mark++;
-                    if (this.mark == this.bannerList.length) { //当遍历到最后一张图片置零
-                        this.mark = 0
-                    }
-                },
-                prev_pic:function(){
-                    if(this.mark==0){
-
-                        this.mark=this.bannerList.length-1;
-                    }else{
-                        this.mark--;
-                    }
-
-                } ,
-                stopPlay:function(){
-                    clearInterval(timer);
-                },
-                play () {  //自动播放：设置一个定时器，创建一个可以自动播放的函数并调用
-                    timer=setInterval(this.autoPlay, 2500)
-                },
-                change (index) {
-
-                    this.mark = index
-                },
-
-                //轮播图
+          
                 goToSDetails:function (clothingid) {
                 
 
@@ -419,39 +347,7 @@
                     this.showHot=true;
                 },
 
-                QueryUserSession(){
-                
-            
-                let that = this;
-                $.ajax({
-                    url: 'QueryUserSession',
 
-                    type: 'get',
-
-                    data: {    //传单值到后台成功
-
-
-                    },
-
-                    // dataType: "json",
-
-                    success: function (e) {
-                        console.log('success:', e);
-
-                     
-                        for (let index = 0; index < e.data.length; index++) {
-                            that.user=e.data[index];
-
-                        }
-
-                    }
-
-                })
-
-
-
-
-            },
 
 
 
@@ -463,8 +359,6 @@
 
 
             Query0(){
-                // var userid=getUrlParameter('USER_SESSION');
-                // alert(userid);
             
                 let that = this;
                 $.ajax({
@@ -699,6 +593,9 @@
 </script>
 
 
+</body>
+
+
 <script>
     $.ajaxSetup( {
 	//设置ajax请求结束后的执行动作
@@ -712,20 +609,16 @@
 				while (win != win.top){
 					win = win.top;
 				}
-		
+			
 				// win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
 				win.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
 			}else if(XMLHttpRequest.getResponseHeader("CONTEXTPATH")!=null){
-           
+            
                 window.open(XMLHttpRequest.getResponseHeader("CONTEXTPATH"))
             }
 		}
 });
 </script>
-
-</body>
-
-
 
 
 

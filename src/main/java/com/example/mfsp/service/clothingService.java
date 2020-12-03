@@ -13,4 +13,12 @@ public interface clothingService extends baseService<Clothing> {
     List<String> findSecondKind(String FirstKind);
 
     List<String> findThirdlyKind(String FirstKind, String SecondKind);
+
+    List<Clothing> sortedbyrentalprice();
+
+    List<Clothing> sortedbyrentalprice1();
+
+    List<Clothing> sortedbyprice();
+
+    List<Clothing> sortedbyprice1();
 }

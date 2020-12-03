@@ -1,4 +1,10 @@
 package com.example.mfsp.dao;
 
-public interface clothingCommentMapper {
+import com.example.mfsp.entity.Clothing;
+import com.example.mfsp.entity.Clothingcomment;
+import org.springframework.stereotype.Component;
+import tk.mybatis.mapper.common.Mapper;
+
+@Component
+public interface clothingCommentMapper extends Mapper<Clothingcomment> {
 }

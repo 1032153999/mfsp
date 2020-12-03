@@ -218,15 +218,16 @@ public class clothingManagementController {
      * 下拉框动态获取第一类
      * @return
      */
-    @RequestMapping(value = "queryFirstKind")
+    @RequestMapping(value = "queryFirstKind" , method=RequestMethod.GET)
     @ResponseBody
     public String FirstKind(){
 
-        System.out.println(clothingservice.findFirstKind());
-
+/*        System.out.println(clothingservice.findFirstKind());*/
+        System.out.println("已经进入");
         List<String> list=new ArrayList<String>();
+        System.out.println("222");
         list=clothingservice.findFirstKind();
-        String result=  String.join(",",list);
+        String result= String.join(",",list);
         System.out.println(result);
         return result;
     }
@@ -234,9 +235,10 @@ public class clothingManagementController {
     /*
     获取第二类
     */
-    @RequestMapping(value = "querySecondkind")
+    @RequestMapping(value = "querySecondKind", method=RequestMethod.GET)
     @ResponseBody
     public String findSecondKind(String FirstKind){
+        System.out.println("二级进入");
         List<String> list=new ArrayList<String>();
         list=clothingservice.findSecondKind(FirstKind);
         String result=  String.join(",",list);
@@ -247,7 +249,7 @@ public class clothingManagementController {
     /*
     * 获取第三类
     * */
-    @RequestMapping(value="queryThirdlyKind")
+    @RequestMapping(value="queryThirdlyKind", method=RequestMethod.GET)
     @ResponseBody
     public String findThirdlyKind(String FirstKind,String SecondKind){
         List<String> list=new ArrayList<String>();

@@ -5,13 +5,26 @@
     <select id="FuzzySearchClothing" resultType="com.example.mfsp.entity.Clothing" parameterType="com.example.mfsp.entity.Clothing">
         select * from clothing where clothingName like concat(concat('%',#{clothingname}),'%')
     </select>
-    <select id="findFirstKind" resultType="String" parameterType="com.example.mfsp.entity.Clothing">
-        select  DISTINCT FirstKind from clothing
+    <select id="findFirstKind" resultType="String" >
+        select  DISTINCT FirstKind from class
     </select>
     <select id="findSecondKind"  resultType="String" >
-        select  DISTINCT SecondKind from clothing where FirstKind=#{FirstKind}
+        select  DISTINCT SecondKind from class where FirstKind=#{FirstKind}
     </select>
     <select id="findThirdlyKind"  resultType="String" >
-        select  DISTINCT ThirdlyKind from clothing  where FirstKind=#{FirstKind} and SecondKind=#{SecondKind}
+        select  DISTINCT ThirdlyKind from class  where FirstKind=#{FirstKind} and SecondKind=#{SecondKind}
     </select>
+    <select id="sortedbyrentalprice" resultType="com.example.mfsp.entity.Clothing">
+        select * from clothing order by clothingRentPrice desc
+    </select>
+    <select id="sortedbyrentalprice1" resultType="com.example.mfsp.entity.Clothing">
+        select * from clothing order by clothingRentPrice asc
+    </select>
+    <select id="sortedbyprice" resultType="com.example.mfsp.entity.Clothing">
+        select * from clothing order by clothingPrice desc
+    </select>
+    <select id="sortedbyprice1" resultType="com.example.mfsp.entity.Clothing">
+        select * from clothing order by clothingPrice desc
+    </select>
+
 </mapper>

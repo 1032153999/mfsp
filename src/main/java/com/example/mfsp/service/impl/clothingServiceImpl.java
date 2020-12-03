@@ -36,4 +36,23 @@ public class clothingServiceImpl extends baseServiceImpl<Clothing> implements cl
 
         return clothingmapper.findThirdlyKind(FirstKind,SecondKind);
     }
+    @Override
+    public List<Clothing> sortedbyrentalprice (){
+        return clothingmapper.sortedbyrentalprice();
+    }
+
+    @Override
+    public List<Clothing> sortedbyrentalprice1 (){
+        return clothingmapper.sortedbyrentalprice1();
+    }
+
+    @Override
+    public List<Clothing> sortedbyprice(){
+        return clothingmapper.sortedbyprice();
+    }
+    @Override
+    public List<Clothing> sortedbyprice1(){
+        return clothingmapper.sortedbyprice1();
+    }
+
 }

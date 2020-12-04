@@ -77,6 +77,7 @@ public class UpdateClothingController {
     @GetMapping("/reduceclothingnum")
     @ResponseBody
     public String updateclothingNum(Clothing clothing){
+        System.out.println("clothing.toString()"+clothing.toString());
         Integer id =clothing.getClothingid();
         Integer num = clothing.getClothingnum();
         Clothing queryclothing = new Clothing();

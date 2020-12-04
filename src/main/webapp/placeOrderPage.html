@@ -642,10 +642,44 @@
                                     console.log('success:', e);
 
                                 
-
+                                   that.reduceStorage();
                                 }
 
                             })
+
+                    },
+                    reduceStorage(){
+                        
+
+                        let that = this;
+                        
+                      for (let index = 0; index < that.shoppingCart.length; index++) {
+                        that.shoppingCart[index];
+                 
+                    $.ajax({
+                        url: 'reduceclothingnum',
+
+                        type: 'get',
+
+                        data: {
+                            clothingid:that.shoppingCart[index].clothingid,
+                            clothingnum:that.shoppingCart[index].sccnum,
+                            
+
+                        },
+
+                        // dataType: "json",
+
+                        success: function (e) {
+                            console.log('success:', e);
+                        
+
+                        }
+
+                    })
+
+                      }
+
                     },
 
       

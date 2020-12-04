@@ -40,6 +40,8 @@ public class UpdateuserController {
 
 
     //添加个人地址controller类
+    @RequestMapping(value = "insertaddress")
+    @ResponseBody
     private String addaddress(@RequestParam("useraddress") String useraddress, @RequestParam("userid") int userid){
         Address address = new Address();
         address.setUseraddress(useraddress);
@@ -47,6 +49,39 @@ public class UpdateuserController {
         addressManagementService.insert(address);
         return "添加成功";
     }
+
+
+    //验证密码是否符合原密码 以便进行后续密码修改
+    @RequestMapping(value = "checkuserpassword")
+    @ResponseBody
+    private String checkuserpassword(@RequestParam("userid") int userid,@RequestParam("userpassword") String userpassword){
+        User user = new User();
+        user.setUserid(userid);
+        if(userService.selectAll(user).get(0).getUserpassword()!= userpassword ){
+            return "密码不符合";
+        }else {
+            return "密码符合";
+        }
+    }
+
+    //修改密码 controller类
+    @RequestMapping(value = "updatepassword")
+    @ResponseBody
+    private  String updateuserpassword(@RequestParam("userpassword") String userpassword,@RequestParam("userid") int userid){
+        User user = new User();
+        user.setUserid(userid);
+        user.setUserpassword(userpassword);
+        userService.updateByPrimaryKeySelective(user);
+        return  "修改成功";
+    }
+
+
+
+
+
+
+
+
 
     //
 }

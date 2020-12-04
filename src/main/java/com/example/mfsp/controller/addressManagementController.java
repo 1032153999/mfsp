@@ -25,14 +25,15 @@ public class addressManagementController {
 
     @RequestMapping(value = "/queryAdress",method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> queryAddress (Integer userid){
+    public Map<String,Object> queryAddress (Address address){
         Map<String,Object> result=new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
-        Address address=new Address();
-        address.setUserid(userid);
+//        Address address=new Address();
+//        address.setUserid(userid);
+        System.out.println(address.toString());
         List<Address> addresses=new ArrayList<>();
-        if(userid==null){
+        if(address.getUserid()==null){
             System.out.println("userid is null");
         }else{
             addresses=addressmanagementservice.selectAll(address);

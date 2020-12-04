@@ -11,7 +11,7 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body>
-    <div class="layui-form-item"><input type="hidden" class="layui-input layui-disabled" id="userid" name="userid"></div>
+    <div class="layui-form-item">
     <div class="layui-form-item">
       <label class="layui-form-label">用户昵称</label>
       <div class="layui-input-inline">
@@ -47,12 +47,9 @@
             $.ajax({
                 url:'',
                 type: "GET",
-                data:{userid:''},//填界面获取的userid
                 dataType:JSON,
                 success:function(res, textStatus){
                     //根据用户id返回数据并将其输入到文本框
-                    let userid = document.querySelector('#userid')
-                    userid.value = res.data.userid;
                     let username = document.querySelector('#username')
                     username.value = res.data.username;
                     let phone = document.querySelector('#phone')

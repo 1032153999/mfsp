@@ -16,7 +16,6 @@
   <div class="layui-input-inline">
       <input type="text" name="userpassword" id="userpassword" autocomplete="off" class="layui-input">
   </div>
-  <input type="hidden" class="layui-input layui-disabled" id="userid" name="userid">
   <div class="layui-input-inline">
       <button class="layui-btn" lay-filter="checking">验证密码</button>
   </div>
@@ -25,13 +24,11 @@
       var $ = layui.$, active = {
         checking: function(){
               var userpassword = $('#userpassword');
-              var userid = $('#userid');
               $.ajax({
                   url: "",//这里填验证密码的控制类
                   type: "GET",
                   data:{
                     userpassword:userpassword.val(),
-                    userid:userid.val(),
                   },
                   success:function(){
                     layer.open({

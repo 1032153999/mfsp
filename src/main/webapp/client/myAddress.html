@@ -16,7 +16,6 @@
         <div class="layui-input-inline">
             <input type="text" name="useraddress" id="useraddress" autocomplete="off" class="layui-input">
         </div>
-        <input type="hidden" class="layui-input layui-disabled" id="userid" name="userid">
         <div class="layui-input-inline">
             <button class="layui-btn" lay-filter="addAddress">添加</button>
         </div>
@@ -31,13 +30,11 @@
         var $ = layui.$, active = {
             addAddress: function(){
               var useraddress = $('#useraddress');
-              var userid = $('#userid');
               $.ajax({
                   url: "",//这里填添加地址的控制类地址
                   type: "GET",
                   data:{
                     useraddress:useraddress.val(),
-                    userid:userid.val(),
                   }
               });
               var table = layui.table;
@@ -63,9 +60,6 @@
                 ,even: true
                 ,url: '' //数据接口
                 ,page: true //开启分页
-                ,where:{
-                userid:''//填界面获取的userid
-                }
                 ,cols: [[ //表头
                 {field: 'userid', title: '用户id',  fixed: 'left'}
                 ,{field: 'useraddress', title: '地址'}

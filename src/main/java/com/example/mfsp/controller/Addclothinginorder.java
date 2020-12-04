@@ -25,12 +25,14 @@ public class Addclothinginorder {
         Object zhongzhuan = httpSession.getAttribute("orderid");
         int id =Integer.parseInt(zhongzhuan.toString());
         Clothinginorder clothinginorder = new Clothinginorder();
+
         clothinginorder.setOrderformid(id);
         clothinginorder.setClothingid(clothing.getClothingid());
         clothinginorder.setClothingprice(clothing.getClothingprice());
         clothinginorder.setClothingname(clothing.getClothingname());
         clothinginorder.setClothingdescr(clothing.getClothingdescr());
         clothinginorder.setCionum(clothing.getClothingnum());
+        System.out.println("clothinginorder"+clothinginorder.toString());
         clothinginorderService.insert(clothinginorder);
         return "";
 

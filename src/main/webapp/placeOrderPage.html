@@ -587,30 +587,31 @@
 
                     },
                     placeOrder(){
-                        //时间默认值，默认当前时间+5天
-                        var dataCur = new Date(); //当前日期
+                        // //时间默认值，默认当前时间+5天
+                        // var dataCur = new Date(); //当前日期
                        
-                        if(this.showRentByM){
-                            dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1+parseInt(this.RentMonthsTime)) + '-' + dataCur.getDate() + " 00:00:00";
-                        var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
-                            // dataCurPar += 86400 * parseInt(this.RentMonthsTime)*30;//加后的时间戳
-                        }else if(this.showRentByT){
-                            dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1) + '-' + dataCur.getDate() + " 00:00:00";
-                         var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
-                            dataCurPar += 86400 *30;//加后的时间戳
-                        }
+                        // if(this.showRentByM){
+                        //     dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1+parseInt(this.RentMonthsTime)) + '-' + dataCur.getDate() + " 00:00:00";
+                        // var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
+                        //     // dataCurPar += 86400 * parseInt(this.RentMonthsTime)*30;//加后的时间戳
+                        // }else if(this.showRentByT){
+                        //     dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1) + '-' + dataCur.getDate() + " 00:00:00";
+                        //  var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
+                        //     dataCurPar += 86400 *30;//加后的时间戳
+                        // }
                        
                        
-                        var dataDefPar = new Date(parseInt(dataCurPar) * 1000);//转换为时间
-                        alert("dataDefPar"+dataDefPar)
-                        var dataDef = dataDefPar.getFullYear() + '-' + (dataDefPar.getMonth() + 1) + '-' + (dataDefPar.getDate());
-                        // var timetamp=dataDefPar.format("yyyy-MM-dd hh:mm:ss");;
-                        var timetamp= new Date(dataDefPar).Format("yyyy-MM-dd hh:mm:ss.0");
-                        // var timetamp=dataCurPar;
-                        if(this.showBuy){
-                            timetamp="";
-                        }
-                        alert("dataDef"+timetamp);
+                        // var dataDefPar = new Date(parseInt(dataCurPar) * 1000);//转换为时间
+                        // alert("dataDefPar"+dataDefPar)
+                        // var dataDef = dataDefPar.getFullYear() + '-' + (dataDefPar.getMonth() + 1) + '-' + (dataDefPar.getDate());
+                        // // var timetamp=dataDefPar.format("yyyy-MM-dd hh:mm:ss");;
+                        // var timetamp= new Date(dataDefPar).Format("yyyy-MM-dd hh:mm:ss.0");
+                        // // var timetamp=dataCurPar;
+                        // if(this.showBuy){
+                        //     timetamp="";
+                        // }
+                        // alert("dataDef"+timetamp);
+
 
 
                         if(this.Address1){
@@ -621,6 +622,7 @@
                         }else if(this.showRentByT){
                             this.RentMonthsTime=null;
                         }
+                        
 
 
 
@@ -660,8 +662,15 @@
                         
 
                         let that = this;
+                      
                         
                       for (let index = 0; index < that.shoppingCart.length; index++) {
+                        if(this.showBuy){
+                            var transferPirce=that.clothings[index].clothingprice;
+
+                        }else{
+                            var transferPirce=that.clothings[index].clothingrentprice;
+                        }
                         that.shoppingCart[index];
                  
                     $.ajax({
@@ -687,7 +696,7 @@
                     })
 
 
-
+                    alert("that.clothings[index].clothingname,"+that.clothings[index].clothingname)
 ///////////////////////////////////add sell
                     $.ajax({
                         url: 'clothinginorder',
@@ -696,7 +705,10 @@
 
                         data: {
                             clothingid:that.shoppingCart[index].clothingid,
-                            cionum:that.shoppingCart[index].sccnum,
+                            clothingnum:that.shoppingCart[index].sccnum,
+                            clothingname:that.clothings[index].clothingname,
+                            clothingprice:transferPirce,
+                            clothingdescr:that.clothings[index].clothingdescr,
                             
 
                         },

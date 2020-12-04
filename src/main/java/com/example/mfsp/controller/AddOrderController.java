@@ -37,7 +37,7 @@ public class AddOrderController {
         System.out.println(time2);
         System.out.println(time);
         orderform.setOrderformid(time2);
-        httpSession.setAttribute("orderformid",time2);
+        httpSession.setAttribute("orderid",time2);
 
 
         if(month==null&&days==null){

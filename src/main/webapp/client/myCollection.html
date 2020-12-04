@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>会员制时装共享平台</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <script src="../layui/layui.js" charset="utf-8"></script>
+  <script src="../js/jquery.min.js"></script>
+</head>
+<body class="layui-bg-gray">
+    <div style="padding: 20px; ">
+        <div class="layui-row layui-col-space15" id="collection">
+            
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $.ajax({
+                url:'',
+                data:{userid:userid},
+                type:"GET",
+                datatype:JSON,
+                success:function(res){
+                    var str = "";
+                    for( var i=0 ; i<res.count ; i++ ){
+                        str+="<div class='layui-col-md3'><div class='layui-card'><div class='layui-card-header'><h2>" + res.data[i].clothingname + "</h2></div><div class='layui-card-body'><img src='" + res.data[i].clothingpic + "' width='300px' height='200px'><br><span style='color:red'>￥" + res.data[i].clothingprice + "</span></div></div></div>";
+                        
+                    }
+                    $("#collection").html(str);
+                }
+            });
+        });
+    </script>
+</body>

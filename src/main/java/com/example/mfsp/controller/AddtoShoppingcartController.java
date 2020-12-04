@@ -26,18 +26,18 @@ public class AddtoShoppingcartController {
     public String addtoShoppingcart(Shoppingcart shoppingcart) {
 
         Shoppingcart shoppingcart2 =new Shoppingcart();
-        shoppingcart2.setUserid(19);
-        shoppingcart2.setClothingid(4);
+        shoppingcart2.setUserid(shoppingcart.getUserid());
+        shoppingcart2.setClothingid(shoppingcart.getClothingid());
         List<Shoppingcart> shoppingcarts2=new ArrayList<>();
         shoppingcarts2= shoppingcartService.selectAll(shoppingcart2);
 //        Integer zhongzhuan = shoppingcarts2.get(0).getSccnum();
 
 
-        shoppingcart.setShoppingcartid(1515);
-        shoppingcart.setClothingid(4);
-        shoppingcart.setUserid(19);
-        shoppingcart.setSccnum(151);
-        System.out.println("设置成功");
+//        shoppingcart.setShoppingcartid(1515);
+//        shoppingcart.setClothingid(4);
+//        shoppingcart.setUserid(19);
+//        shoppingcart.setSccnum(151);
+        System.out.println("设置成功"+shoppingcart.toString());
 
 
         if (shoppingcarts2.size() == 1){

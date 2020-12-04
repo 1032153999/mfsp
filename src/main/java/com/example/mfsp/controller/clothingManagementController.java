@@ -29,6 +29,7 @@ public class clothingManagementController {
 
     @Autowired
     private clothingService clothingservice;
+    private Object ResultCodeConstants;
 
 
     /*根据服装序号查找服装*/
@@ -154,12 +155,13 @@ public class clothingManagementController {
 
     @RequestMapping(value="/FuzzySearchClothing", method=RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> FuzzySearchClothing(@RequestParam("name")  String clothingname){
+    public Map<String, Object> FuzzySearchClothing(Clothing clothing){
 
+        System.out.println("FuzzySearchClothing");
         Map<String, Object> result = new HashMap<String, Object>();
         List<Clothing> clothings=new ArrayList<>();
-        System.out.println(clothingname);
-        clothings=clothingservice.FuzzySearchClothing(clothingname);
+        System.out.println("clothingname"+clothing.getClothingname());
+        clothings=clothingservice.FuzzySearchClothing(clothing.getClothingname());
         result.put("code", 0);
         result.put("msg", "");
         result.put("count",clothings.size());
@@ -171,7 +173,7 @@ public class clothingManagementController {
 
     @ResponseBody
     @RequestMapping("/upload")
-    public JSONObject upload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException, JSONException {
+    public JSONObject upload(/*@RequestParam("clothingpic")*/MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException, JSONException {
         JSONObject res = new JSONObject();
         JSONObject resUrl = new JSONObject();
 
@@ -183,6 +185,7 @@ public class clothingManagementController {
         /*为命名准备*/
         UUID uuid=UUID.randomUUID();
         String originalFilename = file.getOriginalFilename();  /*应该是获取原始文件名*/
+        // String fileName = uuid.toString() + originalFilename;
         /*拓展名 */
         String extendName = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
 
@@ -198,6 +201,7 @@ public class clothingManagementController {
         }else{
             System.out.println(filepath.getParentFile());
         }
+//        if(!filepath.exists()) {
         //把本地文件上传到封装上传文件位置的全路径
         //使用transferTo(dest)方法将上传文件写到服务器上指定的文件;
         file.transferTo(dir);
@@ -206,6 +210,10 @@ public class clothingManagementController {
         System.out.println("当前项目所在路径："+pathRoot);
 
         String sqlFile = "\\images\\photo"+fileName;
+        /*Clothing clothing =new Clothing();
+        clothing.setClothingpic(sqlFile);
+        clothingservice.insert(clothing);*/
+//        }
         resUrl.put("src", sqlFile);
         res.put("code", 0);
         res.put("msg", "上传成功");
@@ -216,53 +224,18 @@ public class clothingManagementController {
         System.out.println(str);
         return res;
 
+        /*Map<String, String> map = new HashMap<>();
+        map.put("filePath", path);
+        map.put("fileName", fileName);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 0);
+        result.put("msg", "上传成功");
+        result.put("count", 1);
+        result.put("data", map);
+        return result;*/
+
     }
-
-    /**
-     * 下拉框动态获取第一类
-     * @return
-     */
-    @RequestMapping(value = "queryFirstKind" , method=RequestMethod.GET)
-    @ResponseBody
-    public String FirstKind(){
-
-/*        System.out.println(clothingservice.findFirstKind());*/
-        System.out.println("已经进入");
-        List<String> list=new ArrayList<String>();
-        System.out.println("222");
-        list=clothingservice.findFirstKind();
-        String result= String.join(",",list);
-        System.out.println(result);
-        return result;
-    }
-
-    /*
-    获取第二类
-    */
-    @RequestMapping(value = "querySecondKind", method=RequestMethod.GET)
-    @ResponseBody
-    public String findSecondKind(String FirstKind){
-        System.out.println("二级进入");
-        List<String> list=new ArrayList<String>();
-        list=clothingservice.findSecondKind(FirstKind);
-        String result=  String.join(",",list);
-        System.out.println(result);
-        return result;
-    }
-
-    /*
-    * 获取第三类
-    * */
-    @RequestMapping(value="queryThirdlyKind", method=RequestMethod.GET)
-    @ResponseBody
-    public String findThirdlyKind(String FirstKind,String SecondKind){
-        List<String> list=new ArrayList<String>();
-        list=clothingservice.findThirdlyKind(FirstKind,SecondKind);
-        String result=  String.join(",",list);
-        System.out.println(result);
-        return result;
-    }
-
 
 
 }

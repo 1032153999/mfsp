@@ -44,10 +44,16 @@ public class QueryShoppingcartController {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
-    System.out.println(shoppingcart.toString());
         List<Shoppingcart> shoppingcarts=new ArrayList<>();
+    System.out.println(shoppingcart.toString());
+    if(shoppingcart.getUserid()==0){
+        System.out.println("shoppingcart.getUserid()==0");
+    }else {
+        shoppingcarts = shoppingcartService.selectAll(shoppingcart);
+    }
 
-        shoppingcarts= shoppingcartService.selectAll(shoppingcart);
+
+
         result.put("count",shoppingcarts.size());
         result.put("data", shoppingcarts);
         System.out.println("endddd");

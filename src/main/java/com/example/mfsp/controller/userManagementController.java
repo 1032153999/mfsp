@@ -34,10 +34,14 @@ public class userManagementController {
         User user=new User();
         user.setUserid(id);
         List<User> users=new ArrayList<>();
-        if(user.getUserid()==0){
+        if(user.getUserid()==null){
             users=userservice.selectAll();
         }else{
-            users=userservice.selectAll(user);
+            if(user.getUserid()==0){
+                users=userservice.selectAll();
+            }else{
+                users=userservice.selectAll(user);
+            }
         }
         result.put("count",users.size());
         result.put("data", users);

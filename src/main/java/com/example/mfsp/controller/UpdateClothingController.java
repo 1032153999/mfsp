@@ -73,4 +73,18 @@ public class UpdateClothingController {
         return modelAndView;
     }
 
+//接受前端发来的衣服对象， 提取出其中衣服的num从而改变库存数量
+    @GetMapping("/reduceclothingnum")
+    @ResponseBody
+    public String updateclothingNum(Clothing clothing){
+        Integer id =clothing.getClothingid();
+        Integer num = clothing.getClothingnum();
+        Clothing queryclothing = new Clothing();
+        queryclothing.setClothingid(1);
+        Integer num2 = clothingService.selectAll(queryclothing).get(0).getClothingnum();
+        clothing.setClothingnum(num2-num);
+        clothingService.updateByPrimaryKeySelective(clothing);
+        return "";
+    }
+
 }

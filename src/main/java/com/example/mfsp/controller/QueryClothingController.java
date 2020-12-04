@@ -164,21 +164,6 @@ public class QueryClothingController {
         return  mav;
      }
 
-     /*根据服装租赁价格排序----降序*/
-     @RequestMapping(value="/sortedbyrentalprice",method = RequestMethod.GET)
-     @ResponseBody
-     public List<Clothing> sortedbyrentalprice (){
-
-        List<Clothing> clothings= new ArrayList<>();
-        clothings=clothingService.sortedbyrentalprice();
-        return clothings;
-     }
-     /*根据服装租赁价格排序----升序*/
-     @RequestMapping(value="/sortedbyrentalprice1",method=RequestMethod.GET)
-     @ResponseBody
-     public List<Clothing> sortedbyrenttalprice1 (){
-        return clothingService.sortedbyrentalprice1();
-     }
 
      /*根据服装价格排序----升序*/
     @RequestMapping(value="/sortedbyprice",method=RequestMethod.GET)

@@ -17,7 +17,7 @@
             <input type="text" name="useraddress" id="useraddress" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <button class="layui-btn" lay-filter="addAddress">添加</button>
+            <button class="layui-btn" lay-filter="addAddress" onclick="addAddress()">添加</button>
         </div>
     </div>
     <table id="myAddress" lay-filter="myAddress"></table>
@@ -27,7 +27,7 @@
       </script>
     <script>
 
-        var $ = layui.$, active = {
+        /*var $ = layui.$, active = {
             addAddress: function(){
               var useraddress = $('#useraddress');
               $.ajax({
@@ -49,7 +49,24 @@
       $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
           var type = $(this).data('type');
           active[type] ? active[type].call(this) : '';
-      });
+      });*/
+
+        function addAddress(){
+            var useraddress = $('#useraddress');
+            $.ajax({
+                url: "",//这里填添加地址的控制类地址
+                type: "GET",
+                data:{
+                    useraddress:useraddress.val(),
+                }
+            });
+            var table = layui.table;
+            table.reload('myAddress', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        };
 
         layui.use('table', function(){
             var table = layui.table;

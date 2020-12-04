@@ -80,7 +80,7 @@
                     </div>
                     <div class=" col-lg-6" v-if="showRentByT">
                      
-                        <input type="number"  class="form-control"  min="1" max="30" placeholder="30天内">
+                        <input type="number"  class="form-control"  min="1" max="30" placeholder="30天内" v-model="RentDaysTime">
                      
                     </div>
              
@@ -361,6 +361,7 @@
             showRentByT:true,
             showRentByM:false,
             RentMonthsTime:2,
+            RentDaysTime:1,
             Address1:"",
             Addressn:"",
             orderForm:{
@@ -615,6 +616,11 @@
                         if(this.Address1){
                             this.address=this.addresses.useraddress+this.addresses.username+this.addresses.userphone
                         }
+                        if(this.showRentByM){
+                            this.RentDaysTime=null;
+                        }else if(this.showRentByT){
+                            this.RentMonthsTime=null;
+                        }
 
 
 
@@ -628,11 +634,13 @@
 
                                     orderformclass:that.orderForm.orderformclass,
                                     userid: that.user.userid,
-                                    preconcertedreturntime:that.timetamp,
+                                    days:"",
                                     orderformaddress:that.address, 
                                     totalprice: that.countMoney,
                                     remark: that.orderForm.remark,
                                     orderstatus:"未处理",
+                                    month:that.RentMonthsTime,
+                                    days:that.RentDaysTime,
 
                                 },
 
@@ -640,7 +648,7 @@
 
                                 success: function (e) {
                                     console.log('success:', e);
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                 
                                    that.reduceStorage();
                                 }
@@ -664,6 +672,31 @@
                         data: {
                             clothingid:that.shoppingCart[index].clothingid,
                             clothingnum:that.shoppingCart[index].sccnum,
+                            
+
+                        },
+
+                        // dataType: "json",
+
+                        success: function (e) {
+                            console.log('success:', e);
+                        
+
+                        }
+
+                    })
+
+
+
+///////////////////////////////////add sell
+                    $.ajax({
+                        url: 'clothinginorder',
+
+                        type: 'get',
+
+                        data: {
+                            clothingid:that.shoppingCart[index].clothingid,
+                            cionum:that.shoppingCart[index].sccnum,
                             
 
                         },

@@ -30,23 +30,28 @@
                   data:{
                     userpassword:userpassword.val(),
                   },
-                  success:function(){
-                    layer.open({
-                      type:2,
-                      title:'修改密码',
-                      content:'./editPassword.html',
-                      area:['500px','250px'],
-                      success: function (layero, index) {
-                        //向layer页面传值，传值主要代码
-                        var body = layer.getChildFrame('body', index);
+                  success:function(msg){
+                      if (msg=="success"){
+                          layer.open({
+                              type:2,
+                              title:'修改密码',
+                              content:'./editPassword.html',
+                              area:['500px','250px'],
+                              success: function (layero, index) {
+                                  //向layer页面传值，传值主要代码
+                                  var body = layer.getChildFrame('body', index);
 
-                        //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-                        //var iframeWin = window[layero.find('iframe')[0]['name']];
+                                  //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                                  //var iframeWin = window[layero.find('iframe')[0]['name']];
 
-                        //将弹窗页面中属性名name="orderformid"的标签赋值
-                        body.find("[name='userid']").val(userid);
+                                  //将弹窗页面中属性名name="orderformid"的标签赋值
+                                  body.find("[name='userid']").val(userid);
+                              }
+                          });
+                      }else{
+                          layui.msg("密码错误");
                       }
-                    });
+
                   }
               });
               

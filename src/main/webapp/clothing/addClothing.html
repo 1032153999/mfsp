@@ -13,6 +13,10 @@
 <body class="layui-layout-body">
 
     <div class="layui-form-item">
+        <label class="layui-form-label ">服装编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="clothingid" id="clothingid" placeholder="" autocomplete="off" class="layui-input">
+        </div>
         <label class="layui-form-label ">服装名字</label>
         <div class="layui-input-inline">
             <input type="text" name="clothingname" id="clothingname" placeholder="" autocomplete="off" class="layui-input">
@@ -24,10 +28,6 @@
         <label class="layui-form-label">服装租赁价</label>
         <div class="layui-input-inline">
             <input type="text" name="clothingrentprice" id="clothingrentprice" placeholder="" autocomplete="off" class="layui-input">
-        </div>
-        <label class="layui-form-label">服装数量</label>
-        <div class="layui-input-inline">
-            <input type="text" name="clothingnum" id="clothingnum" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -45,6 +45,10 @@
             <input type="text" name="clothingdescr" id="clothingdescr" placeholder="" autocomplete="off" class="layui-input">
         </div>
         <input type="hidden" class="layui-input layui-disabled" id="clothingpic" name="clothingpic">
+        <label class="layui-form-label">服装数量</label>
+        <div class="layui-input-inline">
+            <input type="text" name="clothingnum" id="clothingnum" placeholder="" autocomplete="off" class="layui-input">
+        </div>
     </div>
 
     <div class="layui-form-item">
@@ -258,6 +262,7 @@
 
       var $ = layui.$, active = {
           addClothing: function(){
+              var clothingid = $('#clothingid');
               var clothingname = $('#clothingname');
               var clothingprice = $('#clothingprice');
               var clothingrentprice = $('#clothingrentprice');
@@ -272,6 +277,7 @@
                   url: "/admin/addClothing",
                   type: "GET",
                   data:{
+                      clothingid:clothingid.val(),
                       clothingname:clothingname.val(),
                       clothingdescr:clothingdescr.val(),
                       clothingprice:clothingprice.val(),

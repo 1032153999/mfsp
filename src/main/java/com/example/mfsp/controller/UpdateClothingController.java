@@ -77,6 +77,7 @@ public class UpdateClothingController {
     @GetMapping("/reduceclothingnum")
     @ResponseBody
     public String updateclothingNum(Clothing clothing){
+        System.out.println("clothing.toString()"+clothing.toString());
         Integer id =clothing.getClothingid();
         Integer num = clothing.getClothingnum();
         Clothing queryclothing = new Clothing();
@@ -84,7 +85,7 @@ public class UpdateClothingController {
         Integer num2 = clothingService.selectAll(queryclothing).get(0).getClothingnum();
         clothing.setClothingnum(num2-num);
         clothingService.updateByPrimaryKeySelective(clothing);
-        return "";
+        return "suceess";
     }
 
 }

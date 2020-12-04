@@ -80,7 +80,7 @@
                     </div>
                     <div class=" col-lg-6" v-if="showRentByT">
                      
-                        <input type="number"  class="form-control"  min="1" max="30" placeholder="30天内">
+                        <input type="number"  class="form-control"  min="1" max="30" placeholder="30天内" v-model="RentDaysTime">
                      
                     </div>
              
@@ -361,6 +361,7 @@
             showRentByT:true,
             showRentByM:false,
             RentMonthsTime:2,
+            RentDaysTime:1,
             Address1:"",
             Addressn:"",
             orderForm:{
@@ -586,35 +587,42 @@
 
                     },
                     placeOrder(){
-                        //时间默认值，默认当前时间+5天
-                        var dataCur = new Date(); //当前日期
+                        // //时间默认值，默认当前时间+5天
+                        // var dataCur = new Date(); //当前日期
                        
-                        if(this.showRentByM){
-                            dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1+parseInt(this.RentMonthsTime)) + '-' + dataCur.getDate() + " 00:00:00";
-                        var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
-                            // dataCurPar += 86400 * parseInt(this.RentMonthsTime)*30;//加后的时间戳
-                        }else if(this.showRentByT){
-                            dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1) + '-' + dataCur.getDate() + " 00:00:00";
-                         var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
-                            dataCurPar += 86400 *30;//加后的时间戳
-                        }
+                        // if(this.showRentByM){
+                        //     dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1+parseInt(this.RentMonthsTime)) + '-' + dataCur.getDate() + " 00:00:00";
+                        // var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
+                        //     // dataCurPar += 86400 * parseInt(this.RentMonthsTime)*30;//加后的时间戳
+                        // }else if(this.showRentByT){
+                        //     dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1) + '-' + dataCur.getDate() + " 00:00:00";
+                        //  var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
+                        //     dataCurPar += 86400 *30;//加后的时间戳
+                        // }
                        
                        
-                        var dataDefPar = new Date(parseInt(dataCurPar) * 1000);//转换为时间
-                        alert("dataDefPar"+dataDefPar)
-                        var dataDef = dataDefPar.getFullYear() + '-' + (dataDefPar.getMonth() + 1) + '-' + (dataDefPar.getDate());
-                        // var timetamp=dataDefPar.format("yyyy-MM-dd hh:mm:ss");;
-                        var timetamp= new Date(dataDefPar).Format("yyyy-MM-dd hh:mm:ss.0");
-                        // var timetamp=dataCurPar;
-                        if(this.showBuy){
-                            timetamp="";
-                        }
-                        alert("dataDef"+timetamp);
+                        // var dataDefPar = new Date(parseInt(dataCurPar) * 1000);//转换为时间
+                        // alert("dataDefPar"+dataDefPar)
+                        // var dataDef = dataDefPar.getFullYear() + '-' + (dataDefPar.getMonth() + 1) + '-' + (dataDefPar.getDate());
+                        // // var timetamp=dataDefPar.format("yyyy-MM-dd hh:mm:ss");;
+                        // var timetamp= new Date(dataDefPar).Format("yyyy-MM-dd hh:mm:ss.0");
+                        // // var timetamp=dataCurPar;
+                        // if(this.showBuy){
+                        //     timetamp="";
+                        // }
+                        // alert("dataDef"+timetamp);
+
 
 
                         if(this.Address1){
                             this.address=this.addresses.useraddress+this.addresses.username+this.addresses.userphone
                         }
+                        if(this.showRentByM){
+                            this.RentDaysTime=null;
+                        }else if(this.showRentByT){
+                            this.RentMonthsTime=null;
+                        }
+                        
 
 
 
@@ -628,11 +636,13 @@
 
                                     orderformclass:that.orderForm.orderformclass,
                                     userid: that.user.userid,
-                                    preconcertedreturntime:that.timetamp,
+                                    days:"",
                                     orderformaddress:that.address, 
                                     totalprice: that.countMoney,
                                     remark: that.orderForm.remark,
                                     orderstatus:"未处理",
+                                    month:that.RentMonthsTime,
+                                    days:that.RentDaysTime,
 
                                 },
 
@@ -640,12 +650,81 @@
 
                                 success: function (e) {
                                     console.log('success:', e);
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                 
-
+                                   that.reduceStorage();
                                 }
 
                             })
+
+                    },
+                    reduceStorage(){
+                        
+
+                        let that = this;
+                      
+                        
+                      for (let index = 0; index < that.shoppingCart.length; index++) {
+                        if(this.showBuy){
+                            var transferPirce=that.clothings[index].clothingprice;
+
+                        }else{
+                            var transferPirce=that.clothings[index].clothingrentprice;
+                        }
+                        that.shoppingCart[index];
+                 
+                    $.ajax({
+                        url: 'reduceclothingnum',
+
+                        type: 'get',
+
+                        data: {
+                            clothingid:that.shoppingCart[index].clothingid,
+                            clothingnum:that.shoppingCart[index].sccnum,
+                            
+
+                        },
+
+                        // dataType: "json",
+
+                        success: function (e) {
+                            console.log('success:', e);
+                        
+
+                        }
+
+                    })
+
+
+                    alert("that.clothings[index].clothingname,"+that.clothings[index].clothingname)
+///////////////////////////////////add sell
+                    $.ajax({
+                        url: 'clothinginorder',
+
+                        type: 'get',
+
+                        data: {
+                            clothingid:that.shoppingCart[index].clothingid,
+                            clothingnum:that.shoppingCart[index].sccnum,
+                            clothingname:that.clothings[index].clothingname,
+                            clothingprice:transferPirce,
+                            clothingdescr:that.clothings[index].clothingdescr,
+                            
+
+                        },
+
+                        // dataType: "json",
+
+                        success: function (e) {
+                            console.log('success:', e);
+                        
+
+                        }
+
+                    })
+
+                      }
+
                     },
 
       

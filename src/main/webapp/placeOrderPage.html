@@ -250,6 +250,9 @@
                 <div class="col-lg-2">
                     {{clothing.clothingprice*shoppingCart[key].sccnum|formatclothingprice}}
                 </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-warning" @click="deleteClothingFormCartById(shoppingCart[key])">移除</button>
+                </div>
 
             </div>
         </div>
@@ -271,6 +274,9 @@
                 </div>
                 <div class="col-lg-2" v-if="showRentByM">
                     {{(parseInt(clothing.clothingrentprice)+parseInt(clothing.clothingprice*0.08*RentMonthsTime))*shoppingCart[key].sccnum|formatclothingprice}}+保证金({{parseInt(clothing.clothingprice*0.2)*shoppingCart[key].sccnum|formatclothingprice}})
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-warning" @click="deleteClothingFormCartById(shoppingCart[key])">移除</button>
                 </div>
 
             </div>
@@ -478,6 +484,60 @@
             },
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+            },
+            ///////////////////////////////////////////////////////////////
+            deleteClothingFormCartById(shoppingCart){
+                let that = this;
+                        $.ajax({
+                    
+                            url: 'deleteone',
+                            type: 'get',
+
+                            data: {
+                                shoppingcartid:shoppingCart.shoppingcartid,
+
+                                    
+
+                            },
+
+                            
+
+                            success: function (e) {
+                                console.log('success:', e);
+                               
+                               
+                               
+                            }
+
+                        })
+                        window.location.href="placeOrderPage.html";
+
+            },
+            deleteAllClothingFormCart(){
+
+                let that = this;
+                        $.ajax({
+                    
+                            url: 'deleteall',
+                            type: 'get',
+
+                            data: {
+                                userid:that.user.userid,
+
+                                    
+
+                            },
+
+                            
+
+                            success: function (e) {
+                                console.log('success:', e);
+                                window.location.href="placeOrderPage.html";
+                                
+                            }
+
+                        })
+
             },
 
             testCheckBox(){
@@ -696,7 +756,7 @@
                     })
 
 
-                    alert("that.clothings[index].clothingname,"+that.clothings[index].clothingname)
+                
 ///////////////////////////////////add sell
                     $.ajax({
                         url: 'clothinginorder',
@@ -718,7 +778,7 @@
                         success: function (e) {
                             console.log('success:', e);
                         
-
+                            that.deleteAllClothingFormCart()
                         }
 
                     })
@@ -789,30 +849,30 @@
 
           },
           checkOut(){
-            
-            let that = this;
-            $.ajax({
-                url: 'QueryShoppingcart',
+                // window.open('demo111')
+              
+              let that = this;
+              $.ajax({
+             
+                url: 'GotoShoppingcart',
+                  type: 'get',
 
-                type: 'get',
+                  data: {
+               
 
-                data: {
-                    userid:that.user.userid ,     //传单值到后台成功
-                       
+                  },
 
-                },
+               
 
-                // dataType: "json",
+                  success: function (e) {
+                      console.log('success:', e);
+                    
 
-                success: function (e) {
-                    console.log('success:', e);
-                  
+                  }
 
-                }
+              })
 
-            })
-
-        },
+          },
         QueryUserSession(){
                 
             

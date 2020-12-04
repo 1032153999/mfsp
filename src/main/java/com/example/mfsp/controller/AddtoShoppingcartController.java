@@ -30,7 +30,6 @@ public class AddtoShoppingcartController {
         shoppingcart2.setClothingid(shoppingcart.getClothingid());
         List<Shoppingcart> shoppingcarts2=new ArrayList<>();
         shoppingcarts2= shoppingcartService.selectAll(shoppingcart2);
-//        Integer zhongzhuan = shoppingcarts2.get(0).getSccnum();
 
 
 //        shoppingcart.setShoppingcartid(1515);
@@ -42,12 +41,15 @@ public class AddtoShoppingcartController {
 
         if (shoppingcarts2.size() == 1){
 
-//            shoppingcart.setSccnum(zhongzhuan+1000);
-//            shoppingcartService.updateByPrimaryKeySelective(shoppingcart);
+            Integer num1 = shoppingcarts2.get(0).getSccnum();
+            Integer num2 = shoppingcart.getSccnum();
+            shoppingcart.setShoppingcartid(shoppingcarts2.get(0).getShoppingcartid());
+            shoppingcart.setSccnum(num1+num2);
+            shoppingcartService.updateByPrimaryKeySelective(shoppingcart);
             System.out.println("添加成功1");
         }
         else {
-//            shoppingcartService.insert(shoppingcart);
+            shoppingcartService.insert(shoppingcart);
             System.out.println("添加成功");}
 
         return "success";

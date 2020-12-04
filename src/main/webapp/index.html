@@ -273,22 +273,26 @@
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
+                 
                     this.cart.push(clothing.clothingid)
-                   
-                   
                 }
               
 
                 let that = this;
                 $.ajax({
                     url: 'Addtoshoppingcart',
+
                     type: 'get',
 
-                    data: {clothingid:clothing.clothingid ,     //传单值到后台成功
+                    data: {
+                            clothingid:clothing.clothingid ,     //传单值到后台成功
                             userid:that.user.userid,
-
+                            sccnum:1,
                     },
-                  success: function (e) {
+
+                    // dataType: "json",
+
+                    success: function (e) {
                         console.log('success:', e);
 
                     }
@@ -298,6 +302,7 @@
 
 
             },
+            
 
             
             cartCount(clothingid){

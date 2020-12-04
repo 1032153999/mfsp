@@ -138,10 +138,10 @@
                                         v-if=true>Add to cart</button>
                                 <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <!-- <button class='btn btn-primary btn-lg '
-                                @click='addToCart(clothing)'
-                                v-if=true>租赁</button>
-                                <button class='btn btn-primary btn-lg' disabled='true' v-else>租赁</button> -->
+                                <button class='btn btn-primary btn-lg '
+                                @click='addToMyLike(clothing)'
+                                v-if=true>加入收藏</button>
+                                <button class='btn btn-primary btn-lg' disabled='true' v-else>加入收藏</button>
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -200,6 +200,7 @@
         <div v-if="showComment">
             <div v-for="(item,index) in comments">
                 {{item.userid}}:{{item.comment}}
+                <br>
                 -------------------
             </div>
             
@@ -299,7 +300,7 @@
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
-                    console.log('canAddToCart:');
+                 
                     this.cart.push(clothing.clothingid)
                 }
               
@@ -310,7 +311,8 @@
 
                     type: 'get',
 
-                    data: {clothingid:clothing.clothingid ,     //传单值到后台成功
+                    data: {
+                            clothingid:clothing.clothingid ,     //传单值到后台成功
                             userid:that.user.userid,
                             sccnum:that.sccnum,
                     },
@@ -339,6 +341,30 @@
             },
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+            },
+            ////////////////////////////////////////////////////
+            addToMyLike(clothing){
+                let that = this;
+                $.ajax({
+                    url: 'Addtofavourties',
+
+                    type: 'get',
+
+                    data: {
+                        clothingid:clothing.clothingid ,     //传单值到后台成功
+                            userid:that.user.userid,
+                           
+                    },
+
+                    // dataType: "json",
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                    }
+
+                })
+
             },
 
 

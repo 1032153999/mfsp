@@ -17,8 +17,11 @@ public class AddOrderController {
     @GetMapping("AddOrder")
     @ResponseBody
     public String addOrder(Orderform orderform){
+        System.out.println("AddOrder");
+        System.out.println("AddOrder"+ orderform.toString());
 
-        orderService.insert(orderform);
+//
+//        orderService.insert(orderform);
 
         return "success";
     }

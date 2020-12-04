@@ -17,6 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js">
     </script>
+
  <script src="js/index.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
@@ -171,13 +172,34 @@
     </div>
 
     <main>
-        <div class=" col-lg-12 col-lg-offset-1">
+
+
+
+        <div class=" col-lg-12 col-lg-offset-1" v-if="Address1">
             <h1>
                 选择地址
             </h1>
-            <div  v-for='(address,key) in addresses' :value="key">
+            <!-- <div  v-for='(address,key) in addresses' :value="key"> -->
                 <label class　="radio-inline">
-                    <input type="radio" name="addressRadioOptions"> {{address}}  {{names[key]}}  {{phones[key]}} <a href="">修改地址</a>
+                    <input type="radio" name="addressRadioOptions"> {{addresses.useraddress}}  {{addresses.username}}  {{addresses.userphone}} <a href="">修改地址</a>
+                  </label>
+            <!-- </div> -->
+            <br>
+           
+            
+            <button type="button" class="btn btn-default" @click=" addUserAddress()">使用新地址</button>
+         
+             
+
+
+        </div>
+        <div class=" col-lg-12 col-lg-offset-1" v-if="Addressn">
+            <h1>
+                选择地址
+            </h1>
+            <div  v-for='item in addresses'>
+                <label class　="radio-inline">
+                    <input type="radio" name="addressRadioOption"> {{item.useraddress}}  {{item.username}}  {{item.userphone}} <a href="">修改地址</a>
                   </label>
             </div>
             <br>
@@ -298,10 +320,10 @@
         </div>
         
         <div class="col-lg-8">
-            <textarea class="form-control" rows="3" style="resize:none ;"></textarea>
+            <textarea class="form-control" rows="3" style="resize:none ;" v-model="orderForm.remark"></textarea>
         </div>
         <div>
-            <button type="button" class="btn btn-info">提交订单</button> 
+            <button type="button" class="btn btn-info" @click="placeOrder()">提交订单</button> 
         </div>
 
 
@@ -339,7 +361,13 @@
             showRentByT:true,
             showRentByM:false,
             RentMonthsTime:2,
+            Address1:"",
+            Addressn:"",
+            orderForm:{
+                orderformclass:1,//1buy
+                remark:"",
 
+            },
             showclothing:true,
             RimgUrl:"",
             radio:"check",
@@ -366,7 +394,10 @@
            
                 
             address:"",
-			addresses:["beking","shanghai","guangdong"],
+            // addresses:["beking","shanghai","guangdong"],
+            addresses:[{
+
+            }],
 			names:["tim","tom","jerry"],
             phones:["123","321","2345"],
 			totalprice:0,
@@ -378,8 +409,9 @@
         },
 
         mounted:function(){
-            this.checkOut0();
+           
             this.QueryUserSession();
+          
             this.setAddressDefault()
           
            
@@ -419,11 +451,13 @@
             showBuyButton:function(){
                     this.showBuy=true;
                     this.showRent=false;
+                    this.orderForm.orderformclass=1;
                     
                 },
                 showRentButton:function(){
                     this.showBuy=false;
                     this.showRent=true;
+                    this.orderForm.orderformclass=2;
                     
                 },
                 // submitRentClick(){
@@ -466,24 +500,35 @@
                         }
                     },
             setAddressDefault(){
-                        var option = document.getElementsByName('addressRadioOptions');
-                        option[0].checked=true;
+                       
                         var BuyOrRentoption = document.getElementsByName('BuyOrRentRadioOptions');
                         BuyOrRentoption[0].checked=true;
                         var RentMethod = document.getElementsByName('RentRadioOptions');
                         RentMethod[0].checked=true;
+                        var option = document.getElementsByName('addressRadioOptions');
+                        if(option[0]!=null){
+                            alert("option[0]!=null")
+                            option[0].checked=true;
+                        }else{/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            alert("option[0]==null")
+                            var No_option = document.getElementsByName(' addressRadioOption');
+                           
+                            No_option.checked=true;
+                        }
+                      
 
                     },
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             searchAddressOfUser(){
                 let that = this;
+             
                 $.ajax({
-                    url: '',
+                    url: 'queryAdress',
 
                     type: 'get',
 
                     data: {    
-
+                        userid:that.user.userid,
 
                     },
 
@@ -491,16 +536,116 @@
 
                     success: function (e) {
                         console.log('success:', e);
-
-                     
+                       
+                     if(e.count==1){
+                        that.addresses=e.data[0];
+                        that.Address1=true;
+                        that.Addressn=false;
+                       
+                        
+                     }else{
+                        that.Address1=false;
+                        that.Addressn=true;
                         for (let index = 0; index < e.data.length; index++) {
                             that.addresses.push(e.data[index]);
 
                         }
+                     }
+                          
+
+                        
 
                     }
 
                 })
+                    },
+                    addUserAddress(){
+                      
+                       //////////////////////////gotoAddAddress 
+                        let that = this;
+                        $.ajax({
+                    
+                            url: '',
+                            type: 'get',
+
+                            data: {
+                               
+                                    
+
+                            },
+
+                            
+
+                            success: function (e) {
+                                console.log('success:', e);
+                                
+
+                            }
+
+                        })
+
+                    },
+                    placeOrder(){
+                        //时间默认值，默认当前时间+5天
+                        var dataCur = new Date(); //当前日期
+                       
+                        if(this.showRentByM){
+                            dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1+parseInt(this.RentMonthsTime)) + '-' + dataCur.getDate() + " 00:00:00";
+                        var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
+                            // dataCurPar += 86400 * parseInt(this.RentMonthsTime)*30;//加后的时间戳
+                        }else if(this.showRentByT){
+                            dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1) + '-' + dataCur.getDate() + " 00:00:00";
+                         var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
+                            dataCurPar += 86400 *30;//加后的时间戳
+                        }
+                       
+                       
+                        var dataDefPar = new Date(parseInt(dataCurPar) * 1000);//转换为时间
+                        alert("dataDefPar"+dataDefPar)
+                        var dataDef = dataDefPar.getFullYear() + '-' + (dataDefPar.getMonth() + 1) + '-' + (dataDefPar.getDate());
+                        // var timetamp=dataDefPar.format("yyyy-MM-dd hh:mm:ss");;
+                        var timetamp= new Date(dataDefPar).Format("yyyy-MM-dd hh:mm:ss.0");
+                        // var timetamp=dataCurPar;
+                        if(this.showBuy){
+                            timetamp="";
+                        }
+                        alert("dataDef"+timetamp);
+
+
+                        if(this.Address1){
+                            this.address=this.addresses.useraddress+this.addresses.username+this.addresses.userphone
+                        }
+
+
+
+                        let that = this;
+                            $.ajax({
+                                url: 'AddOrder',
+
+                                type: 'get',
+
+                                data: {   
+
+                                    orderformclass:that.orderForm.orderformclass,
+                                    userid: that.user.userid,
+                                    preconcertedreturntime:that.timetamp,
+                                    orderformaddress:that.address, 
+                                    totalprice: that.countMoney,
+                                    remark: that.orderForm.remark,
+                                    orderstatus:"未处理",
+
+                                },
+
+                                // dataType: "json",
+
+                                success: function (e) {
+                                    console.log('success:', e);
+
+                                
+
+                                }
+
+                            })
                     },
 
       
@@ -613,7 +758,8 @@
                             that.user=e.data[index];
 
                         }
-
+                        that.checkOut0();
+                        that.searchAddressOfUser()
                     }
 
                 })
@@ -808,7 +954,9 @@
 
 </body>
 
-
+<script>
+  
+</script>
 
 
 

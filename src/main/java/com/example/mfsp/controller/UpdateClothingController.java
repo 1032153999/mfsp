@@ -80,7 +80,7 @@ public class UpdateClothingController {
         Integer id =clothing.getClothingid();
         Integer num = clothing.getClothingnum();
         Clothing queryclothing = new Clothing();
-        queryclothing.setClothingid(1);
+        queryclothing.setClothingid(id);
         Integer num2 = clothingService.selectAll(queryclothing).get(0).getClothingnum();
         clothing.setClothingnum(num2-num);
         clothingService.updateByPrimaryKeySelective(clothing);

@@ -43,7 +43,15 @@
                     <img class="layui-upload-img" width="60px" height="50px" id="picaddress" name="picaddress" src="/images/default.jpg">
                   </div>
             <input type="hidden" class="layui-input layui-disabled" id="clothingpic" name="clothingpic">
-            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服装类型一</label>
+            <div class="layui-input-inline" id="sanjione"><select id='sheng' class="layui-select"></select></div>
+            <label class="layui-form-label">服装类型二</label>
+            <div class="layui-input-inline" id="sanjitwo"><select id='shi' class="layui-select"></select></div>
+            <label class="layui-form-label">服装类型三</label>
+            <div class="layui-input-inline" id="sanjithree"><select id='qu' class="layui-select"></select></div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">服装描述</label>
             <div class="layui-input-inline">
@@ -91,6 +99,122 @@
 
                 }
             });
+        });
+
+        //三级联动查询
+        $(document).ready(function(e) {
+
+            //在DIV里面造三个下拉
+            /*            $("#sanjione").html("");
+                        $("#sanjitwo").html("");
+                        $("#sanjithree").html("");*/
+            //填充数据
+            FillSheng(); //填充省的数据
+            FillShi(); //填充市的数据
+            FillQu(); //填充区的数据
+
+            //填充省的方法
+            function FillSheng()
+            {
+                var code = "0001"; //省的父级代号
+                //调用ajax查询省的数据
+                $.ajax({
+
+                    async:false, //变为同步AJAX
+                    url:"/admin/queryFirstKind",
+                    data:{code:code},
+                    type:"GET",
+                    dataType:"TEXT",
+                    success: function(data){
+                        //拆分字符串，返回行的数组
+                        var hang = data.split(",");
+                        var str = "";
+                        for(var i=0;i<hang.length;i++)
+                        {
+                            /*var lie = hang[i].split("^");*/
+
+                            //var a=lie[0].trim();
+                            str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                        }
+                        //将所有的option放到省下拉里面
+                        $("#sheng").html(str);
+                    }
+
+                });
+            }
+
+            //填充市的方法
+            function FillShi()
+            {
+                var code = $("#sheng").val(); //市的父级代号
+                //调用ajax查询省的数据
+                $.ajax({
+
+                    async:false, //变为同步AJAX
+                    url:"/admin/querySecondKind",
+                    data:{FirstKind:code},
+                    type:"GET",
+                    dataType:"TEXT",
+                    success: function(data){
+
+                        //拆分字符串，返回行的数组
+                        var hang = data.split(",");
+                        var str = "";
+                        for(var i=0;i<hang.length;i++)
+                        {
+                            /*var lie = hang[i].split("^");*/
+                            //var a = lie[0].trim();
+                            str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                        }
+                        //将所有的option放到省下拉里面
+                        $("#shi").html(str);
+                    }
+
+                });
+            }
+
+            //填充区的方法
+            function FillQu()
+            {
+                var code = $("#shi").val(); //区的父级代号
+                var sheng = $("#sheng").val();
+                //调用ajax查询省的数据
+                $.ajax({
+
+                    async:false, //变为同步AJAX
+                    url:"/admin/queryThirdlyKind",
+                    data:{SecondKind:code,
+                        FirstKind:sheng},
+                    type:"GET",
+                    dataType:"TEXT",
+                    success: function(data){
+                        //拆分字符串，返回行的数组
+                        var hang = data.split(",");
+                        var str = "";
+                        for(var i=0;i<hang.length;i++)
+                        {
+                            /*var lie = hang[i].split("^");*/
+
+                            str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                        }
+                        //将所有的option放到省下拉里面
+                        $("#qu").html(str);
+                    }
+
+                });
+            }
+
+            //当省的选中发生变化的时候，去改变市和区
+            $("#sheng").change(function(){
+                console.log("hahahaha")
+                FillShi();
+                FillQu();
+            })
+
+            //当市的选中发生变化的时候，去改变区
+            $("#shi").change(function(){
+                FillQu();
+            })
         });
 
     </script>

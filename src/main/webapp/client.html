@@ -20,7 +20,7 @@
               </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
-          <li class="layui-nav-item">user</li>
+          <li class="layui-nav-item"><p id="username">user</p></li>
           <li class="layui-nav-item">
             <a href=""><i class="layui-icon layui-icon-cart" ></i></a>
           </li>
@@ -54,6 +54,16 @@
     </div>
     <script>
         //JavaScript代码区域
+        $(function(){
+          $.ajax({
+            url:'QueryUserSession',
+            type: "GET",
+            success:function(msg){
+              $('#username').text(msg.data.username);
+            }
+          });
+        });
+
 
         layui.use('element', function(){
           var element = layui.element;

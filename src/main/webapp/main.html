@@ -11,13 +11,13 @@
   <script src="js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body layui-bg-gray">
-<div style="padding: 20px; background-color: #F2F2F2;">
+<div style="padding: 20px">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">用户数<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
                 <div class="layui-card-body">
-                    <h2 id="userCount">内容1</h2><br>123
+                    <h2 id="userCount">0</h2><br><p id="admin">管理员:0</p>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">销售量<span class="layui-badge layui-bg-orange" style="float:right">月</span></div>
                 <div class="layui-card-body">
-                    <h2 id="monthlysales">内容2</h2><br>231
+                    <h2 id="monthlysales">0</h2><br><p id="highestSale">销售最高:0</p>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">租赁量<span class="layui-badge layui-bg-orange" style="float:right">月</span></div>
                 <div class="layui-card-body">
-                    <h2 id="monrentalamount">内容3</h2><br>456
+                    <h2 id="monrentalamount">0</h2><br><p id="highestRent">租赁最高:0</p>
                 </div>
             </div>
         </div>
@@ -41,15 +41,39 @@
             <div class="layui-card">
                 <div class="layui-card-header">成交额<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
                 <div class="layui-card-body">
-                    <h2 id="totalprice">内容4</h2><br>654
+                    <h2 id="totalprice">0</h2><br><p id="price">单笔最高成交额:0</p>
                 </div>
             </div>
         </div>
-        <div class="layui-col-md12">
+        <div class="layui-col-md3">
             <div class="layui-card">
-                <div class="layui-card-header">标题5</div>
+                <div class="layui-card-header">订单数<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
                 <div class="layui-card-body">
-                    内容5
+                    <h2 id="orderCount">0</h2><br><p id="nodeal">未处理:0</p><p id="dealing">正在处理:0</p><p id="dealed">已处理:0</p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">商品数<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
+                <div class="layui-card-body">
+                    <h2 id="clothingCount">0</h2><br><p id="little">库存过低:0</p><p id="none">无库存:0</p><p id="enough">库存充足:0</p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">最火商品<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
+                <div class="layui-card-body">
+                    <h2 id="hotClothing">XXX</h2><br><p id="count">库存:0</p><p id="sale">销售量:0</p><p id="rent">租赁量:0</p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">最活跃用户<span class="layui-badge layui-bg-blue" style="float:right">总</span></div>
+                <div class="layui-card-body">
+                    <h2 id="hotUser">XXX</h2><br><p id="userOrderForm">订单数:0</p><p id="userMoney">成交金额:0</p><p id="phone">电话号码:0</p>
                 </div>
             </div>
         </div>
@@ -61,7 +85,8 @@
               url:'zuliang',
               type: "GET",
               success:function(msg){
-                  $('#monrentalamount').text(msg);
+                  $('#monrentalamount').text(msg.userCount);
+                  $('#admin').text("管理员:" + msg.admin);
               }
           });
 
@@ -69,7 +94,8 @@
             url:'xiaoliang',
             type: "GET",
             success:function(msg){
-                $('#monthlysales').text(msg);
+                $('#monthlysales').text(msg.monthlysales);
+                $('#highestSale').text("销量最高:" + msg.highestSale);
             }
         });
 
@@ -77,7 +103,8 @@
             url:'usertotal',
             type: "GET",
             success:function(msg){
-                $('#userCount').text(msg);
+                $('#userCount').text(msg.monrentalamount);
+                $('#highestRent').text("租赁最高:" + msg.highestRent);
             }
         });
 
@@ -85,7 +112,53 @@
             url:'ordertotal',
             type: "GET",
             success:function(msg){
-                $('#totalprice').text(msg);
+                $('#totalprice').text(msg.totalprice);
+                $('#price').text("单笔最高成交额:" + msg.price);
+
+            }
+        });
+
+        $.ajax({
+            url:'',
+            type: "GET",
+            success:function(msg){
+                $('#orderCount').text(msg.orderCount);
+                $('#nodeal').text("未处理:" + msg.nodeal);
+                $('#dealing').text("正在处理:" + msg.dealing);
+                $('#dealed').text("已处理:" + msg.dealed);
+            }
+        });
+
+        $.ajax({
+            url:'',
+            type: "GET",
+            success:function(msg){
+                $('#clothingCount').text(msg.clothingCount);
+                $('#little').text("库存过低:" + msg.little);
+                $('#none').text("无库存:" + msg.none);
+                $('#enough').text("库存充足:" + msg.enough);
+            }
+        });
+
+        $.ajax({
+            url:'',
+            type: "GET",
+            success:function(msg){
+                $('#hotClothing').text(msg.hotClothing);
+                $('#count').text("库存:" + msg.count);
+                $('#sale').text("销售量:" + msg.sale);
+                $('#rent').text("租赁量:" + msg.rent);
+            }
+        });
+
+        $.ajax({
+            url:'',
+            type: "GET",
+            success:function(msg){
+                $('#hotUser').text(msg.hotUser);
+                $('#userOrderForm').text("订单数:" + msg.userOrderForm);
+                $('#userMoney').text("成交金额:" + msg.userMoney);
+                $('#phone').text("电话号码:" + msg.phone);
             }
         });
       });

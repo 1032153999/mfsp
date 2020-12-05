@@ -23,62 +23,7 @@
 </head>
 
 <body>
-<div id='app'>
-    <div id="title">
-
-
-        <header class="col-12 alert alert-success">
-            <div class="navbar navbar-default">
-                <div class="nav navbar-nav navbar-left col-6">
-                    <h1>{{sitename}}</h1>
-                </div>
-
-
-
-
-                <div class="nav navbar-nav navbar-right col-2">你好!{{user.username}}</div>
-               
-
-                <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
-                            个人中心
-                            </span>
-                        </a>
-                    </button>
-                </div>
-
-                <div class="nav navbar-nav navbar-right cart col-2">
-                    <button class="btn btn-light" @click="checkOut">
-                       <a>
-                                <span class="glyphicon glyphicon-shopping-cart ">
-                                    <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
-                                   
-                                </span>
-                            </span>
-                        </a>
-                    </button>
-                </div>
-
-
-
-
-                <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
-                            退出登录
-                            </span>
-                        </a>
-                    </button>
-
-                </div>
-
-
-            </div>
-
-        </header>
-
-    </div>
+    <script src="js/header.js"></script> 
 
 
 
@@ -226,20 +171,21 @@
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
+                 
                     this.cart.push(clothing.clothingid)
-                   
-                   
                 }
               
 
                 let that = this;
                 $.ajax({
                     url: 'Addtoshoppingcart',
+
                     type: 'get',
 
-                    data: {clothingid:clothing.clothingid ,     //传单值到后台成功
+                    data: {
+                            clothingid:clothing.clothingid ,     //传单值到后台成功
                             userid:that.user.userid,
-
+                            sccnum:1,
                     },
 
                     // dataType: "json",
@@ -254,6 +200,29 @@
 
 
             },
+            gotoClientPage(){
+
+                $.ajax({
+                    
+                                url: 'GotoClient',
+                                type: 'get',
+
+                                data: {
+                                        
+
+                                },
+                            
+                                success: function (e) {
+                                    console.log('success:', e);
+                                    
+
+                                }
+
+                            })
+
+
+                },
+            
             
             cartCount(clothingid){
                 let count = 0
@@ -275,7 +244,7 @@
 
                     type: 'get',
 
-                    data: {clothingname: that.searchClothingName,      //传单值到后台成功
+                    data: {name: that.searchClothingName,      //传单值到后台成功
 
 
                     },
@@ -285,7 +254,7 @@
                     success: function (e) {
                         console.log('success:', e);
                       
-                        alert("that.searchClothingName"+that.searchClothingName)
+                       
                      that.clothings.splice(0,that.clothings.length);
                         for (let index = 0; index < e.data.length; index++) {
                             that.clothings.push(e.data[index]);

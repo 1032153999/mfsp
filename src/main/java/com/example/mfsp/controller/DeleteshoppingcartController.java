@@ -10,17 +10,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-public class DeleteshoppingcartController {
+public class Deleteshoppingcart {
 
     @Autowired
     private com.example.mfsp.service.shoppingcartService shoppingcartService;
 
 
     //删除单一商品的购物车
-    @RequestMapping(value = "deleteone")
+    @GetMapping(value = "deleteone")
     @ResponseBody
     public String deleteshoppingcart(Shoppingcart shoppingcart) {
+        System.out.println("deleteone");
         if (shoppingcart.getShoppingcartid() != null) {
+            System.out.println("deleteone");
             shoppingcartService.delete(shoppingcart);
             return "";
         } else {
@@ -29,12 +31,12 @@ public class DeleteshoppingcartController {
     }
 
 //删除所有购物车的商品
-    @RequestMapping(value = "deleteall")
+    @GetMapping(value = "deleteall")
     @ResponseBody
     public String deleteallshoppingcart(Shoppingcart shoppingcart){
-        if (shoppingcart.getShoppingcartid() != 0){
+        if (shoppingcart.getShoppingcartid() != null){
             return "传值错误";
-        }else if(shoppingcart.getUserid() != 0){
+        }else if(shoppingcart.getUserid() != null){
             shoppingcartService.delete(shoppingcart);
             return "删除成功";
         }else {

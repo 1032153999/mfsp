@@ -9,13 +9,19 @@ a{
 	text-decoration: none;
 }
  
+.title a{
+	text-decoration: none;
+}
+.Carousel a{
+	text-decoration: none;
+}
 /*设置总的div*/
 .container {
 	position: relative;
 	width: 900px;
 	height: 500px;
 	margin:100px auto 0 auto;
-	box-shadow: 0 0 1px rgb(51,122,183);
+	box-shadow: 0 0 1px rgba(182, 121, 233, 0.349);
 	overflow: hidden;
 }
  
@@ -30,8 +36,8 @@ a{
 /*设置图片格式*/
 .container .wrap img {
 	float: left;
-	width: 600px;
-	height: 400px;
+	width: 900px;
+	height: 500px;
 }
  
 /*设置按钮位置*/
@@ -78,14 +84,16 @@ a{
 /*左箭头*/
 .container .arrow_left {
 	left: 10px;
-	color: rgb(51,122,183);
+	color: rgb(129, 130, 131);
+	text-decoration: none;
 	display: none;
 }
  
 /*右箭头*/
 .container .arrow_right {
-	color: rgb(51,122,183);
+	color: rgb(129, 130, 131);
 	right: 10px;
+	text-decoration: none;
 	display: none;
 
 }
@@ -222,6 +230,7 @@ a{
 
 
 
+/* 弹窗部分 */
 #shade{
 	margin: 0;
 	padding: 0;

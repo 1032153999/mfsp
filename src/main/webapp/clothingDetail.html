@@ -23,62 +23,7 @@
 </head>
 
 <body>
-<div id='app'>
-    <div id="title">
-
-
-        <header class="col-12 alert alert-success">
-            <div class="navbar navbar-default">
-                <div class="nav navbar-nav navbar-left col-6">
-                    <h1>{{sitename}}</h1>
-                </div>
-
-
-
-
-                <div class="nav navbar-nav navbar-right col-2">你好!{{user.username}}</div>
-               
-
-                <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
-                            个人中心
-                            </span>
-                        </a>
-                    </button>
-                </div>
-
-                <div class="nav navbar-nav navbar-right cart col-2">
-                    <button class="btn btn-light" @click="checkOut">
-                       <a>
-                                <span class="glyphicon glyphicon-shopping-cart ">
-                                    <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
-                                   
-                                </span>
-                            </span>
-                        </a>
-                    </button>
-                </div>
-
-
-
-
-                <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
-                            退出登录
-                            </span>
-                        </a>
-                    </button>
-
-                </div>
-
-
-            </div>
-
-        </header>
-
-    </div>
+    <script src="js/header.js"></script> 
 
     <main>
 
@@ -138,15 +83,15 @@
                                         v-if=true>Add to cart</button>
                                 <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <!-- <button class='btn btn-primary btn-lg '
-                                @click='addToCart(clothing)'
-                                v-if=true>租赁</button>
-                                <button class='btn btn-primary btn-lg' disabled='true' v-else>租赁</button> -->
+                                <button class='btn btn-primary btn-lg '
+                                @click='addToMyLike(clothing)'
+                                v-if=true>加入收藏</button>
+                                <button class='btn btn-primary btn-lg' disabled='true' v-else>加入收藏</button>
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <button class='btn btn-primary btn-lg '
-                                @click='addToCart(clothing)'
+                                @click='addToCartAndBuy(clothing)'
                                 v-if=true>立即购买或租赁</button>
                                 <button class='btn btn-primary btn-lg' disabled='true' v-else>立即购买或租赁</button>
 
@@ -200,6 +145,7 @@
         <div v-if="showComment">
             <div v-for="(item,index) in comments">
                 {{item.userid}}:{{item.comment}}
+                <br>
                 -------------------
             </div>
             
@@ -299,7 +245,7 @@
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
-                    console.log('canAddToCart:');
+                 
                     this.cart.push(clothing.clothingid)
                 }
               
@@ -310,7 +256,8 @@
 
                     type: 'get',
 
-                    data: {clothingid:clothing.clothingid ,     //传单值到后台成功
+                    data: {
+                            clothingid:clothing.clothingid ,     //传单值到后台成功
                             userid:that.user.userid,
                             sccnum:that.sccnum,
                     },
@@ -327,6 +274,49 @@
 
 
             },
+            logout(){
+                $.ajax({
+           //////////////////////////////
+             url: 'logout',
+             type: 'get',
+
+             data: {
+            },
+             success: function (e) {
+                 console.log('success:', e);
+               
+
+             }
+
+         })
+            },
+            gotoClientPage(){
+
+                $.ajax({
+                    
+                                url: 'GotoClient',
+                                type: 'get',
+
+                                data: {
+                                        
+
+                                },
+                            
+                                success: function (e) {
+                                    console.log('success:', e);
+                                    
+
+                                }
+
+                            })
+
+
+                },
+            addToCartAndBuy(clothing){
+                this.addToCart(clothing);
+                this.checkOut();
+
+            },
             
             cartCount(clothingid){
                 let count = 0
@@ -339,6 +329,30 @@
             },
             canAddToCart(aclothing){
                 return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+            },
+        
+            addToMyLike(clothing){
+                let that = this;
+                $.ajax({
+                    url: 'Addtofavourties',
+
+                    type: 'get',
+
+                    data: {
+                        clothingid:clothing.clothingid ,     //传单值到后台成功
+                            userid:that.user.userid,
+                           
+                    },
+
+               
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                    }
+
+                })
+
             },
 
 

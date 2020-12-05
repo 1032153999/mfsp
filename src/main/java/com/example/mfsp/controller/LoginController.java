@@ -1,5 +1,6 @@
 package com.example.mfsp.controller;
 
+import com.example.mfsp.entity.Clothing;
 import com.example.mfsp.entity.User;
 import com.example.mfsp.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -39,8 +42,6 @@ public class LoginController {
 //            return "/index.html";
 //        }
 //    }
-
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
       public String login(@RequestParam("userid") Integer id , @RequestParam("userpassword") String userpassword , HttpSession session ){
@@ -49,8 +50,7 @@ public class LoginController {
         user.setUserid(id);
         user.setUserpassword(userpassword);
         List<User> users = userService.selectAll(user);
-        System.out.println(users.get(0).getUserrole());
-        if(users.get(0) == null){
+        if(users.size() == 0 ){
             msg = "用户名或密码错误" ;
             return msg ;
         }else if (users.get(0).getUserrole() == 0 ){
@@ -64,4 +64,20 @@ public class LoginController {
             return  "不存在";
         }
     }
+
+
+
+    //退出登陆控制类
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView toParticulars(HttpServletRequest httpServletRequest){//参数传入对象
+        ModelAndView mav = new ModelAndView();
+        //清空session中存放的userid
+        HttpSession session = httpServletRequest.getSession();
+        session.removeAttribute("USER_SESSION");
+        //清空后跳转到登录页面
+        mav.setViewName("login.html");
+        return mav;
+    }
+
 }

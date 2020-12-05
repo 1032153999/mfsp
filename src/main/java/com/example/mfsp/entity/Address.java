@@ -18,7 +18,7 @@ public class Address {
     //null int(10)
     private Integer userid;
 
-    private Integer userphone;
+    private Long userphone;
 
     private String username;
 
@@ -43,9 +43,9 @@ public class Address {
         this.username = username;
     }
     @Column(name ="userphone")
-    public Integer getUserphone(){ return userphone;}
+    public Long getUserphone(){ return userphone;}
 
-    public void setUserphone(Integer userphone) {
+    public void setUserphone(Long userphone) {
         this.userphone = userphone;
     }
 

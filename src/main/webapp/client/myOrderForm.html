@@ -17,10 +17,9 @@
             var table = layui.table;
             table.render({
                 elem: '#myOrderForm'
-                ,id:'myOrderForm'
                 ,height: 500
                 ,even: true
-                ,url: '' //数据接口
+                ,url: '/Queryuserorder' //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
                 {field: 'orderformid', title: '订单编号',  fixed: 'left',sort: true}

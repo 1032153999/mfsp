@@ -2,13 +2,21 @@ package com.example.mfsp.controller;
 
 
 import com.example.mfsp.entity.Clothing;
+import com.example.mfsp.entity.Clothingrecomment;
 import com.example.mfsp.entity.Orderform;
+import com.example.mfsp.entity.clothingclass;
+import com.example.mfsp.service.clothingRecommentService;
 import com.example.mfsp.service.clothingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +27,9 @@ public class QueryClothingController {
 
     @Autowired
     private clothingService clothingService;
+
+    @Autowired
+    private clothingRecommentService clothingrecommentservice;
 
 
 //    @RequestMapping(value = "/QueryClothing" , method = RequestMethod.GET)
@@ -102,11 +113,68 @@ public class QueryClothingController {
 
         return result;
     }
+/*   @RequestMapping(value="/QueryClothingByObj",method= RequestMethod.POST)
+   @ResponseBody
+   public Map<String, Object> QueryClothingByObj(@RequestBody(required = true)  Clothing clothing, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)throws ServletException, IOException {
+       Map<String, Object> result = new HashMap<String, Object>();
+       result.put("code", 0);
+       result.put("msg", "");
+       List<Clothing> clothings=new ArrayList<>();
+       if(clothing.getClothingid()==null){
+           System.out.println("clothing.getClothingid()==null");
+           clothings =clothingService.selectAll();
+       }else {
+           clothings =clothingService.selectAll(clothing);
+
+       }
+
+
+       result.put("count",clothings.size());
+       result.put("data", clothings);
+
+
+       *//*查看商品 推荐该类商品的权值+1
+        * 获取值有clothing,以此获取first_kind second_kind thirdly_kind
+        * 并以此三值获取classID
+        * 以classID ,userID 查询是否存在此类的推荐权值
+        * 如果存在则修改此类推荐权值 +1 如果不存在则插入此类和推荐权值1
+        * *//*
+
+
+
+       System.out.println("已经进入推荐算法");
+       HttpSession session = httpServletRequest.getSession();
+       Integer user_id = (Integer) session.getAttribute("USER_SESSION");
+
+
+       String firstkind=clothing.getFirstKind();
+       String secondkind=clothing.getSecondKind();
+       String thirdlykind=clothing.getThirdlyKind();
+
+       clothingclass clothingclass=clothingService.selectclassid(firstkind,secondkind,thirdlykind);
+       Integer classID=clothingclass.getClassid();
+
+       Clothingrecomment recomment=new Clothingrecomment();
+       recomment.setUserid(user_id);
+       recomment.setClothingclassid(classID);
+       List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
+       if(recomments.size()>0){
+
+           clothingrecommentservice.updateweight1(recomments.get(0).getClothingrecommentid());
+           System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+3");
+       }else {
+           recomment.setRecommendweight(1);
+           clothingrecommentservice.insert(recomment);
+           System.out.println("insert clothingweight ");
+       }
+
+       return result;
+   }*/
 
  //通过ID查询单个服装数据
     @RequestMapping(value="/QueryClothingById0",method= RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> QueryClothingById(@RequestParam("clothingid")  Integer id) {
+    public Map<String, Object> QueryClothingById(@RequestParam("clothingid")  Integer id, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)throws ServletException, IOException {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
@@ -117,12 +185,79 @@ public class QueryClothingController {
         }else {
             clothing.setClothingid(id);
             clothings=clothingService.selectAll(clothing);
+
+
+            System.out.println("已经进入推荐算法");
+            HttpSession session = httpServletRequest.getSession();
+            Integer user_id = (Integer) session.getAttribute("USER_SESSION");
+            System.out.println(user_id);
+
+            String firstkind=clothings.get(0).getFirstKind();
+            String secondkind=clothings.get(0).getSecondKind();
+            String thirdlykind=clothings.get(0).getThirdlyKind();
+
+            System.out.println(firstkind+secondkind+thirdlykind);
+            clothingclass clothingclass=clothingService.selectclassid(firstkind,secondkind,thirdlykind);
+
+            Clothingrecomment recomment=new Clothingrecomment();
+            recomment.setUserid(user_id);
+            recomment.setClothingclassid(clothingclass.getClassid());
+            List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
+            if(recomments.size()>0){
+
+                clothingrecommentservice.updateweight1(recomments.get(0).getClothingrecommentid());
+                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+1");
+            }else {
+                recomment.setRecommendweight(1);
+                clothingrecommentservice.insert(recomment);
+                System.out.println("insert clothingweight ");
+            }
+
+
         }
         System.out.println(clothings);
 
         result.put("count",clothings.size());
         result.put("data", clothings);
         System.out.println("endddd");
+
+
+         /*查看商品 推荐该类商品的权值+1
+        * 获取值有clothing,以此获取first_kind second_kind thirdly_kind
+        * 并以此三值获取classID
+        * 以classID ,userID 查询是否存在此类的推荐权值
+        * 如果存在则修改此类推荐权值 +1 如果不存在则插入此类和推荐权值1
+        * */
+
+
+
+        /*System.out.println("已经进入推荐算法");
+        HttpSession session = httpServletRequest.getSession();
+        Integer user_id = (Integer) session.getAttribute("USER_SESSION");*/
+
+
+        /*String firstkind=clothing.getFirstKind();
+        String secondkind=clothing.getSecondKind();
+        String thirdlykind=clothing.getThirdlyKind();*/
+
+
+        /*clothingclass clothingclass=clothingService.selectclassid(firstkind,secondkind,thirdlykind);
+        Integer classID=clothingclass.getClassid();
+
+        Clothingrecomment recomment=new Clothingrecomment();
+        recomment.setUserid(user_id);
+        recomment.setClothingclassid(classID);
+        List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
+        if(recomments.size()>0){
+
+            clothingrecommentservice.updateweight1(recomments.get(0).getClothingrecommentid());
+            System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+3");
+        }else {
+            recomment.setRecommendweight(1);
+            clothingrecommentservice.insert(recomment);
+            System.out.println("insert clothingweight ");
+        }*/
+
         return result;
     }
 

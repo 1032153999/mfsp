@@ -26,5 +26,11 @@
     <select id="sortedbyprice1" resultType="com.example.mfsp.entity.Clothing">
         select * from clothing order by (clothingPrice+0) desc
     </select>
+    <select id="selectclassid"  resultType="com.example.mfsp.entity.clothingclass">
+        select * from class where firstkind=#{FirstKind} and  secondkind=#{SecondKind} and thirdlykind=#{ThirdlyKind}
+    </select>
+    <select id="findclass" resultType="com.example.mfsp.entity.clothingclass">
+        select * from class where clothingclassID=#{classid}
+    </select>
 
 </mapper>

@@ -1,7 +1,8 @@
 package com.example.mfsp.controller;
 
-import com.example.mfsp.entity.Favourites;
-import com.example.mfsp.entity.Shoppingcart;
+import com.example.mfsp.entity.*;
+import com.example.mfsp.service.clothingRecommentService;
+import com.example.mfsp.service.clothingService;
 import com.example.mfsp.service.favouritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,12 @@ public class AddtoFavouritesController {
 
     @Autowired
     private favouritesService favouritesService;
+
+    @Autowired
+    private clothingService clothingservice;
+
+    @Autowired
+    private clothingRecommentService clothingrecommentservice;
     
     //,@RequestParam("id")  Integer id
 
@@ -70,6 +77,43 @@ public class AddtoFavouritesController {
             favouritesService.insert(favourites);
             System.out.println("添加成功");
             result.put("msg", "添加成功");
+
+
+            /*已经存在clothingid userid
+            查询是否具有此推荐项
+            有则推荐值+2
+            无则 insert 此推荐 推荐值置值2
+            * */
+
+            Clothing clothing=new Clothing();
+            clothing.setClothingid(favourites.getClothingid());
+            List<Clothing> clothings=new ArrayList<>();
+            clothings=clothingservice.selectAll(clothing);
+
+            String firstkind=clothings.get(0).getFirstKind();
+            String secondkind=clothings.get(0).getSecondKind();
+            String thirdlykind=clothings.get(0).getThirdlyKind();
+
+            System.out.println(firstkind+secondkind+thirdlykind);
+            clothingclass clothingclass=clothingservice.selectclassid(firstkind,secondkind,thirdlykind);
+
+            System.out.println(clothingclass.toString());
+            Clothingrecomment recomment=new Clothingrecomment();
+            recomment.setUserid(favourites.getUserid());
+            recomment.setClothingclassid(clothingclass.getClassid());
+            System.out.println(recomment.getClothingclassid());
+            List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
+            if(recomments.size()>0){
+
+                clothingrecommentservice.updateweight2(recomments.get(0).getClothingrecommentid());
+                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+1");
+            }else {
+                recomment.setRecommendweight(2);
+                clothingrecommentservice.insert(recomment);
+                System.out.println("insert clothingweight ");
+            }
+
+
         }
         return result;
     }

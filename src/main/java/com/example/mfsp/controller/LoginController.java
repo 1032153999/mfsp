@@ -3,6 +3,7 @@ package com.example.mfsp.controller;
 import com.example.mfsp.entity.Clothing;
 import com.example.mfsp.entity.User;
 import com.example.mfsp.service.userService;
+import com.example.mfsp.utility.InterceptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -68,16 +71,29 @@ public class LoginController {
 
 
     //退出登陆控制类
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+//    @RequestMapping(value = "logout", method = RequestMethod.GET)
+//    @ResponseBody
+//    public ModelAndView toParticulars(HttpServletRequest httpServletRequest){//参数传入对象
+//        ModelAndView mav = new ModelAndView();
+//        //清空session中存放的userid
+//        HttpSession session = httpServletRequest.getSession();
+//        session.removeAttribute("USER_SESSION");
+//        //清空后跳转到登录页面
+//        mav.setViewName("login.html");
+//        return mav;
+//    }
+
+
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView toParticulars(HttpServletRequest httpServletRequest){//参数传入对象
-        ModelAndView mav = new ModelAndView();
-        //清空session中存放的userid
+    public String gotologin(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        InterceptUtil interceptUtil = new InterceptUtil();
         HttpSession session = httpServletRequest.getSession();
         session.removeAttribute("USER_SESSION");
-        //清空后跳转到登录页面
-        mav.setViewName("login.html");
-        return mav;
+//        session.setAttribute("USER_SESSION",0);
+        System.out.println("ajdajsd");
+        interceptUtil.openurl(httpServletRequest,httpServletResponse,"/admin.html");
+        return "";
     }
 
 }

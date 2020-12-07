@@ -84,9 +84,10 @@ public class LoginController {
 //    }
 
 
-    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
     @ResponseBody
     public String gotologin(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        System.out.println("gotologin");
         InterceptUtil interceptUtil = new InterceptUtil();
         HttpSession session = httpServletRequest.getSession();
         session.removeAttribute("USER_SESSION");

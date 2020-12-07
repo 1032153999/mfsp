@@ -103,7 +103,7 @@ public class AddtoFavouritesController {
             if(recomments.size()>0){
 
                 clothingrecommentservice.updateweight2(recomments.get(0).getClothingrecommentid());
-                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+1");
+                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+2");
             }else {
                 recomment.setRecommendweight(2);
                 clothingrecommentservice.insert(recomment);

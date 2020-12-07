@@ -11,21 +11,24 @@
     <!-- Bootstrap -->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    
+
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
     <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js">
     </script>
 
 <script src="js/index.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
-    <style>
-        .title a{
-	text-decoration: none;
-}
-    </style>
+  <style>
+   
+  </style>
     
 </head>
 
@@ -36,70 +39,94 @@
 
 
 
-                <div>
 
-                    <div class="row Carousel" style="text-align:center">
 
-                        <!-- 轮播图部分div -->
-                        <div class="col-lg-8">
-                            <div id="Carousel" class="container" @mouseout="play" @mouseover="stopPlay">
+                <div id="myCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                      <div class="item">
+                          
+                        <img src="img/Carousel1.png" alt="">
+                      
 
-                                <div v-for="(imgUrl, index) in bannerList" v-show="index==mark" :key="index"  class="wrap" >
+                        <div class="container">
+                            
+                       
 
-                                    <img :src=imgUrl >
+                          <div class="carousel-caption">
+                          
 
-                                </div>
-                                <div class="buttons">
-                                    <span v-for="(item, index) in bannerList"  :key="index"  @mouseover="change(index)">{{index+1}}</span>
-                                </div>
-                                <a href="#" class="arrow arrow_left" @click="prev_pic">&lt;</a>
-                                <a href="#" class="arrow arrow_right" @click="autoPlay">&gt;</a>
-                            </div>
+                           
+                            <h1>Example headline.</h1>
+                            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                            <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                          </div>
                         </div>
-
-
-
-                        <!-- 轮播图右侧 -->
-                        <div class="col-lg-4">
-                            <div id="ad">
-                                <form>
-                                    <div class="row" style="text-align:center">
-                                        <div class="col-lg-8">
-                                            <input class="form-control" id="focusedInput" type="text"  placeholder="search" v-model="searchClothingName">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <button type="button" class="btn btn-default" @click="SearchClothing()">Confirm</button>
-                                        </div>
-
-                                    </div>
-
-                                </form>
-                            </div>
-
-                            <img :src=RimgUrl>
-
-
+                      </div>
+                      <div class="item active left">
+                        <img src="img/Carousel2.png" alt="">
+                        <div class="container">
+                          <div class="carousel-caption">
+                            <h1>Another example headline.</h1>
+                            <p class="lead"> Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <a class="btn btn-large btn-primary" href="#">Learn more</a>
+                          </div>
                         </div>
+                      </div>
+                      <div class="item next left">
+                        <img src="img/Carousel3.png" alt="">
+                        <div class="container">
+                          <div class="carousel-caption">
+                            <h1>One more for good measure.</h1>
+                            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. </p>
+                            <a class="btn btn-large btn-primary" href="#">dicover more</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev" id="left">‹</a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next" id="right">›</a>
+                  </div>
 
-                </div>
+
+
+
     <br>
 
-    <div class=" col-lg-12 col-lg-offset-1">
-        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-
-            <button type="button" @click="showDefaultSort" class="btn btn-secondary">综合排序</button>
-
-
-            <button type="button" @click="showPriceSort" class="btn btn-secondary" v-if="!showPrice">价格</button>
-            <button type="button" @click="showClothingByPA()" class="btn btn-secondary" v-if="showPrice">价格升序</button>
-            <button type="button" @click="showClothingByPD()" class="btn btn-secondary" v-if="showPrice">价格降序</button>
-            <button type="button" @click="showHotSort" class="btn btn-secondary">热度</button>
-
-
-
+    <div class="row">
+        <div class=" col-lg-6 col-lg-offset-1 ">
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+    
+                <button type="button" @click="showDefaultSort" class="btn btn-secondary">综合排序</button>
+    
+    
+                <button type="button" @click="showPriceSort" class="btn btn-secondary" v-if="!showPrice">价格</button>
+                <button type="button" @click="showClothingByPA()" class="btn btn-secondary" v-if="showPrice">价格升序</button>
+                <button type="button" @click="showClothingByPD()" class="btn btn-secondary" v-if="showPrice">价格降序</button>
+                <button type="button" @click="showHotSort()" class="btn btn-secondary" >猜你喜欢</button>
+    
+    
+    
+            </div>
         </div>
+        <div class="col-lg-3">
+            <input class="form-control" id="focusedInput" type="text"  placeholder="search" v-model="searchClothingName">
+            
+        </div>
+        <div class="col-lg-2">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" @click="SearchClothing()">
+                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                </svg>
+        </div>
+        
+
     </div>
+
+    <!-- <div class="col-lg-4">
+        <button type="button" class="btn btn-default" @click="SearchClothing()">Confirm</button>
+        
+    </div> -->
+
 
     <main>
         <div id="clothing">
@@ -216,6 +243,64 @@
 
 
 
+            <div v-if="showclothing">
+                <div v-if="showHot">
+
+              
+                    <div v-for="clothing in clothings">
+
+                        <div>
+                            <div class="col-lg-3">
+                                <figure class="" >
+                                    <br><br>
+                                    <img class='clothing chothing_pic' v-bind:src="clothing.clothingpic" alt=""  @click='Query(clothing)' >
+                                </figure>
+
+
+
+
+
+                                <h1>{{clothing.clothingname}}</h1>
+                                <!-- {{clothing.id}} -->
+                                <p v-html='clothing.clothingdescr'></p>
+                                <p>购买价格:{{clothing.clothingprice|formatclothingprice}}</p>
+                                <p>租赁价格:{{clothing.clothingrentprice|formatclothingprice}}</p>
+                                <div class="form-inline footer">
+                                    <button class='btn btn-primary btn-lg '
+                                            @click='addToCart(clothing)'
+                                            v-if=true>Add to cart</button>
+                                    <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
+                                    <div class="col-2">
+                                    <span class="inventory-message" v-if='clothing.clothingnum=== 0'>
+                                        All Out!
+                                    </span>
+                                        <span class="inventory-message" v-else-if='clothing.clothingnum-cartCount(clothing.clothingid) < 5'>
+                                        Only {{clothing.clothingnum}} left!
+                                    </span>
+                                        <span class="inventory-message" v-else>
+                                        Buy Now!
+                                    </span>
+                                    </div>
+                                    <!-- <div class="col-3 rating">
+                                        <span v-bind:class="{'rating-active':checkRating(n, clothing)}" v-for="n in 5">★</span>
+                                    </div> -->
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
 
 
 
@@ -227,9 +312,10 @@
 
 
         </div>
+       
     </main>
 
-
+  
 
 
 </div>
@@ -270,10 +356,10 @@
             cart:[],
 
 
-             //轮播图
-            mark: 0, //比对图片索引的变量
-                timer : null,
-                bannerList:["img/1.png","img/2.png","img/3.png","img/4.png"]
+            //  //轮播图
+            // mark: 0, //比对图片索引的变量
+            //     timer : null,
+            //     bannerList:["img/1.png","img/2.png","img/3.png","img/4.png"]
 
                  //轮播图
 
@@ -289,7 +375,7 @@
             this.Query0();
             this.QueryUserSession();
            
-            this.play();
+            // this.play();
         },
 
         methods:{
@@ -329,7 +415,6 @@
            //////////////////////////////
              url: 'logout',
              type: 'get',
-
              data: {
             },
              success: function (e) {
@@ -438,6 +523,7 @@
                
 
             },
+        
             checkOut0(){
               
                 let that = this;
@@ -486,32 +572,32 @@
               })
 
           },
-            //轮播图
-            autoPlay:function(){
-                    this.mark++;
-                    if (this.mark == this.bannerList.length) { //当遍历到最后一张图片置零
-                        this.mark = 0
-                    }
-                },
-                prev_pic:function(){
-                    if(this.mark==0){
+            // //轮播图
+            // autoPlay:function(){
+            //         this.mark++;
+            //         if (this.mark == this.bannerList.length) { //当遍历到最后一张图片置零
+            //             this.mark = 0
+            //         }
+            //     },
+            //     prev_pic:function(){
+            //         if(this.mark==0){
 
-                        this.mark=this.bannerList.length-1;
-                    }else{
-                        this.mark--;
-                    }
+            //             this.mark=this.bannerList.length-1;
+            //         }else{
+            //             this.mark--;
+            //         }
 
-                } ,
-                stopPlay:function(){
-                    clearInterval(timer);
-                },
-                play () {  //自动播放：设置一个定时器，创建一个可以自动播放的函数并调用
-                    timer=setInterval(this.autoPlay, 2500)
-                },
-                change (index) {
+            //     } ,
+            //     stopPlay:function(){
+            //         clearInterval(timer);
+            //     },
+            //     play () {  //自动播放：设置一个定时器，创建一个可以自动播放的函数并调用
+            //         timer=setInterval(this.autoPlay, 2500)
+            //     },
+            //     change (index) {
 
-                    this.mark = index
-                },
+            //         this.mark = index
+            //     },
 
                 //轮播图
                 goToSDetails:function (clothingid) {
@@ -524,6 +610,8 @@
                     this.showDefault=true;
                     this.showPrice=false;
                     this.showHot=false;
+                    this.clothings.splice(0,this.clothings.length);
+                    this.Query0();
                 },
                 showPriceSort:function(){
                     this.showDefault=false;
@@ -535,6 +623,33 @@
                     this.showDefault=false;
                     this.showPrice=false;
                     this.showHot=true;
+                    let that = this;
+                 
+                $.ajax({
+                    url: 'recomment',
+
+                    type: 'get',
+
+                    data: {     
+                        userid:that.user.userid,
+
+                    },
+
+                 
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                        that.clothings.splice(0,that.clothings.length);
+                        for (let index = 0; index < e.data.length; index++) {
+                            that.clothings.push(e.data[index]);
+
+                        }
+
+                    }
+
+                })
+               
                 },
 
                 QueryUserSession(){
@@ -700,7 +815,54 @@
     })
 
 </script>
+   
+<script>
+    !function ($) {
+      $(function(){
+        // carousel demo
+        $('#myCarousel').carousel()
+      })
+    }(window.jQuery)
 
+    $(document).ready(function(){  
+              var startX,endX;//声明触摸的两个变量  
+              var offset = 30;//声明触摸距离的变量  
+              $('.carousel-inner').on('touchstart',function (e) {  
+                  startX= e.originalEvent.touches[0].clientX;//当触摸开始时的x坐标；  
+              });  
+              $('.carousel-inner').on('touchmove',function (e) {  
+                  endX = e.originalEvent.touches[0].clientX;//当触摸离开时的x坐标；  
+              });  
+              $('.carousel-inner').on('touchend',function (e) {  
+                  //当触摸完成时进行的事件；  
+                  var distance = Math.abs(startX - endX);//不论正负，取值为正值；  
+                  if (distance > offset){  
+                      if(startX > endX){  
+                          $('#myCarousel').carousel('next');//当开始的坐标大于结束的坐标时，滑动到下一附图  
+                      }else{  
+                          $('#myCarousel').carousel('prev');//当开始的坐标小于结束的坐标时，滑动到上一附图  
+
+                      }  
+                                
+                  }  
+              });   
+          });
+
+
+
+
+
+         arrowl= $("#left");
+         
+          arrowl.onmouseenter = function () {
+            $("#left").hide();
+}
+arrowl.onmouseleave = function () {
+  // arrow.setAttribute("display","none") ;
+}
+
+    
+  </script>
 
 
 </body>

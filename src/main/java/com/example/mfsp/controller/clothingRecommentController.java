@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -30,12 +31,13 @@ public class clothingRecommentController {
 
     @RequestMapping(value = "/recomment" ,method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> recomment(Integer userid){
+    public Map<String,Object> recomment(@RequestParam("userid") Integer userid){
         Map<String, Object> result = new HashMap<String, Object>();
         List<Clothing> clothings=new ArrayList<>();
 
         Clothingrecomment clothingrecomment=clothingrecommentservice. highestweight(userid);
         clothingclass clothingclass=new clothingclass();
+        /////
         System.out.println(clothingrecomment.getClothingclassid());
         /*clothingclass.setClassid(clothingrecomment.getClothingclassid());*/
 

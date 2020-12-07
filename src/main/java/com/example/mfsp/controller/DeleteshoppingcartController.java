@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-public class Deleteshoppingcart {
+public class DeleteshoppingcartController {
 
     @Autowired
     private com.example.mfsp.service.shoppingcartService shoppingcartService;

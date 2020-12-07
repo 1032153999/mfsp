@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-public class Addclothinginorder {
+public class AddclothinginorderController {
 
     @Autowired
     private clothinginorderService clothinginorderService;

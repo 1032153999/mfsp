@@ -21,10 +21,10 @@
         select * from clothing order by clothingRentPrice asc
     </select>
     <select id="sortedbyprice" resultType="com.example.mfsp.entity.Clothing">
-        select * from clothing order by clothingPrice desc
+        select * from clothing order by (clothingPrice+0) asc
     </select>
     <select id="sortedbyprice1" resultType="com.example.mfsp.entity.Clothing">
-        select * from clothing order by clothingPrice desc
+        select * from clothing order by (clothingPrice+0) desc
     </select>
 
 </mapper>

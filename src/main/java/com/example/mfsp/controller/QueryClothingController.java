@@ -166,18 +166,39 @@ public class QueryClothingController {
 
 
      /*根据服装价格排序----升序*/
-    @RequestMapping(value="/sortedbyprice",method=RequestMethod.GET)
-    @ResponseBody
-    public List<Clothing> sortedbyprice (){
-        return clothingService.sortedbyprice();
-    }
+//    @RequestMapping(value="/sortedbyprice",method=RequestMethod.GET)
+//    @ResponseBody
+//    public List<Clothing> sortedbyprice (){
+//        return clothingService.sortedbyprice();
+//    }
+     @RequestMapping(value="/sortedbyprice",method=RequestMethod.GET)
+     @ResponseBody
+     public Map<String, Object> sortedbyprice (){
+         Map<String, Object> result = new HashMap<String, Object>();
+         result.put("code", 0);
+         result.put("msg", "");
+         result.put("count",clothingService.sortedbyprice().size());
+         result.put("data", clothingService.sortedbyprice());
+         return result;
+     }
 
     /*根据服装价格排序----降序*/
     @RequestMapping(value="/sortedbyprice1",method=RequestMethod.GET)
     @ResponseBody
-    public List<Clothing> sortedbyprice1 (){
-        return clothingService.sortedbyprice1();
+    public Map<String, Object> sortedbyprice1 (){
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        result.put("count",clothingService.sortedbyprice1().size());
+        result.put("data", clothingService.sortedbyprice1());
+        return result;
     }
+//    /*根据服装价格排序----降序*/
+//    @RequestMapping(value="/sortedbyprice1",method=RequestMethod.GET)
+//    @ResponseBody
+//    public List<Clothing> sortedbyprice1 (){
+//        return clothingService.sortedbyprice1();
+//    }
 
 }
 

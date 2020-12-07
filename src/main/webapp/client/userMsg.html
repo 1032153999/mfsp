@@ -11,7 +11,7 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body>
-    <div class="layui-form-item">
+<div class="layui-form-item"></div>
     <div class="layui-form-item">
       <label class="layui-form-label">用户昵称</label>
       <div class="layui-input-inline">
@@ -40,22 +40,21 @@
     </div>
     </div>
     <div class="layui-form-item">&nbsp;</div>
+
     <script>
 
         $(function(){
             //alert('123');
             $.ajax({
-                url:'',
+                url:'/Queryuser',//根据ID查个人信息
                 type: "GET",
-                dataType:JSON,
-                success:function(res, textStatus){
+                dataType:"JSON",
+                success:function(res){
                     //根据用户id返回数据并将其输入到文本框
                     let username = document.querySelector('#username')
-                    username.value = res.data.username;
+                    username.value = res.data.userid;
                     let phone = document.querySelector('#phone')
                     phone.value = res.data.phone;
-                    let useraddress = document.querySelector('#useraddress')
-                    useraddress.value = res.data.useraddress;
                     let userpic = document.querySelector('#userpic')
                     userpic.value = res.data.userpic;
                 }
@@ -93,7 +92,6 @@
         layui.use('layer', function(){
 
             $('#edit').on('click', function(){
-                var userid = $("#userid");
                 var username = $('#username');
                 var phone = $('#phone');
                 var userpic = $('#userpic');
@@ -123,7 +121,7 @@
             $('#query').on('click', function(){
                 var userid = $("#userid");
                 $.ajax({
-                    url:'',
+                    url:'/Queryuser',   //查询个人信息
                     type: "GET",
                     data:{userid:userid},
                     dataType:JSON,

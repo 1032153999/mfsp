@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
     <style>
         /* 弹窗部分css */
-        * {
+        /* * {
             margin: 0;
             padding: 0;
         }
@@ -48,7 +48,8 @@
             height: 185px;
             top: -70%;
             margin: 0 auto;
-        }
+        } */
+
         
         
     </style>
@@ -59,13 +60,10 @@
 
 
 
-
     <div id="shade">
         <!-- 弹窗部分 -->
         <div class="shade-background"></div>
         <div id="register">
-            
-            <!-- <div class="Modal-content"> -->
                
                 <div class="row col-lg-12 " style="text-align:center">
                     <br>
@@ -112,16 +110,16 @@
         </div>
     </div>
 
+    <div id="title" class="title">
 
 
-
-    <div id="title">
-
-
-        <header class="col-12 alert alert-success">
+        <header class="col-12">
             <div class="navbar navbar-default">
                 <div class="nav navbar-nav navbar-left col-6">
-                    <h1>{{sitename}}</h1>
+                    <a href="index.html" >
+                        <h1>{{sitename}}</h1>
+                    </a>
+                   
                 </div>
 
 
@@ -131,8 +129,8 @@
                
 
                 <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
+                    <button class="btn btn-light" @click="gotoClientPage()">
+                        <a >
                             个人中心
                             </span>
                         </a>
@@ -141,7 +139,7 @@
 
                 <div class="nav navbar-nav navbar-right cart col-2">
                     <button class="btn btn-light" @click="checkOut">
-                       <a>
+                       <a >
                                 <span class="glyphicon glyphicon-shopping-cart ">
                                     <span class="badge badge-primary badge-pill">{{count_Num+countNum}}</span> CheckedOut
                                    
@@ -151,12 +149,12 @@
                     </button>
                 </div>
 
-
+ 
 
 
                 <div class="nav navbar-nav navbar-right col-1">
-                    <button class="btn btn-light">
-                        <a href="file:///G:/hp/WEB/UI/ui5/ui5.html">
+                    <button class="btn btn-light" @click="logout()"> 
+                        <a >
                             退出登录
                             </span>
                         </a>
@@ -513,6 +511,28 @@
                         window.location.href="placeOrderPage.html";
 
             },
+            gotoClientPage(){
+
+                    $.ajax({
+                        
+                                    url: 'GotoClient',
+                                    type: 'get',
+
+                                    data: {
+                                            
+
+                                    },
+                                
+                                    success: function (e) {
+                                        console.log('success:', e);
+                                        
+
+                                    }
+
+                                })
+
+
+                    },
             deleteAllClothingFormCart(){
 
                 let that = this;
@@ -647,30 +667,7 @@
 
                     },
                     placeOrder(){
-                        // //时间默认值，默认当前时间+5天
-                        // var dataCur = new Date(); //当前日期
-                       
-                        // if(this.showRentByM){
-                        //     dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1+parseInt(this.RentMonthsTime)) + '-' + dataCur.getDate() + " 00:00:00";
-                        // var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
-                        //     // dataCurPar += 86400 * parseInt(this.RentMonthsTime)*30;//加后的时间戳
-                        // }else if(this.showRentByT){
-                        //     dataCur = dataCur.getFullYear() + '-' + (dataCur.getMonth() + 1) + '-' + dataCur.getDate() + " 00:00:00";
-                        //  var dataCurPar = Date.parse(new Date(dataCur))/1000;//转换为时间戳
-                        //     dataCurPar += 86400 *30;//加后的时间戳
-                        // }
-                       
-                       
-                        // var dataDefPar = new Date(parseInt(dataCurPar) * 1000);//转换为时间
-                        // alert("dataDefPar"+dataDefPar)
-                        // var dataDef = dataDefPar.getFullYear() + '-' + (dataDefPar.getMonth() + 1) + '-' + (dataDefPar.getDate());
-                        // // var timetamp=dataDefPar.format("yyyy-MM-dd hh:mm:ss");;
-                        // var timetamp= new Date(dataDefPar).Format("yyyy-MM-dd hh:mm:ss.0");
-                        // // var timetamp=dataCurPar;
-                        // if(this.showBuy){
-                        //     timetamp="";
-                        // }
-                        // alert("dataDef"+timetamp);
+      
 
 
 

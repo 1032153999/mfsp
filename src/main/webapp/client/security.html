@@ -25,7 +25,7 @@
         checking: function(){
               var userpassword = $('#userpassword');
               $.ajax({
-                  url: "",//这里填验证密码的控制类
+                  url: "checkuserpassword",//这里填验证密码的控制类
                   type: "GET",
                   data:{
                     userpassword:userpassword.val(),

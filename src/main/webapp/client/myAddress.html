@@ -17,7 +17,7 @@
             <input type="text" name="useraddress" id="useraddress" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <button class="layui-btn" lay-filter="addAddress" onclick="addAddress()">添加</button>
+            <button class="layui-btn" lay-filter="addAddress">添加</button>
         </div>
     </div>
     <table id="myAddress" lay-filter="myAddress"></table>
@@ -26,47 +26,21 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
       </script>
     <script>
-
-        /*var $ = layui.$, active = {
-            addAddress: function(){
-              var useraddress = $('#useraddress');
-              $.ajax({
-                  url: "",//这里填添加地址的控制类地址
-                  type: "GET",
-                  data:{
-                    useraddress:useraddress.val(),
-                  }
-              });
-              var table = layui.table;
-              table.reload('myAddress', {
-                  page: {
-                      curr: 1 //重新从第 1 页开始
-                  }
-              });
-          }
-      };
-
-      $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
-          var type = $(this).data('type');
-          active[type] ? active[type].call(this) : '';
-      });*/
-
-        function addAddress(){
-            var useraddress = $('#useraddress');
-            $.ajax({
-                url: "",//这里填添加地址的控制类地址
-                type: "GET",
-                data:{
-                    useraddress:useraddress.val(),
-                }
+        /*layui.use('form', function(){
+            var form = layui.form;
+            form.on('submit(addAddress)', function(data){
+                var useraddress = $('#useraddress');
+                $.ajax({
+                    url: "/insertaddress",//这里填添加地址的控制类地址
+                    type: "GET",
+                    data:{
+                        useraddress:useraddress.val(),
+                    }
+                });
+                layer.msg(JSON.stringify(data.field));
+                return false;
             });
-            var table = layui.table;
-            table.reload('myAddress', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-            });
-        };
+        });*/
 
         layui.use('table', function(){
             var table = layui.table;
@@ -75,14 +49,36 @@
                 ,id:'myAddress'
                 ,height: 500
                 ,even: true
-                ,url: '' //数据接口
+                ,url: '/getaddress' //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
-                {field: 'userid', title: '用户id',  fixed: 'left'}
+                {field: 'userid', title: '用户id',  fixed: 'left', width: 177}
                 ,{field: 'useraddress', title: '地址'}
+                ,{field: 'userphone', title: '电话号码'}
+                ,{field: 'username', title: '用户昵称'}
                 ,{fixed: 'right', width:178, align:'center', fixed: 'right',toolbar: '#barDemo'}
                 ]]
 
+            });
+
+            var $ = layui.$, active = {
+                addAddress: function(){
+                    var useraddress = $('#useraddress');
+                    alert('23');
+                    $.ajax({
+                        url: "/insertaddress",//这里填添加地址的控制类地址
+                        type: "GET",
+                        data:{
+                            useraddress:useraddress.val(),
+                        }
+                    });
+                }
+            };
+
+            $('.layui-layout-body .layui-form-item .layui-input-inline .layui-btn').on('click', function(){
+                alert('23');
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
             });
 
             table.on('tool(myAddress)', function(obj){
@@ -132,6 +128,10 @@
 
 
             });
+
+
         });
+
+
     </script>
 </body>

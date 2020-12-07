@@ -44,28 +44,88 @@
                 </div>
     <br>
 
-    <div class=" col-lg-12 col-lg-offset-1">
-        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-
-            <button type="button" @click="showDefaultSort" class="btn btn-secondary">综合排序</button>
-
-
-            <button type="button" @click="showPriceSort" class="btn btn-secondary">价格</button>
-
-
-            <button type="button" @click="showHotSort" class="btn btn-secondary">热度</button>
-
-
-
+    <div class="row">
+        <div class=" col-lg-12 col-lg-offset-1 ">
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+    
+                <button type="button" @click="showDefaultSort" class="btn btn-secondary">综合排序</button>
+    
+    
+                <button type="button" @click="showPriceSort" class="btn btn-secondary" v-if="!showPrice">价格</button>
+                <button type="button" @click="showClothingByPA()" class="btn btn-secondary" v-if="showPrice">价格升序</button>
+                <button type="button" @click="showClothingByPD()" class="btn btn-secondary" v-if="showPrice">价格降序</button>
+                <button type="button" @click="showHotSort()" class="btn btn-secondary" >猜你喜欢</button>
+    
+    
+    
+            </div>
         </div>
+ 
+        
+
     </div>
 
     <main>
         <div id="clothing">
 
             
+                 
             <div v-if="showclothing">
                 <div v-if="showDefault">
+
+              
+                    <div v-for="clothing in clothings">
+
+                        <div>
+                            <div class="col-lg-3 col-md-4">
+                                <figure class="" >
+                                    <br><br>
+                                    <img class='clothing chothing_pic' v-bind:src="clothing.clothingpic" alt=""  @click='Query(clothing)' >
+                                </figure>
+
+
+
+
+
+                                <h1>{{clothing.clothingname}}</h1>
+                                <!-- {{clothing.id}} -->
+                                <p v-html='clothing.clothingdescr'></p>
+                                <p>购买价格:{{clothing.clothingprice|formatclothingprice}}</p>
+                                <p>租赁价格:{{clothing.clothingrentprice|formatclothingprice}}</p>
+                                <div class="form-inline footer">
+                                    <button class='btn btn-primary btn-lg '
+                                            @click='addToCart(clothing)'
+                                            v-if=true>Add to cart</button>
+                                    <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
+                                    <div class="col-2">
+                                    <span class="inventory-message" v-if='clothing.clothingnum=== 0'>
+                                        All Out!
+                                    </span>
+                                        <span class="inventory-message" v-else-if='clothing.clothingnum-cartCount(clothing.clothingid) < 5'>
+                                        Only {{clothing.clothingnum}} left!
+                                    </span>
+                                        <span class="inventory-message" v-else>
+                                        Buy Now!
+                                    </span>
+                                    </div>
+                                  
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div v-if="showclothing">
+                <div v-if="showPrice">
 
               
                     <div v-for="clothing in clothings">
@@ -84,7 +144,8 @@
                                 <h1>{{clothing.clothingname}}</h1>
                                 <!-- {{clothing.id}} -->
                                 <p v-html='clothing.clothingdescr'></p>
-                                <p>{{clothing.clothingprice|formatclothingprice}}</p>
+                                <p>购买价格:{{clothing.clothingprice|formatclothingprice}}</p>
+                                <p>租赁价格:{{clothing.clothingrentprice|formatclothingprice}}</p>
                                 <div class="form-inline footer">
                                     <button class='btn btn-primary btn-lg '
                                             @click='addToCart(clothing)'
@@ -116,6 +177,66 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+            <div v-if="showclothing">
+                <div v-if="showHot">
+
+              
+                    <div v-for="clothing in clothings">
+
+                        <div>
+                            <div class="col-lg-3">
+                                <figure class="" >
+                                    <br><br>
+                                    <img class='clothing chothing_pic' v-bind:src="clothing.clothingpic" alt=""  @click='Query(clothing)' >
+                                </figure>
+
+
+
+
+
+                                <h1>{{clothing.clothingname}}</h1>
+                                <!-- {{clothing.id}} -->
+                                <p v-html='clothing.clothingdescr'></p>
+                                <p>购买价格:{{clothing.clothingprice|formatclothingprice}}</p>
+                                <p>租赁价格:{{clothing.clothingrentprice|formatclothingprice}}</p>
+                                <div class="form-inline footer">
+                                    <button class='btn btn-primary btn-lg '
+                                            @click='addToCart(clothing)'
+                                            v-if=true>Add to cart</button>
+                                    <button class='btn btn-primary btn-lg' disabled='true' v-else>Add to cart</button>
+                                    <div class="col-2">
+                                    <span class="inventory-message" v-if='clothing.clothingnum=== 0'>
+                                        All Out!
+                                    </span>
+                                        <span class="inventory-message" v-else-if='clothing.clothingnum-cartCount(clothing.clothingid) < 5'>
+                                        Only {{clothing.clothingnum}} left!
+                                    </span>
+                                        <span class="inventory-message" v-else>
+                                        Buy Now!
+                                    </span>
+                                    </div>
+                                   
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
 
         </div>
     </main>
@@ -222,6 +343,62 @@
 
 
                 },
+                showClothingByPA(){
+
+let that = this;
+$.ajax({
+    url: 'sortedbyprice',
+
+    type: 'get',
+
+    data: {     
+
+
+    },
+
+ 
+
+    success: function (e) {
+        console.log('success:', e);
+
+        that.clothings.splice(0,that.clothings.length);
+        for (let index = 0; index < e.data.length; index++) {
+            that.clothings.push(e.data[index]);
+
+        }
+    
+
+    }
+
+})
+},
+showClothingByPD(){
+let that = this;
+$.ajax({
+    url: 'sortedbyprice1',
+
+    type: 'get',
+
+    data: {     
+
+
+    },
+
+ 
+
+    success: function (e) {
+        console.log('success:', e);
+
+        that.clothings.splice(0,that.clothings.length);
+        for (let index = 0; index < e.data.length; index++) {
+            that.clothings.push(e.data[index]);
+
+        }
+
+    }
+
+})
+},
             
             
             cartCount(clothingid){
@@ -329,6 +506,8 @@
                     this.showDefault=true;
                     this.showPrice=false;
                     this.showHot=false;
+                    this.clothings.splice(0,this.clothings.length);
+                    this.Query0();
                 },
                 showPriceSort:function(){
                     this.showDefault=false;
@@ -339,7 +518,35 @@
                     this.showDefault=false;
                     this.showPrice=false;
                     this.showHot=true;
+                    let that = this;
+                 
+                $.ajax({
+                    url: 'recomment',
+
+                    type: 'get',
+
+                    data: {     
+                        userid:that.user.userid,
+
+                    },
+
+                 
+
+                    success: function (e) {
+                        console.log('success:', e);
+
+                        that.clothings.splice(0,that.clothings.length);
+                        for (let index = 0; index < e.data.length; index++) {
+                            that.clothings.push(e.data[index]);
+
+                        }
+
+                    }
+
+                })
+               
                 },
+
                 QueryUserSession(){
                 
             

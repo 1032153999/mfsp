@@ -43,6 +43,7 @@
 
                 <div id="myCarousel" class="carousel slide">
                     <div class="carousel-inner">
+                        
                       <div class="item">
                           
                         <img src="img/Carousel1.png" alt="">
@@ -62,6 +63,8 @@
                           </div>
                         </div>
                       </div>
+
+
                       <div class="item active left">
                         <img src="img/Carousel2.png" alt="">
                         <div class="container">
@@ -72,6 +75,8 @@
                           </div>
                         </div>
                       </div>
+
+
                       <div class="item next left">
                         <img src="img/Carousel3.png" alt="">
                         <div class="container">
@@ -281,9 +286,7 @@
                                         Buy Now!
                                     </span>
                                     </div>
-                                    <!-- <div class="col-3 rating">
-                                        <span v-bind:class="{'rating-active':checkRating(n, clothing)}" v-for="n in 5">★</span>
-                                    </div> -->
+                                   
                                 </div>
 
 
@@ -381,11 +384,9 @@
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
-                 
+                    alert("canAddToCart")
                     this.cart.push(clothing.clothingid)
-                }
-              
-
+                    
                 let that = this;
                 $.ajax({
                     url: 'Addtoshoppingcart',
@@ -406,6 +407,9 @@
                     }
 
                 })
+                }
+              
+
 
 
 
@@ -437,9 +441,14 @@
                 }
                 return count
             },
+            // canAddToCart(aclothing){
+            //     return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+            // },
             canAddToCart(aclothing){
-                return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+                alert("aclothing"+aclothing.clothingnum)
+                return aclothing.clothingnum > 0
             },
+            
             showClothingByPA(){
 
                 let that = this;
@@ -778,8 +787,12 @@
                 }
                 return count
             },
+            // canAddToCart(aclothing){
+            //     return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+            // },
             canAddToCart(aclothing){
-                return aclothing.clothingnum > this.cartCount(aclothing.clothingid)
+                alert("aclothing"+aclothing.clothingnum)
+                return aclothing.clothingnum > 0
             },
             countNum:function(){
                 countNum = 0;

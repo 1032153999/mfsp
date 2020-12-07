@@ -13,10 +13,11 @@
 <body>
 <div class="layui-form-item"></div>
     <div class="layui-form-item">
-      <label class="layui-form-label">用户昵称</label>
-      <div class="layui-input-inline">
-        <input type="text" name="username" id="username" autocomplete="off" class="layui-input">
-      </div>
+
+        <label class="layui-form-label">用户昵称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" id="username" autocomplete="off" class="layui-input">
+        </div>
       <label class="layui-form-label">手机号</label>
       <div class="layui-input-inline">
         <input type="text" name="phone" id="phone" autocomplete="off" class="layui-input">
@@ -52,7 +53,7 @@
                 success:function(res){
                     //根据用户id返回数据并将其输入到文本框
                     let username = document.querySelector('#username')
-                    username.value = res.data.userid;
+                    username.value = res.data.username;
                     let phone = document.querySelector('#phone')
                     phone.value = res.data.phone;
                     let userpic = document.querySelector('#userpic')
@@ -89,17 +90,16 @@
         });
         });
 
-        layui.use('layer', function(){
+        layui.config().use('layer', function(){
 
             $('#edit').on('click', function(){
                 var username = $('#username');
                 var phone = $('#phone');
                 var userpic = $('#userpic');
                 $.ajax({
-                  url: "updatemyuser",
+                  url: "/updatemyuser",
                   type: "GET",
                   data:{
-                      userid:userid.val(),
                     username:username.val(),
                     phone:phone.val(),
                     userpic:userpic.val(),
@@ -119,17 +119,18 @@
             });
 
             $('#query').on('click', function(){
-                var userid = $("#userid");
+                // var userid = $("#userid");
+
                 $.ajax({
                     url:'/Queryuser',   //查询个人信息
                     type: "GET",
-                    data:{userid:userid},
-                    dataType:JSON,
-                    success:function(res, textStatus){
+                    dataType:"JSON",
+                    success:function(res){
+                        // alert(res.data);
                         layer.open({
                             type:0,
                             title:false,
-                            content:res.data,
+                            content:"用户名:" + res.data.username + "<br/>用户密码:" + res.data.userpassword + "<br/>手机号:" + res.data.phone,
                             closeBtn: 1,
                             btn:false,
                             resize:false,

@@ -95,11 +95,8 @@ public class QueryClothingController {
             clothings =clothingService.selectAll(clothing);
 
         }
-
-
         result.put("count",clothings.size());
         result.put("data", clothings);
-
         return result;
     }
 
@@ -119,10 +116,8 @@ public class QueryClothingController {
             clothings=clothingService.selectAll(clothing);
         }
         System.out.println(clothings);
-
         result.put("count",clothings.size());
         result.put("data", clothings);
-        System.out.println("endddd");
         return result;
     }
 

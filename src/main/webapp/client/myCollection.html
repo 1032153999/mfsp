@@ -19,14 +19,23 @@
     <script>
         $(function(){
             $.ajax({
-                url:'',
+                url:'/QueryFavourites',
                 type:"GET",
-                datatype:JSON,
+                datatype:"JSON",
                 success:function(res){
                     var str = "";
                     for( var i=0 ; i<res.count ; i++ ){
-                        str+="<div class='layui-col-md3'><div class='layui-card'><div class='layui-card-header'><h2>" + res.data[i].clothingname + "</h2></div><div class='layui-card-body'><img src='" + res.data[i].clothingpic + "' width='300px' height='200px'><br><span style='color:red'>￥" + res.data[i].clothingprice + "</span></div></div></div>";
-                        
+                        alert(res.data[i].clothingid);
+                        var clothingid = res.data[i].clothingid;
+                        $.ajax({
+                            url:'/QueryClothingById0',
+                            type:"GET",
+                            data:{clothingid:clothingid},
+                            success:function(msg){
+                                alert(msg.data.clothingname + "and" +msg.data.clothingprice);
+                            }
+                        });
+                        //str+="<div class='layui-col-md3'><div class='layui-card'><div class='layui-card-header'><h2>" + res.data[i].clothingid + "</h2></div><div class='layui-card-body'><img src='' width='300px' height='200px'><br><span style='color:red'>0.00</span></div></div></div>";
                     }
                     $("#collection").html(str);
                 }

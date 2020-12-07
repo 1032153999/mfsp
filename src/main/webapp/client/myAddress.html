@@ -17,7 +17,7 @@
             <input type="text" name="useraddress" id="useraddress" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <button class="layui-btn" lay-filter="addAddress">添加</button>
+            <button class="layui-btn" id="addAddress" lay-filter="addAddress">添加</button>
         </div>
     </div>
     <table id="myAddress" lay-filter="myAddress"></table>
@@ -26,6 +26,24 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
       </script>
     <script>
+        $($('#addAddress')).click(function(){
+            var useraddress = $('#useraddress');
+            $.ajax({
+                url: "/insertaddress",//这里填添加地址的控制类地址
+                type: "GET",
+                data:{
+                    useraddress:useraddress.val(),
+                },
+                success:function (){
+                    var table = layui.table;
+                    table.reload('myAddress', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+                }
+            });
+        });
         /*layui.use('form', function(){
             var form = layui.form;
             form.on('submit(addAddress)', function(data){
@@ -61,17 +79,16 @@
 
             });
 
-            var $ = layui.$, active = {
+            /*var $ = layui.$, active = {
                 addAddress: function(){
-                    var useraddress = $('#useraddress');
-                    alert('23');
-                    $.ajax({
-                        url: "/insertaddress",//这里填添加地址的控制类地址
-                        type: "GET",
-                        data:{
-                            useraddress:useraddress.val(),
-                        }
-                    });
+                   var useraddress = $('#useraddress');
+                $.ajax({
+                    url: "/insertaddress",//这里填添加地址的控制类地址
+                    type: "GET",
+                    data:{
+                        useraddress:useraddress.val(),
+                    }
+                });
                 }
             };
 
@@ -79,15 +96,15 @@
                 alert('23');
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
-            });
+            });*/
 
             table.on('tool(myAddress)', function(obj){
                 var data = obj.data;
-                if(obj.event === 'edit'){
+                if(obj.event == 'edit'){
                 layer.open({
                     type:2,
                     title:false,
-                    content:'./editAddress.html',
+                    content:'./edit.html',
                     area:['500px','250px'],
                     success: function (layero, index) {
                     //向layer页面传值，传值主要代码
@@ -108,14 +125,14 @@
                     });
                     }
                 });
-                }else if(obj.event === 'del'){
+                }else if(obj.event == 'del'){
                     layer.open({
                         type:0,
                         title:'删除此地址？',
                         area:['500px','250px'],
                         yes: function(layero,index){
                         $.ajax({
-                            url: "",
+                            url: "/deleteaddress",
                             type: "GET",
                             data:{id:data.id}
                         });

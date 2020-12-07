@@ -58,7 +58,6 @@ public class AddtoFavouritesController {
     public Map<String, Object> addtoFavourties(Favourites favourites) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
-
         Favourites favourites2 = new Favourites();
         favourites2.setClothingid(favourites.getClothingid());
         favourites2.setUserid(favourites.getUserid());
@@ -71,8 +70,6 @@ public class AddtoFavouritesController {
         if (favourite2.size() == 1 ){
             System.out.println("该商品已存在收藏夹中");
             result.put("msg", "该商品已存在收藏夹中");
-
-
         }else {
             favouritesService.insert(favourites);
             System.out.println("添加成功");

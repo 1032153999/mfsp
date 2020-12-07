@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>会员制时装共享平台</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <script src="../layui/layui.js" charset="utf-8"></script>
+  <script src="../js/jquery.min.js"></script>
+</head>
+<body class="layui-body" style="width:50%">
+    <div class="layui-form-item"></div>
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <button class="layui-btn" id="queryFirstTag">查询一级标签</button>
+        </div>
+        <div class="layui-input-inline">
+            <button class="layui-btn" id="querySecondTag">查询二级标签</button>
+        </div>
+        <div class="layui-input-inline">
+            <button class="layui-btn" id="queryThirdTag">查询三级标签</button>
+        </div>
+    </div>
+    <hr class="layui-bg-gray">
+    <div class="layui-form-item">
+        <label class="layui-form-label">一级标签</label>
+        <div class="layui-input-inline">
+            <input type="text" name="firstTag" id="firstTag" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+
+        <div class="layui-input-inline">
+            <button class="layui-btn" id="addFirstTag">添加一级标签</button>
+        </div>
+    </div>
+    <hr class="layui-bg-gray">
+    <div class="layui-form-item">
+        <label class="layui-form-label">二级标签</label>
+        <div class="layui-input-inline">
+            <input type="text" name="secondTag" id="secondTag" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <select id='sFirstTag' class="layui-select"></select>
+        </div>
+        <div class="layui-input-inline">
+            <button class="layui-btn" id="addSecondTag">添加二级标签</button>
+        </div>
+    </div>
+    <hr class="layui-bg-gray">
+    <div class="layui-form-item">
+        <label class="layui-form-label">三级标签</label>
+        <div class="layui-input-inline">
+            <input type="text" name="thirdTag" id="thirdTag" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <select id='sSecondTag' class="layui-select"></select>
+        </div>
+        <div class="layui-input-inline">
+            <button class="layui-btn" id="addThirdTag">添加三级标签</button>
+        </div>
+    </div>
+    <hr class="layui-bg-gray">
+    <script>
+        /*
+        *需要改的东西有很多
+        * 首先是$(function(){})里面需要添加查询所有一级标签和二级标签的url
+        * 其次是querytag里面也是填所有一级、二级、三级标签的url
+        * 最后是addtag里面填添加一级、二级、三级标签的url
+        * addtag里面的data要改成和后台相同的数据名
+         */
+        $(function(){
+            $.ajax({//查询一级标签
+                url:'',
+                type:"GET",
+                dataType:"TEXT",
+                success: function(data){
+                        //拆分字符串，返回行的数组
+                        var hang = data.split(",");
+                        var str = "";
+                        for(var i=0;i<hang.length;i++)
+                        {
+                            /*var lie = hang[i].split("^");*/
+
+                            str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                        }
+                        //将所有的option放到省下拉里面
+                        $("#sFirstTag").html(str);
+                }
+            });
+            $.ajax({//查询二级标签
+                url:'',
+                type:"GET",
+                dataType:"TEXT",
+                success: function(data){
+                        //拆分字符串，返回行的数组
+                        var hang = data.split(",");
+                        var str = "";
+                        for(var i=0;i<hang.length;i++)
+                        {
+                            /*var lie = hang[i].split("^");*/
+
+                            str+="<option value='"+hang[i]+"'>"+hang[i]+"</option>";
+                        }
+                        //将所有的option放到省下拉里面
+                        $("#sSecondTag").html(str);
+                }
+            });
+        });
+
+        layui.config().use('layer',function(){
+        $($("#queryFirstTag")).click(function(){
+            alert('queryFirstTag');
+            $.ajax({
+                url:'',
+                type:"GET",
+                success:function(msg){
+                    layer.msg(msg);
+                }
+            });
+        });
+        $($("#querySecondTag")).click(function(){
+            alert('querySecondTag');
+            $.ajax({
+                url:'',
+                type:"GET",
+                success:function(msg){
+                    layer.msg(msg);
+                }
+            });
+        });
+        $($("#queryThirdTag")).click(function(){
+            alert('queryThirdTag');
+            $.ajax({
+                url:'',
+                type:"GET",
+                success:function(msg){
+                    layer.msg(msg);
+                }
+            });
+        });
+        $($("#addFirstTag")).click(function(){
+            alert('addFirstTag');
+            var firstTag = $('firstTag');
+            $.ajax({
+                url:'',
+                type:"GET",
+                data:{
+                    firstTag:firstTag.val()
+                },
+                success:function(msg){
+                    layer.msg(msg);
+                }
+            });
+            location.reload();
+        });
+        $($("#addSecondTag")).click(function(){
+            alert('addSecondTag');
+            var secondTag = $('secondTag');
+            var sFirstTag = $('sFirstTag');
+            $.ajax({
+                url:'',
+                type:"GET",
+                data:{
+                    secondTag:secondTag.val(),
+                    sFirstTag:sFirstTag.val()
+                },
+                success:function(msg){
+                    layer.msg(msg);
+                }
+            });
+            location.reload();
+        });
+        $($("#addThirdTag")).click(function(){
+            alert('addThirdTag');
+            var thirdTag = $('thirdTag');
+            var sSecondTag = $('sSecondTag');
+            $.ajax({
+                url:'',
+                type:"GET",
+                data:{
+                    thirdTag:thirdTag.val(),
+                    sSecondTag:sSecondTag.val()
+                },
+                success:function(msg){
+                    layer.msg(msg);
+                }
+            });
+        });
+    });
+    </script>
+</body>

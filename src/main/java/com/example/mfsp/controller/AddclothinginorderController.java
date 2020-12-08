@@ -73,40 +73,42 @@ public class AddclothinginorderController {
         System.out.println("clothinginorder"+clothinginorder.toString());
         clothinginorderService.insert(clothinginorder);
 
-        System.out.println("已经进入推荐算法--购买服装");
-        HttpSession session = httpServletRequest.getSession();
-        Integer user_id = (Integer) session.getAttribute("USER_SESSION");
-        System.out.println(user_id);
+        try{
+            System.out.println("已经进入推荐算法--购买服装");
+            HttpSession session = httpServletRequest.getSession();
+            Integer user_id = (Integer) session.getAttribute("USER_SESSION");//获取用户id
+            System.out.println(user_id);
 
-        String firstkind=clothing.getFirstKind();
-        String secondkind=clothing.getSecondKind();
-        String thirdlykind=clothing.getThirdlyKind();
+            String firstkind=clothing.getFirstKind();
+            String secondkind=clothing.getSecondKind();
+            String thirdlykind=clothing.getThirdlyKind();
 
-        System.out.println(firstkind+secondkind+thirdlykind);
-        clothingclass clothingclass=clothingservice.selectclassid(firstkind,secondkind,thirdlykind);
+            System.out.println(firstkind+secondkind+thirdlykind);
+            clothingclass clothingclass=clothingservice.selectclassid(firstkind,secondkind,thirdlykind);
 
-        Clothingrecomment recomment=new Clothingrecomment();
-        recomment.setUserid(user_id);
-        recomment.setClothingclassid(clothingclass.getClassid());
-        List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
-        if(recomments.size()>0){
+            Clothingrecomment recomment=new Clothingrecomment();
+            recomment.setUserid(user_id);
+            recomment.setClothingclassid(clothingclass.getClassid());
+            List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
+            if(recomments.size()>0){
 
-            clothingrecommentservice.updateweight(recomments.get(0).getClothingrecommentid());
-            System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+3");
-        }else {
-            recomment.setRecommendweight(3);
-            clothingrecommentservice.insert(recomment);
-            System.out.println("insert clothingweight ");
+                clothingrecommentservice.updateweight(recomments.get(0).getClothingrecommentid());
+                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+3");
+            }else {
+                recomment.setRecommendweight(3);
+                clothingrecommentservice.insert(recomment);
+                System.out.println("insert clothingweight ");
+            }
+
+            }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("推荐算法 购买 出现错误");
+        }finally{
+            return "";
         }
 
 
 
-
-
-
-
-
-        return "";
 
 
 

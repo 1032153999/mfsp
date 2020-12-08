@@ -27,7 +27,7 @@ public class AddtoFavouritesController {
 
     @Autowired
     private clothingRecommentService clothingrecommentservice;
-    
+
     //,@RequestParam("id")  Integer id
 
 
@@ -61,16 +61,17 @@ public class AddtoFavouritesController {
         Favourites favourites2 = new Favourites();
         favourites2.setClothingid(favourites.getClothingid());
         favourites2.setUserid(favourites.getUserid());
-        List<Favourites> favourite2=new ArrayList<>();
-        favourite2 =favouritesService.selectAll(favourites2);
+        List<Favourites> favourite2 = new ArrayList<>();
+        favourite2 = favouritesService.selectAll(favourites2);
 //        favourites.setClothingid(4);
 //        favourites.setFavouritesid(18);
 //        favourites.setUserid(4);
         System.out.println("设置成功");
-        if (favourite2.size() == 1 ){
+        if (favourite2.size() == 1) {
             System.out.println("该商品已存在收藏夹中");
             result.put("msg", "该商品已存在收藏夹中");
-        }else {
+            return result;
+        } else {
             favouritesService.insert(favourites);
             System.out.println("添加成功");
             result.put("msg", "添加成功");
@@ -82,36 +83,42 @@ public class AddtoFavouritesController {
             无则 insert 此推荐 推荐值置值2
             * */
 
-            Clothing clothing=new Clothing();
-            clothing.setClothingid(favourites.getClothingid());
-            List<Clothing> clothings=new ArrayList<>();
-            clothings=clothingservice.selectAll(clothing);
+            try{
+                Clothing clothing = new Clothing();
+                clothing.setClothingid(favourites.getClothingid());
+                List<Clothing> clothings = new ArrayList<>();
+                clothings = clothingservice.selectAll(clothing);
 
-            String firstkind=clothings.get(0).getFirstKind();
-            String secondkind=clothings.get(0).getSecondKind();
-            String thirdlykind=clothings.get(0).getThirdlyKind();
+                String firstkind = clothings.get(0).getFirstKind();
+                String secondkind = clothings.get(0).getSecondKind();
+                String thirdlykind = clothings.get(0).getThirdlyKind();
 
-            System.out.println(firstkind+secondkind+thirdlykind);
-            clothingclass clothingclass=clothingservice.selectclassid(firstkind,secondkind,thirdlykind);
+                System.out.println(firstkind + secondkind + thirdlykind);
+                clothingclass clothingclass = clothingservice.selectclassid(firstkind, secondkind, thirdlykind);
 
-            System.out.println(clothingclass.toString());
-            Clothingrecomment recomment=new Clothingrecomment();
-            recomment.setUserid(favourites.getUserid());
-            recomment.setClothingclassid(clothingclass.getClassid());
-            System.out.println(recomment.getClothingclassid());
-            List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
-            if(recomments.size()>0){
+                System.out.println(clothingclass.toString());
+                Clothingrecomment recomment = new Clothingrecomment();
+                recomment.setUserid(favourites.getUserid());
+                recomment.setClothingclassid(clothingclass.getClassid());
+                System.out.println(recomment.getClothingclassid());
+                List<Clothingrecomment> recomments = clothingrecommentservice.selectAll(recomment);
+                if (recomments.size() > 0) {
 
-                clothingrecommentservice.updateweight2(recomments.get(0).getClothingrecommentid());
-                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+2");
-            }else {
-                recomment.setRecommendweight(2);
-                clothingrecommentservice.insert(recomment);
-                System.out.println("insert clothingweight ");
+                    clothingrecommentservice.updateweight2(recomments.get(0).getClothingrecommentid());
+                    System.out.println(recomments.get(0).getClothingrecommentid() + "的推荐值+2");
+                } else {
+                    recomment.setRecommendweight(2);
+                    clothingrecommentservice.insert(recomment);
+                    System.out.println("insert clothingweight ");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+
+            }finally {
+                return result;
             }
 
-
         }
-        return result;
+
     }
 }

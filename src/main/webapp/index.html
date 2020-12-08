@@ -48,7 +48,7 @@
                           
                         <img src="img/Carousel1.png" alt="">
                       
-
+<!-- 
                         <div class="container">
                             
                        
@@ -61,31 +61,31 @@
                             <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
                             <a class="btn btn-large btn-primary" href="#">Sign up today</a>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
 
 
                       <div class="item active left">
                         <img src="img/Carousel2.png" alt="">
-                        <div class="container">
+                        <!-- <div class="container">
                           <div class="carousel-caption">
                             <h1>Another example headline.</h1>
                             <p class="lead"> Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                             <a class="btn btn-large btn-primary" href="#">Learn more</a>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
 
 
                       <div class="item next left">
                         <img src="img/Carousel3.png" alt="">
-                        <div class="container">
+                        <!-- <div class="container">
                           <div class="carousel-caption">
                             <h1>One more for good measure.</h1>
                             <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. </p>
                             <a class="btn btn-large btn-primary" href="#">dicover more</a>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                     <a class="left carousel-control" href="#myCarousel" data-slide="prev" id="left">‹</a>
@@ -208,7 +208,7 @@
 
 
                                 <h1>{{clothing.clothingname}}</h1>
-                                <!-- {{clothing.id}} -->
+                             
                                 <p v-html='clothing.clothingdescr'></p>
                                 <p>购买价格:{{clothing.clothingprice|formatclothingprice}}</p>
                                 <p>租赁价格:{{clothing.clothingrentprice|formatclothingprice}}</p>
@@ -228,9 +228,7 @@
                                         Buy Now!
                                     </span>
                                     </div>
-                                    <!-- <div class="col-3 rating">
-                                        <span v-bind:class="{'rating-active':checkRating(n, clothing)}" v-for="n in 5">★</span>
-                                    </div> -->
+                                 
                                 </div>
 
 
@@ -384,7 +382,8 @@
         methods:{
             addToCart:function(clothing){
                 if(this.canAddToCart){
-                    alert("canAddToCart")
+                 
+                 
                     this.cart.push(clothing.clothingid)
                     
                 let that = this;
@@ -403,10 +402,12 @@
 
                     success: function (e) {
                         console.log('success:', e);
+                        funcTips('操作成功')
 
                     }
 
                 })
+             
                 }
               
 
@@ -581,32 +582,7 @@
               })
 
           },
-            // //轮播图
-            // autoPlay:function(){
-            //         this.mark++;
-            //         if (this.mark == this.bannerList.length) { //当遍历到最后一张图片置零
-            //             this.mark = 0
-            //         }
-            //     },
-            //     prev_pic:function(){
-            //         if(this.mark==0){
-
-            //             this.mark=this.bannerList.length-1;
-            //         }else{
-            //             this.mark--;
-            //         }
-
-            //     } ,
-            //     stopPlay:function(){
-            //         clearInterval(timer);
-            //     },
-            //     play () {  //自动播放：设置一个定时器，创建一个可以自动播放的函数并调用
-            //         timer=setInterval(this.autoPlay, 2500)
-            //     },
-            //     change (index) {
-
-            //         this.mark = index
-            //     },
+      
 
                 //轮播图
                 goToSDetails:function (clothingid) {
@@ -619,6 +595,7 @@
                     this.showDefault=true;
                     this.showPrice=false;
                     this.showHot=false;
+                    
                     this.clothings.splice(0,this.clothings.length);
                     this.Query0();
                 },
@@ -876,7 +853,6 @@ arrowl.onmouseleave = function () {
 
     
   </script>
-
 
 </body>
 

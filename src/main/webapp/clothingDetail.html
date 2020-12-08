@@ -266,13 +266,13 @@
 
                     success: function (e) {
                         console.log('success:', e);
-
+                        funcTips('操作成功')
                     }
 
                 })
 
 
-
+              
             },
             logout(){
                 $.ajax({
@@ -348,10 +348,11 @@
 
                     success: function (e) {
                         console.log('success:', e);
-
+                        funcTips('操作成功')
                     }
 
                 })
+                funcTips('操作成功')
 
             },
 

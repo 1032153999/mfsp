@@ -154,7 +154,7 @@ public class QueryClothingController {
             }
         }
         result.put("count",clothings.size());
-        result.put("data", clothings.get(0));
+        result.put("data", clothings);
         System.out.println(result);
         return result;
     }

@@ -52,9 +52,17 @@ public class LoginController {
         InterceptUtil interceptUtil = new InterceptUtil();
         HttpSession session = httpServletRequest.getSession();
         session.removeAttribute("USER_SESSION");
-        session.removeAttribute("USER_SESSION");
         interceptUtil.openurl(httpServletRequest,httpServletResponse,"/admin.html");
         return "";
     }
 
+    @RequestMapping(value = "/logout2",method = RequestMethod.GET)
+    @ResponseBody
+    public String gotologin2(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        InterceptUtil interceptUtil = new InterceptUtil();
+        HttpSession session = httpServletRequest.getSession();
+        session.removeAttribute("USER_SESSION");
+//        interceptUtil.openurl(httpServletRequest,httpServletResponse,"/admin.html");
+        return "";
+    }
 }

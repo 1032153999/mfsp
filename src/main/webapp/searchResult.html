@@ -313,12 +313,12 @@
 
                     success: function (e) {
                         console.log('success:', e);
-
+                        funcTips('操作成功')
                     }
 
                 })
 
-
+              
 
             },
             gotoClientPage(){
@@ -474,6 +474,21 @@ $.ajax({
 
                 })
 
+            },
+            logout(){
+                $.ajax({
+           //////////////////////////////
+             url: 'logout2',
+             type: 'get',
+             data: {
+            },
+             success: function (e) {
+                 console.log('success:', e);
+                 window.location.href="login.html";
+
+             }
+
+         })
             },
             checkOut(){
              

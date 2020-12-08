@@ -12,6 +12,7 @@ import org.omg.CORBA.WStringSeqHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -31,7 +32,7 @@ public class TotalController {
     private userService userService;
 
     //统计租量控制类 前端注意返回的是一个数组！！！！！分别为 租量总量跟最高租量！
-    @RequestMapping(value = "zuliang")
+    @RequestMapping(value = "/zuliang", method = RequestMethod.GET)
     @ResponseBody
     public int[] totalrent(){
         List<Clothing> clothings;
@@ -45,7 +46,7 @@ public class TotalController {
 
 
     //查询总销量及最高销量控制类， 前端注意接收到的数组类型！！！
-    @RequestMapping(value = "xiaoliang")
+    @RequestMapping(value = "/xiaoliang" , method = RequestMethod.GET)
     @ResponseBody
     public int[] totalsales(){
         List<Clothing> clothings;
@@ -54,12 +55,12 @@ public class TotalController {
         List<Integer> sales = clothings.stream().map(Clothing::getClothingmonthlysales).collect(Collectors.toList());
         int mostsales = Collections.max(sales);
         int[] msg = {sum,mostsales};
-        System.out.println(msg);
+//        System.out.println(msg);
         return msg;
     }
 
     // 统计订单金额 总量及最高订单金额  前端注意 传过去的是一个数组！！！！！！
-    @RequestMapping(value = "ordertotal")
+    @RequestMapping(value = "/ordertotal", method = RequestMethod.GET)
     @ResponseBody
     public int[] totalorders(){
         List<Orderform> orderforms;
@@ -67,13 +68,13 @@ public class TotalController {
         orderform.setOrderstatus("已处理");
         orderforms = orderService.selectAll(orderform);
         List<String> total = orderforms.stream().map(Orderform::getTotalprice).collect(Collectors.toList());
-        System.out.println(total);
+//        System.out.println(total);
         List<Integer> numtotal =new ArrayList<>();
         for (int i = 0; i<total.size(); i++){
             int zhongzhuan = Integer.parseInt(total.get(i));
-            System.out.println(zhongzhuan);
+//            System.out.println(zhongzhuan);
             numtotal.add(i,zhongzhuan);
-            System.out.println(numtotal);
+//            System.out.println(numtotal);
         }
         int mostprice = Collections.max(numtotal);
         int sum = numtotal.stream().reduce(Integer::sum).orElse(0);
@@ -82,8 +83,8 @@ public class TotalController {
     }
 
 
-    //通知用户控制类  ，前端注意此处返回的是一个数组
-    @RequestMapping(value = "usertotal")
+    //统计用户控制类  ，前端注意此处返回的是一个数组
+    @RequestMapping(value = "/usertotal" , method = RequestMethod.GET)
     @ResponseBody
     public int[] usertotal(){
         User user = new User();
@@ -93,14 +94,14 @@ public class TotalController {
         users = userService.selectAll();
         usersrole = userService.selectAll(user);
         int [] usertotal = {users.size(),usersrole.size()};
-        System.out.println(usertotal);
+//        System.out.println(usertotal);
         return usertotal;
     }
 
 
 
     //查询订单数量控制类！ 前端注意传到的是一个数组！！！！！！！！！顺序分别为 订单数，订单未处理数，订单正在处理数，订单已处理数
-    @RequestMapping(value = "queryordernumber")
+    @RequestMapping(value = "/queryordernumber", method = RequestMethod.GET)
     @ResponseBody
     private int[] ordernum(){
         Orderform orderform = new Orderform();
@@ -116,7 +117,7 @@ public class TotalController {
     }
 
     //查询商品数的控制类， 注意！！！！传来的是一个数组 值依次为商品数量，库存过低数量，无库存，库存充足 库存过低指的是库存小于100件的
-    @RequestMapping(value = "queryallclothingsnumber")
+    @RequestMapping(value = "/queryallclothingsnumber", method = RequestMethod.GET)
     @ResponseBody
     public int[] queryclothingnumber(){
         int numberis0 = 0;
@@ -141,7 +142,7 @@ public class TotalController {
 
     //查询最火商品控制类 注意传来的是一个数组！ 值依次为 商品名称，库存，销售量，租赁量
     //
-    @RequestMapping(value = "queryhostclothing")
+    @RequestMapping(value = "/queryhostclothing", method = RequestMethod.GET)
     @ResponseBody
     public  String[] queryhostclothing(){
         Clothing clothing = new Clothing();
@@ -149,7 +150,7 @@ public class TotalController {
         List<Integer> clothingnum1 = clothings.stream().map(Clothing::getClothingmonthlysales).collect(Collectors.toList());
         List<Integer> clothingnum2 = clothings.stream().map(Clothing::getClothingmonrentalamount).collect(Collectors.toList());
         List<Integer> clothingtotal = new ArrayList<>();
-        System.out.println(clothingnum1.get(0));
+//        System.out.println(clothingnum1.get(0));
         for (int i =0; i <clothingnum1.size(); i++){
             clothingtotal.add(i,clothingnum1.get(i)+clothingnum2.get(i));
         }

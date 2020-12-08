@@ -82,11 +82,12 @@
 <script>
     $(function(){
           $.ajax({
-              url:'zuliang',
+              url:'/usertotal',
               type: "GET",
               success:function(msg){
-                  $('#monrentalamount').text(msg.userCount);
-                  $('#admin').text("管理员:" + msg.admin);
+                  console.log(msg[0]);
+                  $('#userCount').text(msg[0]);
+                  $('#admin').text("管理员:" + msg[1]);
               }
           });
 
@@ -94,17 +95,17 @@
             url:'xiaoliang',
             type: "GET",
             success:function(msg){
-                $('#monthlysales').text(msg.monthlysales);
-                $('#highestSale').text("销量最高:" + msg.highestSale);
+                $('#monthlysales').text(msg[0]);
+                $('#highestSale').text("销量最高:" + msg[1]);
             }
         });
 
         $.ajax({
-            url:'usertotal',
+            url:'/zuliang',
             type: "GET",
             success:function(msg){
-                $('#userCount').text(msg.monrentalamount);
-                $('#highestRent').text("租赁最高:" + msg.highestRent);
+                $('#monrentalamount').text(msg[0]);
+                $('#highestRent').text("租赁最高:" + msg[1]);
             }
         });
 
@@ -112,42 +113,42 @@
             url:'ordertotal',
             type: "GET",
             success:function(msg){
-                $('#totalprice').text(msg.totalprice);
-                $('#price').text("单笔最高成交额:" + msg.price);
+                $('#totalprice').text(msg[0]);
+                $('#price').text("单笔最高成交额:" + msg[1]);
 
             }
         });
 
         $.ajax({
-            url:'',
+            url:'/queryordernumber',
             type: "GET",
             success:function(msg){
-                $('#orderCount').text(msg.orderCount);
-                $('#nodeal').text("未处理:" + msg.nodeal);
-                $('#dealing').text("正在处理:" + msg.dealing);
-                $('#dealed').text("已处理:" + msg.dealed);
+                $('#orderCount').text(msg[0]);
+                $('#nodeal').text("未处理:" + msg[1]);
+                $('#dealing').text("正在处理:" + msg[2]);
+                $('#dealed').text("已处理:" + msg[3]);
             }
         });
 
         $.ajax({
-            url:'',
+            url:'/queryallclothingsnumber',
             type: "GET",
             success:function(msg){
-                $('#clothingCount').text(msg.clothingCount);
-                $('#little').text("库存过低:" + msg.little);
-                $('#none').text("无库存:" + msg.none);
-                $('#enough').text("库存充足:" + msg.enough);
+                $('#clothingCount').text(msg[0]);
+                $('#little').text("库存过低:" + msg[1]);
+                $('#none').text("无库存:" + msg[2]);
+                $('#enough').text("库存充足:" + msg[3]);
             }
         });
 
         $.ajax({
-            url:'',
+            url:'/queryhostclothing',
             type: "GET",
             success:function(msg){
-                $('#hotClothing').text(msg.hotClothing);
-                $('#count').text("库存:" + msg.count);
-                $('#sale').text("销售量:" + msg.sale);
-                $('#rent').text("租赁量:" + msg.rent);
+                $('#hotClothing').text(msg[0]);
+                $('#count').text("库存:" + msg[1]);
+                $('#sale').text("销售量:" + msg[2]);
+                $('#rent').text("租赁量:" + msg[3]);
             }
         });
 

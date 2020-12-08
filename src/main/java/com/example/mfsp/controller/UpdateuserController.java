@@ -186,7 +186,6 @@ public class UpdateuserController {
         result.put("count",users.size());
         result.put("data", users.get(0));
         System.out.println(users.get(0));
-
         return result;
     }
 

@@ -475,6 +475,21 @@ $.ajax({
                 })
 
             },
+            logout(){
+                $.ajax({
+           //////////////////////////////
+             url: 'logout2',
+             type: 'get',
+             data: {
+            },
+             success: function (e) {
+                 console.log('success:', e);
+                 window.location.href="login.html";
+
+             }
+
+         })
+            },
             checkOut(){
              
               

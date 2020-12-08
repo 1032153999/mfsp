@@ -154,7 +154,10 @@
             </h1>
             <!-- <div  v-for='(address,key) in addresses' :value="key"> -->
                 <label class　="radio-inline">
-                    <input type="radio" name="addressRadioOptions"> {{addresses.useraddress}}  {{addresses.username}}  {{addresses.userphone}} <a href="">修改地址</a>
+                    <input type="radio" name="addressRadioOptions"> {{addresses.useraddress}}  {{addresses.username}}  {{addresses.userphone}} <a style="color:royalblue"  @click="addUserAddress()">
+                     
+                        修改地址
+                       </a>
                   </label>
             <!-- </div> -->
             <br>
@@ -398,36 +401,7 @@
         },
 
         methods:{
-            addToCart:function(clothing){
-                if(this.canAddToCart){
-                    console.log('canAddToCart:');
-                    this.cart.push(clothing.clothingid)
-                }
-              
-
-                let that = this;
-                $.ajax({
-                    url: 'Addtoshoppingcart',
-
-                    type: 'get',
-
-                    data: {clothingid:clothing.clothingid ,     //传单值到后台成功
-                            userid:1,
-
-                    },
-
-                    // dataType: "json",
-
-                    success: function (e) {
-                        console.log('success:', e);
-
-                    }
-
-                })
-
-
-
-            },
+            
             showBuyButton:function(){
                     this.showBuy=true;
                     this.showRent=false;
@@ -468,12 +442,7 @@
 
                             data: {
                                 shoppingcartid:shoppingCart.shoppingcartid,
-
-                                    
-
-                            },
-
-                            
+                              },
 
                             success: function (e) {
                                 console.log('success:', e);
@@ -621,7 +590,7 @@
                         let that = this;
                         $.ajax({
                     
-                            url: '',
+                            url: 'GotoClient',
                             type: 'get',
 
                             data: {
@@ -655,8 +624,11 @@
                             this.RentMonthsTime=null;
                         }
                         
-
-
+                        if(this.address==""){
+                           
+                            funcTips('操作失败，请填写地址')
+                        }else{
+                          
 
                         let that = this;
                             $.ajax({
@@ -689,12 +661,18 @@
 
                             })
 
+                        }
+
                     },
                     reduceStorage(){
                         
 
                         let that = this;
-                      
+                      if(that.shoppingCart.length==0){
+                        funcTips('操作失败，没有商品')
+                      }else{
+
+                     
                         
                       for (let index = 0; index < that.shoppingCart.length; index++) {
                         if(this.showBuy){
@@ -758,7 +736,12 @@
 
                     })
 
+
+
                       }
+
+                    }
+
 
                     },
 
@@ -823,6 +806,21 @@
             
 
           },
+          logout(){
+                $.ajax({
+           //////////////////////////////
+             url: 'logout2',
+             type: 'get',
+             data: {
+            },
+             success: function (e) {
+                 console.log('success:', e);
+                 window.location.href="login.html";
+
+             }
+
+         })
+            },
           checkOut(){
                 // window.open('demo111')
               

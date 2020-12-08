@@ -27,13 +27,99 @@ a{
 .Carousel a{
 	text-decoration: none;
 }
-
-input{
-    border-bottom: 1px solid #000;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
+/*设置总的div*/
+.container {
+	position: relative;
+	width: 900px;
+	height: 500px;
+	margin:100px auto 0 auto;
+	box-shadow: 0 0 1px rgba(182, 121, 233, 0.349);
+	overflow: hidden;
 }
+ 
+/*设置装图片的div*/
+.container .wrap {
+	position: absolute;
+	width: 4200px;
+	height: 400px;
+	z-index: 1;
+}
+ 
+/*设置图片格式*/
+.container .wrap img {
+	float: left;
+	width: 900px;
+	height: 500px;
+}
+ 
+/*设置按钮位置*/
+.container .buttons {
+	position: absolute;
+	right: 50px;
+	bottom:40px;
+	width: 150px;
+	height: 10px;
+	z-index: 2;
+}
+ 
+/*设置按钮样式*/
+.container .buttons span {
+	margin-left: 5px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color:grey;
+	text-align: center;
+	color:white;
+	cursor: pointer;
+}
+ 
+/*按钮滚动颜色*/
+.container .buttons span.on{
+	background-color: rgb(51,122,183);
+}
+ 
+/*设置左右两个箭头*/
+.container .arrow {
+	position: absolute;
+	top: 35%;
+	color: rgb(51,122,183);
+	padding:0px 25px;
+	border-radius: 100%;
+	font-size: 50px;
+	z-index: 2;
+	
+	/*display: none;*/
+}
+ 
+/*左箭头*/
+.container .arrow_left {
+	left: 10px;
+	color: rgb(129, 130, 131);
+	text-decoration: none;
+	display: none;
+}
+ 
+/*右箭头*/
+.container .arrow_right {
+	color: rgb(129, 130, 131);
+	right: 10px;
+	text-decoration: none;
+	display: none;
+
+}
+ 
+/*设置箭头隐藏*/
+.container:hover .arrow {
+	display: block;
+}
+ 
+/*设置箭头被鼠标滑过的背景颜色*/
+.container .arrow:hover {
+	background-color: rgba(0,0,0,0.2);
+}
+
 
 
 
@@ -181,57 +267,3 @@ input{
 	top: -70%;
 	margin: 0 auto;
 }
-
-
-
-
-
-/* jq轮播图 */
-
-@media (max-width: 767px) {
-
-	.navbar-inner {
-	  margin: -20px;
-	}
-
-	.carousel {
-	  margin-left: -20px;
-	  margin-right: -20px;
-	}
-	.carousel .container {
-
-	}
-	.carousel .item {
-	  height: 300px;
-	}
-	.carousel img {
-	  height: 300px;
-	}
-	.carousel-caption {
-	  width: 65%;
-	  padding: 0 70px;
-	  margin-top: 100px;
-	}
-	.carousel-caption h1 {
-	  font-size: 30px;
-	}
-	.carousel-caption .lead,
-	.carousel-caption .btn {
-	  font-size: 18px;
-	}
-
-	.marketing .span4 + .span4 {
-	  margin-top: 40px;
-	}
-
-	.featurette-heading {
-	  font-size: 30px;
-	}
-	.featurette .lead {
-	  font-size: 18px;
-	  line-height: 1.5;
-	}
-
-
-	
-  }

@@ -41,7 +41,7 @@ public class UpdateuserController {
     //修改个人信息Controller类
     @RequestMapping(value = "updatemyuser")
     @ResponseBody
-    private String updateuser(HttpServletRequest httpServletRequest, @RequestParam("username") String username, @RequestParam("phone") long phone, @RequestParam("userpic")String userpic){
+    public String updateuser(HttpServletRequest httpServletRequest, @RequestParam("username") String username, @RequestParam("phone") long phone, @RequestParam("userpic")String userpic){
         User user = new User();
         HttpSession session = httpServletRequest.getSession();
         Integer userid = (Integer) session.getAttribute("USER_SESSION");
@@ -57,7 +57,7 @@ public class UpdateuserController {
     //添加个人地址controller类
     @RequestMapping(value = "insertaddress")
     @ResponseBody
-    private String addaddress(HttpServletRequest httpServletRequest, @RequestParam("useraddress") String useraddress){
+    public String addaddress(HttpServletRequest httpServletRequest, @RequestParam("useraddress") String useraddress){
 
         Address address = new Address();
         HttpSession session = httpServletRequest.getSession();
@@ -77,7 +77,7 @@ public class UpdateuserController {
     //查询个人地址
     @RequestMapping(value = "getaddress")
     @ResponseBody
-    private Map<String, Object> getaddress(HttpServletRequest httpServletRequest){
+    public Map<String, Object> getaddress(HttpServletRequest httpServletRequest){
         System.out.println("进入");
         Address address = new Address();
         HttpSession session = httpServletRequest.getSession();
@@ -91,30 +91,48 @@ public class UpdateuserController {
         result.put("count",address1.size());
         result.put("data", address1);
         return result;
+    }
 
-
+    //修改个人地址
+    @RequestMapping(value = "/updateaddress", method = RequestMethod.GET)
+    @ResponseBody
+    public  String updateaddress(HttpServletRequest httpServletRequest,@RequestParam("id") int addressid,@RequestParam("useraddress") String useraddress){
+        Address address = new Address();
+        address.setId(addressid);
+        System.out.println(useraddress);
+        address.setUseraddress(useraddress);
+        addressManagementService.updateByPrimaryKeySelective(address);
+        return "修改成功";
     }
 
 
+
     //验证密码是否符合原密码 以便进行后续密码修改
-    @RequestMapping(value = "checkuserpassword")
+    @RequestMapping(value = "/checkuserpassword", method = RequestMethod.GET)
     @ResponseBody
-    private String checkuserpassword(HttpServletRequest httpServletRequest,@RequestParam("userpassword") String userpassword){
+    public String checkuserpassword(HttpServletRequest httpServletRequest,@RequestParam("userpassword") String userpassword){
+        System.out.println(userpassword);
         User user = new User();
+        String msg = "";
         HttpSession session = httpServletRequest.getSession();
         Integer userid = (Integer) session.getAttribute("USER_SESSION");
         user.setUserid(userid);
-        if(userService.selectAll(user).get(0).getUserpassword()!= userpassword ){
-            return "密码不符合";
+        System.out.println(userService.selectAll(user));
+        if(userService.selectAll(user).get(0).getUserpassword().equals(userpassword) ){
+            msg = "success";
+            System.out.println(11515);
+            return msg;
         }else {
-            return "success";
+            System.out.println(88888888);
+            return "密码不符合";
         }
     }
 
     //修改密码 controller类
-    @RequestMapping(value = "updatepassword")
+    @RequestMapping(value = "/updatepassword",method = RequestMethod.GET)
     @ResponseBody
-    private  String updateuserpassword(HttpServletRequest httpServletRequest, @RequestParam("userpassword") String userpassword){
+    public String updateuserpassword(HttpServletRequest httpServletRequest, @RequestParam("userpassword") String userpassword){
+        System.out.println("进来了");
         User user = new User();
         HttpSession session = httpServletRequest.getSession();
         Integer userid = (Integer) session.getAttribute("USER_SESSION");
@@ -156,23 +174,31 @@ public class UpdateuserController {
     @RequestMapping(value="/Queryuser",method= RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> queryUserByUid(HttpServletRequest httpServletRequest) {
-
         HttpSession session = httpServletRequest.getSession();
         Integer userid = (Integer) session.getAttribute("USER_SESSION");
-
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
-
         List<User> users=new ArrayList<>();
         User user = new User();
         user.setUserid(userid);
         users = userService.selectAll(user);
-
         result.put("count",users.size());
         result.put("data", users.get(0));
+        System.out.println(users.get(0));
 
         return result;
+    }
+
+
+  //地址删除
+    @RequestMapping(value = "/deleteaddress", method = RequestMethod.GET)
+    @ResponseBody
+    public  String deleteaddress (@RequestParam("id") Integer id){
+        Address address = new Address();
+        address.setId(id);
+        addressManagementService.delete(address);
+        return "删除成功";
     }
 
 

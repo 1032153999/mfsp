@@ -11,19 +11,25 @@
   <script src="../js/jquery.min.js"></script>
 </head>
 <body>
-    <form class="layui-form" action=""><!--这里的action填修改地址的控制类地址 -->
+    <form class="layui-form" action="/updateaddress"><!--这里的action填修改地址的控制类地址 -->
         <div class="layui-form-item">
             <label class="layui-form-label">用户地址</label>
             <div class="layui-input-inline">
                 <input type="text" name="useraddress" id="useraddress" autocomplete="off" class="layui-input">
             </div>
             <input type="hidden" class="layui-input layui-disabled" id="id" name="id">
-            <div class="layui-input-inline">
-                <button class="layui-btn" lay-submit lay-filter="edit">修改</button>
-            </div>
         </div>
+        <div class="layui-form-item">
+
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="edit">修改</button>
+                </div>
+            </div>
+
     </form>
     <script>
-
+        layui.use('form', function(){
+            var form = layui.form;
+        });
     </script>
 </body>

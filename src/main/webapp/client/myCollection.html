@@ -28,13 +28,13 @@
                         var clothingid = res.data[i].clothingid;
                         $.ajax({
                             async:false,
-                            url:'/QueryClothingById0',
+                            url:'/QueryClothingById2',
                             type:"GET",
                             data:{clothingid:clothingid},
                             success:function(clo){
                                 //str+=clo.data.clothingname + "and" + clo.data.clothingprice + "and" + clo.data.clothingpic;
 
-                                str+="<div class='layui-col-md3'><div class='layui-card'><div class='layui-card-header'><h2>" + clo.data.clothingname + "</h2></div><div class='layui-card-body'><img src='../" + clo.data.clothingpic + "' width='280px' height='200px'><br><span style='color:red'>￥" + clo.data.clothingprice + "</span></div></div></div>";
+                                str+="<div class='layui-col-md3'><div class='layui-card'><div class='layui-card-header'><h2>" + clo.data.clothingname + "</h2></div><div class='layui-card-body'><img src='../" + clo.data.clothingpic + "' width='280px' height='200px'><br><span style='color:red'>￥" + clo.data.clothingprice + "</span><button onclick='inFunction(this)' >删除|" + res.data[i].favouritesid + "</button></div></div></div>";
 
                             }
                         });
@@ -44,5 +44,16 @@
                 }
             });
         });
+        function inFunction(ele) {
+            var btnValue = ele.innerText;
+            var hang = btnValue.split("|");
+            console.log(hang[1]);
+            $.ajax({
+                url:'/deletefavourites',
+                type:"GET",
+                data:{favouritesid:hang[1]}
+            });
+            location.reload();
+        }
     </script>
 </body>

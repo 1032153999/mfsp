@@ -116,11 +116,30 @@ public class QueryClothingController {
             clothings=clothingService.selectAll(clothing);
         }
         result.put("count",clothings.size());
-        result.put("data", clothings.get(0));
+        result.put("data", clothings);
         System.out.println(result);
         return result;
     }
 
+    @RequestMapping(value="/QueryClothingById2",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> QueryClothingById2(@RequestParam("clothingid")  Integer id) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        Clothing clothing=new Clothing();
+        List<Clothing> clothings=new ArrayList<>();
+        if(id==0){
+            clothings=clothingService.selectAll();
+        }else {
+            clothing.setClothingid(id);
+            clothings=clothingService.selectAll(clothing);
+        }
+        result.put("count",clothings.size());
+        result.put("data", clothings.get(0));
+        System.out.println(result);
+        return result;
+    }
 
     @RequestMapping(value = "QueryClothingByIdee", method = RequestMethod.GET)
     @ResponseBody

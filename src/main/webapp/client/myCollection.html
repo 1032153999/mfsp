@@ -25,14 +25,17 @@
                 success:function(res){
                     var str = "";
                     for( var i=0 ; i<res.count ; i++ ){
-                        alert(res.data[i].clothingid);
                         var clothingid = res.data[i].clothingid;
                         $.ajax({
+                            async:false,
                             url:'/QueryClothingById0',
                             type:"GET",
                             data:{clothingid:clothingid},
-                            success:function(msg){
-                                alert(msg.data.clothingname + "and" +msg.data.clothingprice);
+                            success:function(clo){
+                                //str+=clo.data.clothingname + "and" + clo.data.clothingprice + "and" + clo.data.clothingpic;
+
+                                str+="<div class='layui-col-md3'><div class='layui-card'><div class='layui-card-header'><h2>" + clo.data.clothingname + "</h2></div><div class='layui-card-body'><img src='../" + clo.data.clothingpic + "' width='280px' height='200px'><br><span style='color:red'>￥" + clo.data.clothingprice + "</span></div></div></div>";
+
                             }
                         });
                         //str+="<div class='layui-col-md3'><div class='layui-card'><div class='layui-card-header'><h2>" + res.data[i].clothingid + "</h2></div><div class='layui-card-body'><img src='' width='300px' height='200px'><br><span style='color:red'>0.00</span></div></div></div>";

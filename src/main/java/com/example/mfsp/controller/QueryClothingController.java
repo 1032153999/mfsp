@@ -115,9 +115,9 @@ public class QueryClothingController {
             clothing.setClothingid(id);
             clothings=clothingService.selectAll(clothing);
         }
-        System.out.println(clothings);
         result.put("count",clothings.size());
-        result.put("data", clothings);
+        result.put("data", clothings.get(0));
+        System.out.println(result);
         return result;
     }
 

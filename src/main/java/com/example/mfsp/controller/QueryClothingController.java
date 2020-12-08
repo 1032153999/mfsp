@@ -2,13 +2,21 @@ package com.example.mfsp.controller;
 
 
 import com.example.mfsp.entity.Clothing;
+import com.example.mfsp.entity.Clothingrecomment;
 import com.example.mfsp.entity.Orderform;
+import com.example.mfsp.entity.clothingclass;
+import com.example.mfsp.service.clothingRecommentService;
 import com.example.mfsp.service.clothingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +27,9 @@ public class QueryClothingController {
 
     @Autowired
     private clothingService clothingService;
+
+    @Autowired
+    private clothingRecommentService clothingrecommentservice;
 
 
 //    @RequestMapping(value = "/QueryClothing" , method = RequestMethod.GET)
@@ -103,7 +114,7 @@ public class QueryClothingController {
  //通过ID查询单个服装数据
     @RequestMapping(value="/QueryClothingById0",method= RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> QueryClothingById(@RequestParam("clothingid")  Integer id) {
+    public Map<String, Object> QueryClothingById(@RequestParam("clothingid")  Integer id, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)throws ServletException, IOException {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
@@ -114,6 +125,33 @@ public class QueryClothingController {
         }else {
             clothing.setClothingid(id);
             clothings=clothingService.selectAll(clothing);
+
+
+            System.out.println("已经进入推荐算法");
+            HttpSession session = httpServletRequest.getSession();
+            Integer user_id = (Integer) session.getAttribute("USER_SESSION");
+            System.out.println(user_id);
+
+            String firstkind=clothings.get(0).getFirstKind();
+            String secondkind=clothings.get(0).getSecondKind();
+            String thirdlykind=clothings.get(0).getThirdlyKind();
+
+            System.out.println(firstkind+secondkind+thirdlykind);
+            clothingclass clothingclass=clothingService.selectclassid(firstkind,secondkind,thirdlykind);
+
+            Clothingrecomment recomment=new Clothingrecomment();
+            recomment.setUserid(user_id);
+            recomment.setClothingclassid(clothingclass.getClassid());
+            List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
+            if(recomments.size()>0){
+
+                clothingrecommentservice.updateweight1(recomments.get(0).getClothingrecommentid());
+                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+1");
+            }else {
+                recomment.setRecommendweight(1);
+                clothingrecommentservice.insert(recomment);
+                System.out.println("insert clothingweight ");
+            }
         }
         result.put("count",clothings.size());
         result.put("data", clothings);

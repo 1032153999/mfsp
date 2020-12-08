@@ -2,6 +2,7 @@ package com.example.mfsp.dao;
 
 
 import com.example.mfsp.entity.Clothing;
+import com.example.mfsp.entity.clothingclass;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -26,4 +27,8 @@ public interface clothingMapper  extends Mapper<Clothing> {
     List<Clothing> sortedbyprice();
 
     List<Clothing> sortedbyprice1();
+
+    clothingclass selectclassid(String FirstKind, String SecondKind, String ThirdlyKind);
+
+    clothingclass findclass(Integer classid);
 }

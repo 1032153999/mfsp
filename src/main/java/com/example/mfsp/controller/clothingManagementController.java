@@ -96,9 +96,20 @@ public class clothingManagementController {
     */
     @RequestMapping(value = "/addClothing",method=RequestMethod.GET)
     @ResponseBody
-    public void addClothing( Clothing clothing){
+    public String addClothing( Clothing clothing){
 
-        clothingservice.insert(clothing);
+        Clothing clothingquery=new Clothing();
+        Integer clothingid=clothing.getClothingid();
+        clothingquery.setClothingid(clothingid);
+        List<Clothing> clothings=clothingservice.selectAll(clothingquery);
+        System.out.println(clothings.size());
+        if(clothings.size()>0){
+            System.out.println("defealt to insert");
+            return "defealt to insert";
+        }else{
+            clothingservice.insert(clothing);
+            return "success to insert";
+        }
 
     }
 
@@ -127,12 +138,6 @@ public class clothingManagementController {
     public Map<String, Object> test(){
         Clothing clothing01=new Clothing();
 
-       /* clothing01.setClothingname("棉裤");
-        clothing01.setClothingcost("12");
-        clothing01.setClothingprice("100");
-        clothing01.setClothingrentprice("10");
-        clothing01.setClothingnum(20);
-        clothingservice.insert(clothing01);*/
 
         clothing01.setClothingid(3);
         clothingservice.delete(clothing01);
@@ -152,6 +157,7 @@ public class clothingManagementController {
         return result;
     }
 
+    /*根据服装名称的模糊查询*/
     @RequestMapping(value="/FuzzySearchClothing", method=RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> FuzzySearchClothing(@RequestParam("name")  String clothingname){
@@ -218,15 +224,18 @@ public class clothingManagementController {
 
     }
 
-    /**
+
+    /**FirstKind(),SecondKind(),ThirdlyKind()
+     *通过三个controller来获取服装的三级类别
+     *
      * 下拉框动态获取第一类
      * @return
      */
     @RequestMapping(value = "queryFirstKind" , method=RequestMethod.GET)
     @ResponseBody
-    public String FirstKind(){
+    public String findFirstKind(){
 
-/*        System.out.println(clothingservice.findFirstKind());*/
+        /*        System.out.println(clothingservice.findFirstKind());*/
         System.out.println("已经进入");
         List<String> list=new ArrayList<String>();
         System.out.println("222");
@@ -236,10 +245,8 @@ public class clothingManagementController {
         return result;
     }
 
+    /*获取第二类*/
 
-    /*
-    获取第二类
-    */
     @RequestMapping(value = "querySecondKind", method=RequestMethod.GET)
     @ResponseBody
     public String findSecondKind(String FirstKind){
@@ -252,8 +259,8 @@ public class clothingManagementController {
     }
 
     /*
-    * 获取第三类
-    * */
+     * 获取第三类
+     * */
     @RequestMapping(value="queryThirdlyKind", method=RequestMethod.GET)
     @ResponseBody
     public String findThirdlyKind(String FirstKind,String SecondKind){
@@ -263,6 +270,7 @@ public class clothingManagementController {
         System.out.println(result);
         return result;
     }
+
 
 
 

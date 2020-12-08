@@ -2,6 +2,7 @@ package com.example.mfsp.service.impl;
 
 import com.example.mfsp.dao.clothingMapper;
 import com.example.mfsp.entity.Clothing;
+import com.example.mfsp.entity.clothingclass;
 import com.example.mfsp.service.clothingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,16 @@ public class clothingServiceImpl extends baseServiceImpl<Clothing> implements cl
     @Override
     public List<Clothing> sortedbyprice1(){
         return clothingmapper.sortedbyprice1();
+    }
+
+    @Override
+    public clothingclass selectclassid(String FirstKind, String SecondKind,String ThirdlyKind){
+        return clothingmapper.selectclassid(FirstKind,SecondKind,ThirdlyKind);
+    }
+
+    @Override
+    public clothingclass findclass(Integer classid){
+        return clothingmapper.findclass(classid);
     }
 
 }

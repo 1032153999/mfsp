@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mfsp.dao.clothingRecommentMapper">
+    <select id="updateweight" resultType="String">
+    update clothingrecomment set recommendWeight=recommendWeight+3 where clothingRecommentID=#{clothingRecommentID}
+</select>
+    <select id="updateweight1" resultType="String">
+    update clothingrecomment set recommendWeight=recommendWeight+1 where clothingRecommentID=#{clothingRecommentID}
+</select>
+    <select id="updateweight2" resultType="String">
+    update clothingrecomment set recommendWeight=recommendWeight+2 where clothingRecommentID=#{clothingRecommentID}
+</select>
+    <select id="highestweight" resultType="com.example.mfsp.entity.Clothingrecomment">
+   select * from clothingrecomment where userID=#{userid} order by recommendWeight desc LIMIT 1
+</select>
+
+</mapper>

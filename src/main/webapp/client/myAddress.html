@@ -28,21 +28,25 @@
     <script>
         $($('#addAddress')).click(function(){
             var useraddress = $('#useraddress');
-            $.ajax({
-                url: "/insertaddress",//这里填添加地址的控制类地址
-                type: "GET",
-                data:{
-                    useraddress:useraddress.val(),
-                },
-                success:function (){
-                    var table = layui.table;
-                    table.reload('myAddress', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                    });
-                }
-            });
+            if(useraddress.val() == ""){
+                layer.msg("地址输入不能为空");
+            }else {
+                $.ajax({
+                    url: "/insertaddress",//这里填添加地址的控制类地址
+                    type: "GET",
+                    data: {
+                        useraddress: useraddress.val(),
+                    },
+                    success: function () {
+                        var table = layui.table;
+                        table.reload('myAddress', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                    }
+                });
+            }
         });
         /*layui.use('form', function(){
             var form = layui.form;

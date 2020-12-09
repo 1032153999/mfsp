@@ -108,6 +108,9 @@
                 var username = $('#username');
                 var phone = $('#phone');
                 var userpic = $('#userpic');
+                if(!(/^1[34578]\d{9}$/.test(phone.val()))){
+                    layer.msg("手机号码有误，请重填");
+                }else{
                 $.ajax({
                   url: "/updatemyuser",
                   type: "GET",
@@ -128,6 +131,7 @@
                     move: false
 
                 });
+                }
             });
 
             $('#query').on('click', function(){

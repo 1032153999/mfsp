@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,5 +65,32 @@ public class LoginController {
         session.removeAttribute("USER_SESSION");
 //        interceptUtil.openurl(httpServletRequest,httpServletResponse,"/admin.html");
         return "";
+    }
+
+
+
+
+
+    //忘记密码
+    @RequestMapping(value = "/forget",method = RequestMethod.GET)
+    @ResponseBody
+    public String forgetpassword(@RequestParam("userid") int id, @RequestParam("userpassword") String password,@RequestParam("phone")long phone)
+    {
+        User user = new User();
+        user.setUserid(id);
+        String msg = "";
+        List<User> users = new ArrayList<>();
+        users = userService.selectAll(user);
+        if (users == null){
+            msg ="userid";
+            return  msg;
+        }else if (users.get(0).getPhone()!= phone){
+            msg = "phone";
+            return  msg;
+        }else {
+            user.setUserpassword(password);
+            userService.updateByPrimaryKeySelective(user);
+            return "";
+        }
     }
 }

@@ -19,11 +19,11 @@
           <div class="layui-form-item">
             <label class="layui-form-label ">账号名</label>
             <div class="layui-input-inline">
-              <input type="text" name="username" id="username" placeholder="请输入账号名" autocomplete="off" class="layui-input">
+              <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="username" id="username" placeholder="请输入账号名" autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label">密码框</label>
             <div class="layui-input-inline">
-              <input type="text" name="userpassword" id="userpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
+              <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="userpassword" id="userpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <button class="layui-btn" data-type="addUser">提交</button>
@@ -37,6 +37,18 @@
 
 
     <script>
+        function changed(textbox){
+            var name = textbox.value;
+            if(name == ""){
+                return;
+            }
+            if(!name.match("^[a-zA-Z0-9_\u4e00-\u9fa5]+$")){
+                //var layer = layui.layer;
+                //layer.msg('请不要输入特殊字符');
+                textbox.value="";
+            }
+            return;
+        }
       /*//Demo
       layui.use('form', function(){
         var form = layui.form;

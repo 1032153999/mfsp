@@ -15,7 +15,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">账号名</label>
     <div class="layui-input-inline">
-      <input type="text" name="id" id="id" placeholder="请输入账号名" autocomplete="off" class="layui-input">
+      <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="id" id="id" placeholder="请输入账号名" autocomplete="off" class="layui-input">
     </div>
 
     <div class="layui-input-inline">
@@ -34,6 +34,19 @@
 </div>
 
     <script>
+
+      function changed(textbox){
+        var name = textbox.value;
+        if(name == ""){
+          return;
+        }
+        if(!name.match("^[a-zA-Z0-9_\u4e00-\u9fa5]+$")){
+          //var layer = layui.layer;
+          //layer.msg('请不要输入特殊字符');
+          textbox.value="";
+        }
+        return;
+      }
       //user表
       layui.use('table', function(){
             var table = layui.table;

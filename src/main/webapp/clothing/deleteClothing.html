@@ -15,7 +15,7 @@
     <div class="layui-form-item">
       <label class="layui-form-label ">服装号</label>
       <div class="layui-input-inline">
-        <input type="text" name="id" id="id" placeholder="" autocomplete="off" class="layui-input">
+        <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="id" id="id" placeholder="" autocomplete="off" class="layui-input">
       </div>
       <div class="layui-input-inline">
         <!--<input type="button" class="layui-btn" id="but01s" value="查找">-->
@@ -28,6 +28,18 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
     <script>
+      function changed(textbox){
+        var name = textbox.value;
+        if(name == ""){
+          return;
+        }
+        if(!name.match("^[a-zA-Z0-9_\u4e00-\u9fa5]+$")){
+          //var layer = layui.layer;
+          //layer.msg('请不要输入特殊字符');
+          textbox.value="";
+        }
+        return;
+      }
       layui.use('table', function(){
       var table = layui.table;
       table.render({

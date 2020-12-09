@@ -21,21 +21,21 @@
             </div>
             <label class="layui-form-label">服装出售价</label>
             <div class="layui-input-inline">
-                <input type="text" name="clothingprice" id="clothingprice" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="clothingprice" id="clothingprice" placeholder="" autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label">服装租赁价</label>
             <div class="layui-input-inline">
-                <input type="text" name="clothingrentprice" id="clothingrentprice" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="clothingrentprice" id="clothingrentprice" placeholder="" autocomplete="off" class="layui-input">
             </div>            
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">服装数量</label>
             <div class="layui-input-inline">
-                <input type="text" name="clothingnum" id="clothingnum" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="clothingnum" id="clothingnum" placeholder="" autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label">服装成本价</label>
             <div class="layui-input-inline">
-                <input type="text" name="clothingcost" id="clothingcost" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" oninput='changed(this)' onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="clothingcost" id="clothingcost" placeholder="" autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label">服装图片</label>
             <div class="layui-upload">
@@ -70,6 +70,18 @@
         </div>
       </form>  
     <script>
+        function changed(textbox){
+            var name = textbox.value;
+            if(name == ""){
+                return;
+            }
+            if(!name.match("^[a-zA-Z0-9_\u4e00-\u9fa5]+$")){
+                //var layer = layui.layer;
+                //layer.msg('请不要输入特殊字符');
+                textbox.value="";
+            }
+            return;
+        }
         //三级联动查询
         $(document).ready(function(e) {
             alert('123');

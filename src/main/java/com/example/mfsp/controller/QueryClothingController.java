@@ -118,65 +118,58 @@ public class QueryClothingController {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 0);
         result.put("msg", "");
-        Clothing clothing=new Clothing();
-        List<Clothing> clothings=new ArrayList<>();
-        if(id==0){
-            clothings=clothingService.selectAll();
-        }else {
+        Clothing clothing = new Clothing();
+        List<Clothing> clothings = new ArrayList<>();
+        if (id == 0) {
+            clothings = clothingService.selectAll();
+            result.put("count", clothings.size());
+            result.put("data", clothings);
+            System.out.println(result);
+            return result;
+        } else {
             clothing.setClothingid(id);
-            clothings=clothingService.selectAll(clothing);
+            clothings = clothingService.selectAll(clothing);
 
 
-            System.out.println("已经进入推荐算法");
-            HttpSession session = httpServletRequest.getSession();
-            Integer user_id = (Integer) session.getAttribute("USER_SESSION");
-            System.out.println(user_id);
+            try{
+                System.out.println("已经进入推荐算法");
+                HttpSession session = httpServletRequest.getSession();
+                Integer user_id = (Integer) session.getAttribute("USER_SESSION");
+                System.out.println(user_id);
 
-            String firstkind=clothings.get(0).getFirstKind();
-            String secondkind=clothings.get(0).getSecondKind();
-            String thirdlykind=clothings.get(0).getThirdlyKind();
+                String firstkind = clothings.get(0).getFirstKind();
+                String secondkind = clothings.get(0).getSecondKind();
+                String thirdlykind = clothings.get(0).getThirdlyKind();
 
-            System.out.println(firstkind+secondkind+thirdlykind);
-            clothingclass clothingclass=clothingService.selectclassid(firstkind,secondkind,thirdlykind);
+                System.out.println(firstkind + secondkind + thirdlykind);
+                clothingclass clothingclass = clothingService.selectclassid(firstkind, secondkind, thirdlykind);
 
-            Clothingrecomment recomment=new Clothingrecomment();
-            recomment.setUserid(user_id);
-            recomment.setClothingclassid(clothingclass.getClassid());
-            List<Clothingrecomment> recomments=clothingrecommentservice.selectAll(recomment);
-            if(recomments.size()>0){
+                Clothingrecomment recomment = new Clothingrecomment();
+                recomment.setUserid(user_id);
+                recomment.setClothingclassid(clothingclass.getClassid());
+                List<Clothingrecomment> recomments = clothingrecommentservice.selectAll(recomment);
+                if (recomments.size() > 0) {
 
-                clothingrecommentservice.updateweight1(recomments.get(0).getClothingrecommentid());
-                System.out.println(recomments.get(0).getClothingrecommentid()+"的推荐值+1");
-            }else {
-                recomment.setRecommendweight(1);
-                clothingrecommentservice.insert(recomment);
-                System.out.println("insert clothingweight ");
+                    clothingrecommentservice.updateweight1(recomments.get(0).getClothingrecommentid());
+                    System.out.println(recomments.get(0).getClothingrecommentid() + "的推荐值+1");
+                } else {
+                    recomment.setRecommendweight(1);
+                    clothingrecommentservice.insert(recomment);
+                    System.out.println("insert clothingweight ");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("推荐算法中 查询商品 有错误");
+
+            }finally{
+                result.put("count", clothings.size());
+                result.put("data", clothings);
+                System.out.println(result);
+                return result;
             }
-        }
-        result.put("count",clothings.size());
-        result.put("data", clothings);
-        System.out.println(result);
-        return result;
-    }
 
-    @RequestMapping(value="/QueryClothingById2",method= RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> QueryClothingById2(@RequestParam("clothingid")  Integer id) {
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("code", 0);
-        result.put("msg", "");
-        Clothing clothing=new Clothing();
-        List<Clothing> clothings=new ArrayList<>();
-        if(id==0){
-            clothings=clothingService.selectAll();
-        }else {
-            clothing.setClothingid(id);
-            clothings=clothingService.selectAll(clothing);
+
         }
-        result.put("count",clothings.size());
-        result.put("data", clothings.get(0));
-        System.out.println(result);
-        return result;
     }
 
     @RequestMapping(value = "QueryClothingByIdee", method = RequestMethod.GET)

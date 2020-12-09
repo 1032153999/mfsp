@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class clothinggCommentController {
+public class ClothingCommentController {
 
 
     @Autowired
